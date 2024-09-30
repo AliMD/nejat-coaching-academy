@@ -1,3 +1,4 @@
+import {renderState} from '@alwatr/render-state';
 import {provinceOptions, type AdminAgentFormData, type ProvinceItem} from '@alwatr/swiss-plus-support-common';
 import {html, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
@@ -7,6 +8,7 @@ import {logger} from '../../lib/config.js';
 import '../maskable-input/national-code.js';
 import '../maskable-input/phone.js';
 import '../maskable-input/sheba.js';
+
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -21,7 +23,6 @@ export class AdminAgentFormComponent extends LitElement {
   @query('select[name="city"]')
   private citySelectElement_?: HTMLSelectElement;
 
-  private renderMap_?: Record<typeof agentDataSaverJsonFSM.state, typeof this.renderInitialStateTemplate_>;
   private formData_: AdminAgentFormData;
 
   constructor() {
@@ -29,12 +30,6 @@ export class AdminAgentFormComponent extends LitElement {
 
     this.formData_ = {} as AdminAgentFormData;
     this.renderState = 'initial';
-    this.renderMap_ = {
-      initial: this.renderInitialStateTemplate_.bind(this),
-      loading: this.renderLoadingStateTemplate_.bind(this),
-      failed: this.renderFailedStateTemplate_.bind(this),
-      complete: this.renderCompleteStateTemplate_.bind(this),
-    }
   }
 
   protected override createRenderRoot(): HTMLElement | DocumentFragment {
@@ -182,6 +177,14 @@ export class AdminAgentFormComponent extends LitElement {
   }
 
   override render() {
-    return html`<div class="border-b border-gray-900/10 pb-12">${this.renderMap_![this.renderState]()}</div>`;
+    return html`<div class="border-b border-gray-900/10 pb-12">${
+      renderState(agentDataSaverJsonFSM.state, {
+        _default: 'initial',
+        initial: this.renderInitialStateTemplate_,
+        loading: this.renderLoadingStateTemplate_,
+        failed: this.renderFailedStateTemplate_,
+        complete: this.renderCompleteStateTemplate_,
+      }, this)
+    }</div>`;
   }
 }

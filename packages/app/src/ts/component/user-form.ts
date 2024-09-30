@@ -1,3 +1,4 @@
+import {renderState} from '@alwatr/render-state';
 import {dayOptions, monthOptions, provinceOptions, yearOptions} from '@alwatr/swiss-plus-support-common';
 import {html, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
@@ -22,18 +23,9 @@ export class UserFormComponent extends LitElement {
   @query('select[name="city"]')
   private citySelectElement_?: HTMLSelectElement;
 
-  private renderMap_?: Record<typeof formDataSaverJsonFSM.state, typeof this.renderInitialStateTemplate_>;
-
   constructor() {
     super();
-
     this.renderState = 'initial';
-    this.renderMap_ = {
-      initial: this.renderInitialStateTemplate_.bind(this),
-      loading: this.renderLoadingStateTemplate_.bind(this),
-      failed: this.renderFailedStateTemplate_.bind(this),
-      complete: this.renderCompleteStateTemplate_.bind(this),
-    }
   }
 
   protected override createRenderRoot(): HTMLElement | DocumentFragment {
@@ -212,6 +204,14 @@ export class UserFormComponent extends LitElement {
   }
 
   override render() {
-    return html`<div class="border-b border-gray-900/10 pb-12">${this.renderMap_![this.renderState]()}</div>`;
+    return html`<div class="border-b border-gray-900/10 pb-12">${
+      renderState(formDataSaverJsonFSM.state, {
+        _default: 'initial',
+        initial: this.renderInitialStateTemplate_,
+        loading: this.renderLoadingStateTemplate_,
+        failed: this.renderFailedStateTemplate_,
+        complete: this.renderCompleteStateTemplate_,
+      }, this)
+    }</div>`;
   }
 }
