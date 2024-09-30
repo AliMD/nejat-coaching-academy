@@ -356,15 +356,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@alwatr/is-number@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@alwatr/is-number@npm:1.1.0"
-  dependencies:
-    "@alwatr/package-tracer": "npm:^1.0.0"
-  checksum: 10c0/590bd19a10c93e26ddf5ab69cd3d2dfcc40039839dd022ea7657bdc16e0105cc77ff2e55b887af34437e99cb1896f26f1c65c725676b8f41d24a55a69735713f
-  languageName: node
-  linkType: hard
-
 "@alwatr/local-storage@npm:^1.1.0":
   version: 1.1.0
   resolution: "@alwatr/local-storage@npm:1.1.0"
@@ -562,16 +553,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@alwatr/parse-duration@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@alwatr/parse-duration@npm:1.1.0"
-  dependencies:
-    "@alwatr/is-number": "npm:^1.1.0"
-    "@alwatr/package-tracer": "npm:^1.0.0"
-  checksum: 10c0/9c9ab9a809f2327d650e9127548b355d0579714b9489dc785c2ba3ae4024b03565afdfcba606c023387de14a9d14aac753cf297e4e46b8fdf603d3a799ec93c9
-  languageName: node
-  linkType: hard
-
 "@alwatr/platform-info@npm:^1.1.13, @alwatr/platform-info@npm:^1.2.0":
   version: 1.2.0
   resolution: "@alwatr/platform-info@npm:1.2.0"
@@ -614,18 +595,6 @@ __metadata:
     "@alwatr/logger": "npm:^4.0.0"
     "@alwatr/package-tracer": "npm:^1.0.0"
   checksum: 10c0/593ad952c7570ddee15e7dab6ed2fcae8f1bb799811fbdeeaf577af88e13d288f6df444f1119296daa72d8c6acf37d97ec0c9ae660305c657eabe0b9ddd172ea
-  languageName: node
-  linkType: hard
-
-"@alwatr/signal@npm:^2.0.5":
-  version: 2.0.5
-  resolution: "@alwatr/signal@npm:2.0.5"
-  dependencies:
-    "@alwatr/logger": "npm:^2.4.1"
-    "@alwatr/type": "npm:^1.2.4"
-    "@alwatr/util": "npm:^1.4.1"
-    tslib: "npm:^2.6.2"
-  checksum: 10c0/30f24db5740f8a23889444e1416c78efaea4b6177b00c642e82650aecd516e08094df090c2a7d81b7d5d0a270d219520e67aba810b2349ec79b5ab04768bd7d0
   languageName: node
   linkType: hard
 
@@ -724,6 +693,7 @@ __metadata:
     "@alwatr/package-tracer": "npm:^1.0.0"
     "@alwatr/platform-info": "npm:^1.2.0"
     "@alwatr/prettier-config": "npm:^1.0.5"
+    "@alwatr/render-state": "npm:^1.0.0"
     "@alwatr/style": "npm:^2.2.0"
     "@alwatr/tsconfig-base": "npm:^1.3.0"
     "@alwatr/type-helper": "npm:^2.0.0"
