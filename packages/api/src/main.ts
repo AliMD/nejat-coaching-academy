@@ -1,5 +1,5 @@
 import {logger} from './lib/config.js';
-import {initializeStore} from './lib/store.js';
+import {initializeStore} from './lib/nitrobase.js';
 import './route/admin/agent.js';
 import './route/agent.js';
 import './route/home.js';

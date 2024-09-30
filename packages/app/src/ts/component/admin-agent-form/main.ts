@@ -1,4 +1,4 @@
-import {provinceOptions, type AdminAgentFormData, type ProvinceItem} from '@alwatr/weaver-common';
+import {provinceOptions, type AdminAgentFormData, type ProvinceItem} from '@alwatr/swiss-plus-support-common';
 import {html, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 

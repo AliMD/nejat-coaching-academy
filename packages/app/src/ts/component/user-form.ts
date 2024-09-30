@@ -1,4 +1,4 @@
-import {dayOptions, monthOptions, provinceOptions, yearOptions} from '@alwatr/weaver-common';
+import {dayOptions, monthOptions, provinceOptions, yearOptions} from '@alwatr/swiss-plus-support-common';
 import {html, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
@@ -7,7 +7,7 @@ import './maskable-input/phone.js';
 import './maskable-input/serial.js';
 import {config, logger} from '../lib/config.js';
 
-import type {ProvinceItem} from '@alwatr/weaver-common';
+import type {ProvinceItem} from '@alwatr/swiss-plus-support-common';
 
 declare global {
   interface HTMLElementTagNameMap {

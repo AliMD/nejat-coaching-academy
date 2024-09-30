@@ -1,4 +1,4 @@
-import {validateNationalCode} from '@alwatr/weaver-common';
+import {validateNationalCode} from '@alwatr/swiss-plus-support-common';
 import Cleave from 'cleave.js';
 import 'cleave.js/dist/addons/cleave-phone.ir';
 import {html, LitElement, type PropertyValues} from 'lit';

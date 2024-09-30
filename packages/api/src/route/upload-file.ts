@@ -4,8 +4,8 @@ import {writeFile} from '@alwatr/node-fs';
 import sharp from 'sharp';
 
 import {config, logger} from '../lib/config.js';
+import {alwatrNitrobase} from '../lib/nitrobase.js';
 import {nanotronApiServer} from '../lib/server.js';
-import {alwatrStore} from '../lib/store.js';
 
 const forbiddenCharacters = /[^a-zA-Z0-9._/-]/g;
 
@@ -80,7 +80,7 @@ nanotronApiServer.defineRoute({
     await writeFile(absolutePath, buffer.toString());
 
     // TODO: Save data of the file
-    const fileMetaCollection = await alwatrStore.openCollection(config.stores.fileMetaCollection);
+    const fileMetaCollection = await alwatrNitrobase.openCollection(config.stores.fileMetaCollection);
     const fileId = fileMetaCollection.appendItem({
       fileName,
       variants,

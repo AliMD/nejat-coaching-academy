@@ -9,7 +9,7 @@ import './maskable-input/sheba.js';
 import {config, logger} from '../lib/config.js';
 import './maskable-input/phone.js';
 
-import type {AgentFormData, ProvinceItem} from '@alwatr/weaver-common';
+import type {AgentFormData, ProvinceItem} from '@alwatr/swiss-plus-support-common';
 
 declare global {
   interface HTMLElementTagNameMap {

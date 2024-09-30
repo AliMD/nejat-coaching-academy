@@ -1,11 +1,10 @@
 import {config, logger} from '../../lib/config.js';
 import {cryptoFactory} from '../../lib/crypto.js';
+import {alwatrNitrobase} from '../../lib/nitrobase.js';
 import {nanotronApiServer} from '../../lib/server.js';
-import {alwatrStore} from '../../lib/store.js';
 import {parseRequestBody} from '../../pre-handler/parse-request-body.js';
 
-import type {JsonObject} from '@alwatr/type-helper';
-import type {AdminAgentFormData} from '@alwatr/weaver-common';
+import type {AdminAgentFormData} from '@alwatr/swiss-plus-support-common';
 
 nanotronApiServer.defineRoute<{requestBody: AdminAgentFormData}>({
   method: 'PUT',
@@ -17,7 +16,7 @@ nanotronApiServer.defineRoute<{requestBody: AdminAgentFormData}>({
     const receivedAgentData = this.sharedMeta.requestBody;
 
     // add new agent to the agent's collection
-    const agentsCollection = await alwatrStore.openCollection<AdminAgentFormData>(config.stores.agentsCollection);
+    const agentsCollection = await alwatrNitrobase.openCollection<AdminAgentFormData>(config.stores.agentsCollection);
     const agentCollectionItems = agentsCollection.items();
 
     let agentItemsIteratorResultObject;

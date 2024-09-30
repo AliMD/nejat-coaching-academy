@@ -1,10 +1,10 @@
 import {config, logger} from '../lib/config.js';
 import {cryptoFactory} from '../lib/crypto.js';
+import {alwatrNitrobase} from '../lib/nitrobase.js';
 import {nanotronApiServer} from '../lib/server.js';
-import {alwatrStore} from '../lib/store.js';
 import {parseRequestBody} from '../pre-handler/parse-request-body.js';
 
-import type {AgentFormData} from '@alwatr/weaver-common';
+import type {AgentFormData} from '@alwatr/swiss-plus-support-common';
 
 nanotronApiServer.defineRoute<{requestBody: AgentFormData}>({
   method: 'PUT',
@@ -13,7 +13,7 @@ nanotronApiServer.defineRoute<{requestBody: AgentFormData}>({
   async handler() {
     logger.logMethodArgs?.('defineRoute(`/agent/save`)', {body: this.sharedMeta.requestBody});
 
-    const agentsCollection = await alwatrStore.openCollection<AgentFormData>(config.stores.agentsCollection);
+    const agentsCollection = await alwatrNitrobase.openCollection<AgentFormData>(config.stores.agentsCollection);
 
     // add new agent to the agent's collection
     const agentId = cryptoFactory.generateUserId();

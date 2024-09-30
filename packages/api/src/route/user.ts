@@ -1,10 +1,10 @@
 import {config, logger} from '../lib/config.js';
 import {cryptoFactory} from '../lib/crypto.js';
+import {alwatrNitrobase} from '../lib/nitrobase.js';
 import {nanotronApiServer} from '../lib/server.js';
-import {alwatrStore} from '../lib/store.js';
 import {parseRequestBody} from '../pre-handler/parse-request-body.js';
 
-import type {UserFormData} from '@alwatr/weaver-common';
+import type {UserFormData} from '@alwatr/swiss-plus-support-common';
 
 nanotronApiServer.defineRoute<{requestBody: UserFormData}>({
   method: 'PUT',
@@ -14,7 +14,7 @@ nanotronApiServer.defineRoute<{requestBody: UserFormData}>({
     logger.logMethodArgs?.('defineRoute(`/user/save`)', {userData: this.sharedMeta.requestBody});
 
     // add new user to the user's collection
-    const usersCollection = await alwatrStore.openCollection<UserFormData>(config.stores.usersCollection);
+    const usersCollection = await alwatrNitrobase.openCollection<UserFormData>(config.stores.usersCollection);
 
     const userId = cryptoFactory.generateUserId();
     usersCollection.addItem(userId, this.sharedMeta.requestBody);
