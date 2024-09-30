@@ -5,24 +5,33 @@ import {packageTracer} from '@alwatr/package-tracer';
 import type {FetchOptions} from '@alwatr/flux';
 
 export const logger = createLogger(__package_name__);
-packageTracer.add(__package_name__, __package_version__);
 
-logger.logFileModule?.('config');
+packageTracer.add(__package_name__, __package_version__);
 
 /**
  * Debug API.
  *
  * ```ts
- * localStorage.setItem('debugApi.v1', '{"url":"https://api.domain.com/"}');
+ * localStorage.setItem('debugApi.v1', JSON.stringify({url: "https://canary-order.soffit.co/"}))
  * ```
  */
-const srvBaseUrl = localJsonStorage.getItem('debugApi', {url: '/'}, 1);
+
+const srvBaseUrl = localJsonStorage.getItem<{url: string}>('debugApi', {url: 'http://localhost:8000/'}, 1).url;
 const apiBaseUrl = srvBaseUrl + 'api/v0/';
 
 export const config = {
   api: {
     base: srvBaseUrl,
-    cdn: apiBaseUrl + 'cdn',
+    user: {
+      save: apiBaseUrl + 'user/save'
+    },
+    agent: {
+      save: apiBaseUrl + 'agent/save'
+    },
+    file: {
+      upload: apiBaseUrl + 'file/upload'
+    }
+    // cdn: apiBaseUrl + 'cdn',
   } as const,
 
   fetchOptions: {

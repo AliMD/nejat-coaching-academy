@@ -3,8 +3,6 @@ import {platformInfo} from '@alwatr/platform-info';
 
 import {logger} from './config.js';
 
-logger.logFileModule?.('keep-scroll');
-
 async function keepScroll() {
   const container = document.querySelector('main.overflow-y-scroll');
   if (!container) return;

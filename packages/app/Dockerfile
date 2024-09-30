@@ -1,10 +1,10 @@
-FROM ghcr.io/alwatr/node:21.7.1 AS builder
+FROM ghcr.io/alwatr/node:21.7.1 as builder
 
 RUN apk add --no-cache git;
 RUN set -ex; corepack enable;
 
 ARG siteUrl=${siteUrl}
-ENV siteUrl=${siteUrl}
+ENV siteUrl $siteUrl
 
 COPY . .
 

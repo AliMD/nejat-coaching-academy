@@ -1,12 +1,8 @@
-import alpine from 'alpinejs';
-
+import './component/agent-form.js';
+import './component/user-form.js';
 import {logger} from './lib/config.js';
 import './lib/keep-scroll.js';
-import './lib/lock-scroll.js';
 // import './lib/service-worker.js';
-
-logger.logFileModule?.('main');
+import './lib/type.js';
 
 logger.banner('@alwatr/weaver');
-
-alpine.start();
