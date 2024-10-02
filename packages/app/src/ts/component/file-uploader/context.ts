@@ -1,4 +1,4 @@
-import {AlwatrJsonFetchStateMachine} from '@alwatr/flux';
+import {AlwatrJsonFetchStateMachine, type FetchOptions} from 'alwatr/flux';
 
 import {config} from '../../lib/config.js';
 
@@ -12,5 +12,5 @@ export const fileUploaderJsonFSM = new AlwatrJsonFetchStateMachine<{ ok: boolean
     headers: {
       'Content-Type': 'application/octet-stream',
     },
-  }
+  } as FetchOptions
 });

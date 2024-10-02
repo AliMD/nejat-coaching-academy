@@ -1,4 +1,4 @@
-import {delay} from '@alwatr/delay';
+import {delay} from 'alwatr/nanolib';
 import {html, LitElement, nothing, type PropertyValues, type TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 

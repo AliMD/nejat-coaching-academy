@@ -1,5 +1,5 @@
-import {renderState} from '@alwatr/render-state';
 import {dayOptions, monthOptions, provinceOptions, yearOptions} from '@alwatr/swiss-plus-support-common';
+import {renderState} from 'alwatr/nanolib';
 import {html, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
@@ -94,8 +94,6 @@ export class UserFormComponent extends LitElement {
 
   protected renderInitialStateTemplate_() {
     return html`
-      <h2 class="text-base font-semibold leading-7 text-gray-900">فرم کاربران</h2>
-
       <div class="mb-2">
         <serial-input label="سریال فاکتور" name="invoiceSerial"></serial-input>
       </div>

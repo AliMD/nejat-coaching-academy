@@ -3,24 +3,15 @@ title: فرم ایجاد نمایندگی
 navId: admin-agent-form
 ---
 
-<header
-  class="fixed left-{{ contentGapEnd }} right-{{ contentGapStart }} top-0 z-fixed pt-safe box-content flex h-{{ contentGapTop }} select-none items-center bg-surfaceContainer px-1 translucent"
->
-  <div
-    class="shrink grow text-ellipsis whitespace-nowrap px-1 text-start text-titleLarge text-onSurface"
-  >
-    {{ title }}
-  </div>
-
-  <button
-    class="block cursor-pointer rounded-full p-3 text-[1.5rem] state-onSurfaceVariant"
-  >
-    {% alwatrIcon "refresh" %}
+<header class="page-header">
+  <h1 class="text-center">{{ title }}</h1>
+  <button class="icon-btn">
+    {% alwatrIcon "call" %}
   </button>
 </header>
 
-<main
-  class="grow p-4 mt-{{ contentGapTop }} ms-{{ contentGapStart }} me-{{ contentGapEnd }} mb-{{ contentGapBottom }}"
->
-  <admin-agent-form></admin-agent-form>
+<main class="main-container">
+  <article class="row">
+    <admin-agent-form></admin-agent-form>
+  </article>
 </main>

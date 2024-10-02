@@ -1,5 +1,5 @@
-import {renderState} from '@alwatr/render-state';
 import {provinceOptions, type AdminAgentFormData, type ProvinceItem} from '@alwatr/swiss-plus-support-common';
+import {renderState} from 'alwatr/nanolib';
 import {html, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
@@ -94,9 +94,7 @@ export class AdminAgentFormComponent extends LitElement {
 
   protected renderInitialStateTemplate_() {
     return html`
-      <h2 class="text-base font-semibold leading-7 text-gray-900">فرم نماینده ها</h2>
-
-      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+      <div class="">
         <div class="">
           <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900">نام</label>
           <div class="mt-2">

@@ -1,6 +1,6 @@
 import {logger} from '../lib/config.js';
 
-import type {NanotronClientRequest} from '@alwatr/nanotron';
+import type {NanotronClientRequest} from 'alwatr/nanotron';
 
 export async function parseRequestBody<T extends DictionaryOpt = DictionaryOpt>(
   this: NanotronClientRequest<DictionaryOpt<T>>

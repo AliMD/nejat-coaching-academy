@@ -1,4 +1,4 @@
-import {AlwatrJsonFetchStateMachine} from '@alwatr/flux';
+import {AlwatrJsonFetchStateMachine, type FetchOptions} from 'alwatr/flux';
 
 import {config} from '../../lib/config.js';
 
@@ -9,5 +9,5 @@ export const agentDataSaverJsonFSM = new AlwatrJsonFetchStateMachine({
     ...config.fetchOptions,
     method: 'PUT',
     url: config.api.agent.save,
-  }
+  } as FetchOptions
 });

@@ -1,6 +1,5 @@
-import {delay} from '@alwatr/delay';
-import {AlwatrTrigger, AlwatrSignal} from '@alwatr/flux';
-import {createLogger} from '@alwatr/logger';
+import {AlwatrTrigger, AlwatrSignal} from 'alwatr/flux';
+import {createLogger, delay} from 'alwatr/nanolib';
 
 import type {SnackbarComponent} from './element.js';
 

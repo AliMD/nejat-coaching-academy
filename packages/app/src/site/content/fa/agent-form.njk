@@ -1,27 +1,17 @@
 ---
-title: agent-form
+title: فرم نماینده ها
 ---
 
-<header
-  class="fixed left-{{ contentGapEnd }} right-{{ contentGapStart }} top-0 z-fixed pt-safe box-content flex h-{{ contentGapTop }} select-none items-center bg-surfaceContainer px-1 translucent"
->
-  <div
-    class="shrink grow text-ellipsis whitespace-nowrap px-1 text-start text-titleLarge text-onSurface"
-  >
-    {{ title }}
-  </div>
-
-  <button
-    class="block cursor-pointer rounded-full p-3 text-[1.5rem] state-onSurfaceVariant"
-  >
-    {% alwatrIcon "refresh" %}
+<header class="page-header">
+  <h1 class="text-center">{{ title }}</h1>
+  <button class="icon-btn">
+    {% alwatrIcon "call" %}
   </button>
 </header>
 
-<main
-  class=" mt-{{ contentGapTop }} ms-{{ contentGapStart }} me-{{ contentGapEnd }} mb-{{ contentGapBottom }}"
->
-  <div class="flex flex-col items-center justify-center mt-4">
+
+<main class="main-container">
+  <article class="row">
     <agent-form></agent-form>
-  </div>
+  </article>
 </main>

@@ -1,4 +1,4 @@
-import {AlwatrJsonFetchStateMachine} from '@alwatr/flux';
+import {AlwatrJsonFetchStateMachine, type FetchOptions} from 'alwatr/flux';
 
 import {config} from '../lib/config.js';
 
@@ -8,5 +8,5 @@ export const formDataSaverJsonFSM = new AlwatrJsonFetchStateMachine({
   fetch: {
     ...config.fetchOptions,
     method: 'PUT',
-  }
+  } as FetchOptions
 });

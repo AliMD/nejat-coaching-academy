@@ -1,4 +1,4 @@
-import {renderState} from '@alwatr/render-state';
+import {renderState} from 'alwatr/nanolib';
 import {html, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
@@ -92,8 +92,7 @@ export class AgentFormComponent extends LitElement {
 
   protected renderInitialStateTemplate_() {
     return html`
-      <h2 class="text-base font-semibold leading-7 text-gray-900">فرم نماینده ها</h2>
-
+      <div>
         <div class="">
           <phone-input></phone-input>
         </div>
