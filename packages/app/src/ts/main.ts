@@ -5,4 +5,6 @@ import './lib/keep-scroll.js';
 // import './lib/service-worker.js';
 import './lib/type.js';
 
-logger.banner('@alwatr/weaver');
+logger.logFileModule?.('main');
+
+logger.banner('Alwatr Swiss Plus Support');

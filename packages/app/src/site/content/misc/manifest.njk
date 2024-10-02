@@ -1,0 +1,40 @@
+---
+layout: false
+permalink: /manifest.webmanifest
+eleventyExcludeFromCollections: true
+---
+
+{
+  "short_name": "{{ config.siteName }}",
+  "name": "{{ config.siteName }}",
+  "description": "{{ description }}",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "{{ config.theme.light }}",
+  "background_color": "{{ config.theme.splashBackground }}",
+  "orientation": "{{ config.orientation }}",
+  "default_locale": "{{ config.defaultLocale }}",
+  "icons": [
+    {"src": "/img/meta/icon-16.png", "type": "image/png", "sizes": "16x16"},
+    {"src": "/img/meta/icon-32.png", "type": "image/png", "sizes": "32x32"},
+    {"src": "/img/meta/icon-180.png", "type": "image/png", "sizes": "180x180"},
+    {# {"src": "/img/meta/icon-192-maskable.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable"},
+    {"src": "/img/meta/icon-512-maskable.png", "type": "image/png", "sizes": "512x512", "purpose": "maskable"}, #}
+    {"src": "/img/meta/icon-192.png", "type": "image/png", "sizes": "192x192"},
+    {"src": "/img/meta/icon-512.png", "type": "image/png", "sizes": "512x512"}
+  ]
+  {# "screenshots": [
+    {
+      "src": "/img/meta/screenshot-home.jpeg",
+      "sizes": "414x896",
+      "type": "image/jpg",
+      "label": "{{ config.title }}"
+    },
+    {
+      "src": "/img/meta/screenshot-product-detail.jpeg",
+      "sizes": "414x896",
+      "type": "image/jpg",
+      "label": "{{ config.title }}"
+    }
+  ] #}
+}

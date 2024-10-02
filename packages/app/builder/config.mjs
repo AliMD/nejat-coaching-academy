@@ -8,6 +8,7 @@ import directoryOutputPlugin from '@11ty/eleventy-plugin-directory-output';
 import {alwatrIcon} from './alwatr-icon.cjs';
 import EleventyRenderPlugin from '@11ty/eleventy/src/Plugins/RenderPlugin.js';
 import {generateServiceWorker} from './workbox.mjs';
+import {logger} from './logger.mjs';
 
 // https://github.com/11ty/eleventy/blob/v2.x/src/defaultConfig.js
 /**
@@ -18,10 +19,12 @@ import {generateServiceWorker} from './workbox.mjs';
 function eleventyConfig_(config) {
   let templateConfig = this;
 
-  config.addPassthroughCopy({
-    asset: '/', // copy all content/asset/* folder to root of dist.
-    'asset/img/meta/favicon.ico': '/favicon.ico',
-  });
+  // config.addPassthroughCopy({
+  //   asset: '/', // copy all content/asset/* folder to root of dist.
+  //   'asset/img/meta/favicon.ico': '/favicon.ico',
+  // }, {
+  //   debug: true
+  // });
 
   config.setServerOptions({
     liveReload: true,
@@ -34,7 +37,9 @@ function eleventyConfig_(config) {
     domDiff: false,
   });
 
-  // config.additionalWatchTargets = ['./content', './ts', './css'];
+  config.addWatchTarget('./src/css/');
+  config.addWatchTarget('./src/ts/');
+  logger.logProperty?.('additionalWatchTargets', config.additionalWatchTargets);
 
   // config.watchIgnores?.add('script');
 
@@ -85,7 +90,7 @@ function eleventyConfig_(config) {
       filesize: true,
       benchmark: true,
     },
-    warningFileSize: 400 * 1000,
+    warningFileSize: 400_000,
   });
 
   config.addTransform('minifyHtml', minifyHtml);
@@ -94,8 +99,11 @@ function eleventyConfig_(config) {
   config.on('eleventy.after', postcssBuild);
   config.on('eleventy.after', generateServiceWorker);
 
-  config.addExtension('data.cjs', {key: '11ty.js'});
+  config.addExtension('template.cjs', {key: '11ty.js'});
+  config.setDataFileSuffixes(['.data']);
+  config.setDataFileBaseName('index');
 
+  // return root config.
   return {
     templateFormats: [
       // "liquid",
@@ -121,10 +129,10 @@ function eleventyConfig_(config) {
 
     // Renamed from `jsDataFileSuffix` in 2.0 (and swapped to an Array)
     // If you remove "" we won’t look for dir/dir.json or file.json
-    dataFileSuffixes: ['.11tydata', ''],
+    dataFileSuffixes: ['.data'],
 
     // "index" will look for `directory/index.*` directory data files instead of `directory/directory.*`
-    dataFileDirBaseNameOverride: false,
+    dataFileDirBaseNameOverride: true,
 
     keys: {
       package: 'pkg',
@@ -136,11 +144,11 @@ function eleventyConfig_(config) {
     },
 
     dir: {
-      input: 'src/content',
+      input: 'src/site/content',
       output: 'dist',
-      includes: 'include_',
-      data: 'data_',
-      layouts: 'layout_',
+      includes: '../include',
+      data: '../data',
+      layouts: '../layout',
     },
   };
 }
