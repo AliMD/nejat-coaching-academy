@@ -20,12 +20,12 @@ on:
       - created
 
 env:
-  USER: Alwatr
+  USER: AliMD
   siteUrl: ${{ github.event.inputs.siteUrl || secrets.SITE_URL }}
 
 jobs:
   build:
-    if: github.repository_owner == 'Alwatr'
+    if: github.repository_owner == 'AliMD'
 
     name: Build & Publish Containers
     runs-on: ubuntu-latest
@@ -34,15 +34,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: weaver-app
+          - name: swiss-plus-support-app
             path: ./packages/app
             context: .
-          - name: weaver-api
+          - name: swiss-plus-support-api
             path: ./packages/api
             context: .
-          - name: weaver-admin
-            path: ./packages/admin
-            context: .
+          # - name: weaver-admin
+          #   path: ./packages/admin
+          #   context: .
 
     permissions:
       contents: read
