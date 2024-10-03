@@ -4,9 +4,9 @@ import {html, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
 import {formDataSaverJsonFSM} from './context.js';
-import './maskable-input/phone.js';
-import './maskable-input/serial.js';
 import {config, logger} from '../lib/config.js';
+import { phoneCleaveOptions, serialCleaveOptions } from './input-mask-options/main.js';
+import './text-field.js';
 
 import type {ProvinceItem} from '@alwatr/swiss-plus-support-common';
 
@@ -93,67 +93,30 @@ export class UserFormComponent extends LitElement {
   }
 
   protected renderInitialStateTemplate_() {
+
     return html`
       <div class="mb-2">
-        <serial-input label="سریال فاکتور" name="invoiceSerial"></serial-input>
-      </div>
-
-      <label
-        for="fullName"
-        class="relative mt-4 block h-10 rounded-md border border-onSurfaceVariant border-opacity-70 shadow-sm focus-within:border-primary focus-within:ring-1 focus-within:ring-primary"
-      >
-        <input
-          type="text"
-          id="fullName"
-          placeholder="نام"
-          autocomplete="name"
-          class="peer border-none bg-transparent placeholder-transparent focus:border-transparent focus:outline-none focus:ring-0 block w-full h-full p-2"
-        />
-        <span
-          class="pointer-events-none absolute start-2.5 top-0 -translate-y-1/2 bg-background px-2 text-xs text-onSurfaceVariant transition-all peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-sm peer-focus:top-0 peer-focus:text-xs"
-        >نام خانوادگی</span>
-      </label>
-
-      <label
-        for="fullName2"
-        class="relative mt-4 block rounded ring-1 ring-outline bg-surface focus-within:border-primary focus-within:ring-2 focus-within:ring-primary transition-shadow duration-100"
-      >
-        <input
-          type="text"
-          id="fullName2"
-          placeholder="نام"
-          autocomplete="name"
-          class="peer border-none bg-transparent text-onSurface placeholder-transparent focus:border-0 focus:outline-0 block w-full text-bodyLarge p-2"
-        />
-        <span
-          class="pointer-events-none absolute start-3 top-0 -translate-y-1/2 bg-inherit px-2 text-bodySmall text-onSurfaceVariant transition-all duration-150 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-bodyLarge peer-focus:top-0 peer-focus:text-bodySmall peer-focus:text-primary"
-        >نام خانوادگی</span>
-      </label>
-
-      <div class="mb-2">
-        <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900">نام</label>
-        <div class="mt-2">
-          <input
-            type="text"
-            name="firstName"
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-              placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
-        </div>
+        <text-input
+          label="سریال فاکتور"
+          name="invoiceSerial"
+          .cleaveOptions=${serialCleaveOptions}
+        ></text-input>
       </div>
 
       <div class="mb-2">
-        <label for="lastName" class="block text-sm font-medium leading-6 text-gray-900">نام خانوادگی</label>
-        <div class="mt-2">
-          <input
-            type="text"
-            name="lastName"
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-              placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
+        <text-input label="نام" name="firstName"></text-input>
       </div>
 
       <div class="mb-2">
-        <phone-input></phone-input>
+        <text-input label="نام خانوادگی" name="lastName"></text-input>
+      </div>
+
+      <div class="mb-2">
+        <text-input
+          label="شماره همراه"
+          name="cellPhoneNumber"
+          .cleaveOptions=${phoneCleaveOptions}
+        ></text-input>
       </div>
 
       <div>
