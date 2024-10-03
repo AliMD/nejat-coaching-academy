@@ -2,6 +2,8 @@ import {delay, platformInfo} from 'alwatr/nanolib';
 
 import {logger} from '../lib/config.js';
 
+logger.logFileModule?.('keep-scroll');
+
 async function keepScroll() {
   const container = document.querySelector('main.overflow-y-scroll');
   if (!container) return;

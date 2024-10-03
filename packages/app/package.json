@@ -69,7 +69,6 @@
     "alwatr": "workspace:^",
     "cleave.js": "^1.6.0",
     "cssnano": "^7.0.6",
-    "esbuild": "^0.24.0",
     "lit": "^3.2.0",
     "postcss": "^8.4.47",
     "postcss-custom-media": "^11.0.1",

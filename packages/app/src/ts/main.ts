@@ -5,6 +5,6 @@ import {logger} from './lib/config.js';
 // import './lib/service-worker.js';
 import './lib/type.js';
 
+logger.banner('Swiss Plus Support');
 logger.logFileModule?.('main');
 
-logger.banner('Alwatr Swiss Plus Support');

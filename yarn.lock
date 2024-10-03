@@ -662,7 +662,6 @@ __metadata:
     alwatr: "workspace:^"
     cleave.js: "npm:^1.6.0"
     cssnano: "npm:^7.0.6"
-    esbuild: "npm:^0.24.0"
     lit: "npm:^3.2.0"
     postcss: "npm:^8.4.47"
     postcss-custom-media: "npm:^11.0.1"
