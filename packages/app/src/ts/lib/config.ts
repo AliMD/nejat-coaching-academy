@@ -8,7 +8,7 @@ packageTracer.add(__package_name__, __package_version__);
  * Debug API.
  *
  * ```ts
- * localStorage.setItem('debugApi.v1', JSON.stringify({url: "https://canary-order.soffit.co/"}))
+ * localStorage.setItem('debugApi.v1', JSON.stringify({url: "http://localhost:8000/"}))
  * ```
  */
 
