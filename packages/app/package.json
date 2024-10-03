@@ -27,7 +27,8 @@
   "nano-build": {
     "entryPoints": [
       "src/ts/*.ts"
-    ]
+    ],
+    "treeShaking": false
   },
   "nano-build-development": {
     "minify": false

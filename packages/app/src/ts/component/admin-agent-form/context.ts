@@ -8,6 +8,6 @@ export const agentDataSaverJsonFSM = new AlwatrJsonFetchStateMachine({
   fetch: {
     ...config.fetchOptions,
     method: 'PUT',
-    url: config.api.agent.save,
+    url: config.api.adminAgent.save,
   } as FetchOptions
 });

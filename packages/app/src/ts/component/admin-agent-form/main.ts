@@ -5,10 +5,8 @@ import {customElement, property, query} from 'lit/decorators.js';
 
 import {agentDataSaverJsonFSM} from './context.js';
 import {logger} from '../../lib/config.js';
-import '../maskable-input/national-code.js';
-import '../maskable-input/phone.js';
-import '../maskable-input/sheba.js';
-
+import {nationalCodeCleaveOptions, phoneCleaveOptions, shebaCleaveOptions} from '../input-mask-options/main.js';
+import './../text-field.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -46,13 +44,13 @@ export class AdminAgentFormComponent extends LitElement {
 
   private onSubmit_() {
     this.formData_ = {
-      firstName: this.renderRoot.querySelector<HTMLInputElement>('input[name="firstName"]')!.value,
-      lastName: this.renderRoot.querySelector<HTMLInputElement>('input[name="lastName"]')!.value,
-      phoneNumber: this.renderRoot.querySelector<HTMLInputElement>('phone-input')!.value,
+      firstName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="firstName"]')!.value,
+      lastName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="lastName"]')!.value,
+      cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
       provinceId: this.renderRoot.querySelector<HTMLSelectElement>('select[name="province"]')!.value,
       cityId: this.renderRoot.querySelector<HTMLSelectElement>('select[name="province"]')!.value,
-      shebaCode: this.renderRoot.querySelector<HTMLSelectElement>('sheba-input')!.value,
-      nationalCode: this.renderRoot.querySelector<HTMLSelectElement>('national-code-input')!.value,
+      shebaCode: this.renderRoot.querySelector<HTMLSelectElement>('text-input[name="shebaCode"]')!.value,
+      nationalCode: this.renderRoot.querySelector<HTMLSelectElement>('text-input[name="nationalCode"]')!.value,
       id: 'new',
     };
 
@@ -95,35 +93,22 @@ export class AdminAgentFormComponent extends LitElement {
   protected renderInitialStateTemplate_() {
     return html`
       <div class="">
-        <div class="">
-          <label for="firstName" class="block text-sm font-medium leading-6 text-gray-900">نام</label>
-          <div class="mt-2">
-            <input
-              type="text"
-              name="firstName"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-               placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-          </div>
-        </div>
+        <text-input label="نام" name="firstName"></text-input>
+        <text-input label="نام خانوادگی" name="lastName"></text-input>
 
-        <div class="">
-          <label for="lastName" class="block text-sm font-medium leading-6 text-gray-900">نام خانوادگی</label>
-          <div class="mt-2">
-            <input
-              type="text"
-              name="lastName"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-               placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-          </div>
-        </div>
+        <text-input
+          dir="ltr"
+          label="کد ملی"
+          name="nationalCode"
+          .cleaveOptions=${nationalCodeCleaveOptions}
+        ></text-input>
 
-        <div class="">
-          <national-code-input></national-code-input>
-        </div>
-
-        <div class="">
-          <phone-input></phone-input>
-        </div>
+        <text-input
+          dir="ltr"
+          label="شماره همراه"
+          name="cellPhoneNumber"
+          .cleaveOptions=${phoneCleaveOptions}
+        ></text-input>
 
         <div class="">
           <label for="province" class="block text-sm font-medium leading-6 text-gray-900">استان</label>
@@ -158,9 +143,12 @@ export class AdminAgentFormComponent extends LitElement {
           </div>
         </div>
 
-        <div class="">
-          <sheba-input label="شماره شبا"></sheba-input>
-        </div>
+          <text-input
+            dir="ltr"
+            label="شماره شبا"
+            name="shebaCode"
+            .cleaveOptions=${shebaCleaveOptions}
+          ></text-input>
       </div>
 
       <div class="mt-6 flex items-center justify-end gap-x-6">

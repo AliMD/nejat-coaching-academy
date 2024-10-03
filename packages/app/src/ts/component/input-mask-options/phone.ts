@@ -1,4 +1,4 @@
-import 'cleave.js/dist/addons/cleave-phone.ir';
+import 'cleave.js/src/addons/phone-type-formatter.ir.js';
 
 import type {CleaveOptions} from 'cleave.js/options';
 

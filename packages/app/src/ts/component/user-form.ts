@@ -5,7 +5,7 @@ import {customElement, property, query} from 'lit/decorators.js';
 
 import {formDataSaverJsonFSM} from './context.js';
 import {config, logger} from '../lib/config.js';
-import { phoneCleaveOptions, serialCleaveOptions } from './input-mask-options/main.js';
+import {phoneCleaveOptions, serialCleaveOptions} from './input-mask-options/main.js';
 import './text-field.js';
 
 import type {ProvinceItem} from '@alwatr/swiss-plus-support-common';
@@ -42,10 +42,10 @@ export class UserFormComponent extends LitElement {
 
   private onSubmit_() {
     const formData = {
-      deviceSerial: this.renderRoot.querySelector<HTMLInputElement>('serial-input[name="invoiceSerial"]')!.value,
-      firstName: this.renderRoot.querySelector<HTMLInputElement>('input[name="firstName"]')!.value,
-      lastName: this.renderRoot.querySelector<HTMLInputElement>('input[name="lastName"]')!.value,
-      phoneNumber: this.renderRoot.querySelector<HTMLInputElement>('phone-input')!.value,
+      firstName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="firstName"]')!.value,
+      lastName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="lastName"]')!.value,
+      cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
+      invoiceSerial: this.renderRoot.querySelector<HTMLSelectElement>('text-input[name="invoiceSerial"]')!.value,
       province: this.renderRoot.querySelector<HTMLSelectElement>('select[name="province"]')!.value,
       city: this.renderRoot.querySelector<HTMLSelectElement>('select[name="province"]')!.value,
       birthDate: {
@@ -95,29 +95,22 @@ export class UserFormComponent extends LitElement {
   protected renderInitialStateTemplate_() {
 
     return html`
-      <div class="mb-2">
-        <text-input
-          label="سریال فاکتور"
-          name="invoiceSerial"
-          .cleaveOptions=${serialCleaveOptions}
-        ></text-input>
-      </div>
+      <text-input
+        dir="ltr"
+        label="سریال فاکتور"
+        name="invoiceSerial"
+        .cleaveOptions=${serialCleaveOptions}
+      ></text-input>
 
-      <div class="mb-2">
-        <text-input label="نام" name="firstName"></text-input>
-      </div>
+      <text-input label="نام" name="firstName"></text-input>
+      <text-input label="نام خانوادگی" name="lastName"></text-input>
 
-      <div class="mb-2">
-        <text-input label="نام خانوادگی" name="lastName"></text-input>
-      </div>
-
-      <div class="mb-2">
-        <text-input
+      <text-input
+          dir="ltr"
           label="شماره همراه"
           name="cellPhoneNumber"
           .cleaveOptions=${phoneCleaveOptions}
         ></text-input>
-      </div>
 
       <div>
         <h4>تاریخ تولد</h4>

@@ -17,6 +17,8 @@ export class TextInputComponent extends LitElement {
   @property() name: string;
   @property({attribute: false}) cleaveOptions?: CleaveOptions;
 
+  @property({type: String, attribute: 'dir'}) inputDir: 'ltr' | 'rtl';
+
   @query('input[type="text"]', true)
   private inputElement_?: HTMLInputElement;
 
@@ -40,7 +42,7 @@ export class TextInputComponent extends LitElement {
     this.value_ = '';
     this.name = 'textField';
     this.label = 'text field';
-    this.cleaveOptions = {};
+    this.inputDir = 'rtl';
   }
 
   protected override createRenderRoot(): HTMLElement | DocumentFragment {
@@ -56,6 +58,7 @@ export class TextInputComponent extends LitElement {
       >
         <input
           type="text"
+          dir=${this.inputDir}
           name=${this.name}
           placeholder=${this.label}
           class="peer border-none bg-transparent text-onSurface placeholder-transparent focus:border-0

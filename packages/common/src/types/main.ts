@@ -1,7 +1,7 @@
 export interface User {
   firstName: string;
   lastName: string;
-  phoneNumber: string;
+  cellPhoneNumber: string;
   nationalCode: string;
   birthDate: {
     day: string;
@@ -13,7 +13,7 @@ export interface User {
 export type UserFormData = User & { deviceSerial: string; provinceId: string; cityId: string; };
 
 export interface AgentFormData {
-  phoneNumber: string;
+  cellPhoneNumber: string;
   nationalCode: string;
   invoiceSerial: string;
   deviceSerial: string;

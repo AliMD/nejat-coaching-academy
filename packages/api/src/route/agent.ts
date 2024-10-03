@@ -9,10 +9,10 @@ import type {AgentFormData} from '@alwatr/swiss-plus-support-common';
 
 nanotronApiServer.defineRoute<{body: AgentFormData}>({
   method: 'PUT',
-  url: '/agent/save',
+  url: '/save-agent',
   preHandlers: [parseBodyAsJson, sanitizeNumbers],
   async handler() {
-    logger.logMethodArgs?.('defineRoute(`/agent/save`)', {body: this.sharedMeta.body});
+    logger.logMethodArgs?.('defineRoute(`/save-agent`)', {body: this.sharedMeta.body});
 
     const agentsCollection = await alwatrNitrobase.openCollection<AgentFormData>(config.stores.agentsCollection);
 

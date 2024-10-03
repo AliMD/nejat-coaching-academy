@@ -19,10 +19,13 @@ export const config = {
   api: {
     base: srvBaseUrl,
     user: {
-      save: apiBaseUrl + 'user/save'
+      save: apiBaseUrl + 'save-user'
     },
     agent: {
-      save: apiBaseUrl + 'agent/save'
+      save: apiBaseUrl + 'save-agent'
+    },
+    adminAgent: {
+      save: apiBaseUrl + 'admin-save-agent'
     },
     file: {
       upload: apiBaseUrl + 'file/upload'

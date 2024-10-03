@@ -9,10 +9,10 @@ import type {AdminAgentFormData} from '@alwatr/swiss-plus-support-common';
 
 nanotronApiServer.defineRoute<{body: AdminAgentFormData}>({
   method: 'PUT',
-  url: '/admin/agent/new',
+  url: '/admin-save-agent',
   preHandlers: [parseBodyAsJson, sanitizeNumbers],
   async handler() {
-    logger.logMethodArgs?.('defineRoute(`/admin/agent/new`)', {body: this.sharedMeta.body});
+    logger.logMethodArgs?.('defineRoute(`/admin-save-agent`)', {body: this.sharedMeta.body});
 
     const receivedAgentData = this.sharedMeta.body;
 
@@ -24,7 +24,7 @@ nanotronApiServer.defineRoute<{body: AdminAgentFormData}>({
     while ((agentItemsIteratorResultObject = agentCollectionItems.next()).done === false) {
       const _agentItem = agentItemsIteratorResultObject.value.data;
 
-      if (_agentItem.nationalCode !== receivedAgentData.nationalCode || _agentItem.phoneNumber !== receivedAgentData.phoneNumber) {
+      if (_agentItem.nationalCode !== receivedAgentData.nationalCode || _agentItem.cellPhoneNumber !== receivedAgentData.cellPhoneNumber) {
         continue;
       }
 
@@ -32,7 +32,7 @@ nanotronApiServer.defineRoute<{body: AdminAgentFormData}>({
       break;
     }
 
-    logger.logMethodArgs?.('defineRoute(`/admin/agent/new`)', {agentItemsIteratorResultObject});
+    logger.logMethodArgs?.('defineRoute(`/admin-save-agent`)', {agentItemsIteratorResultObject});
 
     const replyObject: JsonObject = {
       ok: true,

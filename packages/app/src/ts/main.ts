@@ -3,7 +3,6 @@ import './component/agent-form.js';
 import './component/user-form.js';
 import {logger} from './lib/config.js';
 // import './lib/service-worker.js';
-import './lib/type.js';
 
 logger.banner('Swiss Plus Support');
 logger.logFileModule?.('main');

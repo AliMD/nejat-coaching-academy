@@ -9,10 +9,10 @@ import type {UserFormData} from '@alwatr/swiss-plus-support-common';
 
 nanotronApiServer.defineRoute<{body: UserFormData}>({
   method: 'PUT',
-  url: '/user/save',
+  url: '/save-user',
   preHandlers: [parseBodyAsJson, sanitizeNumbers],
   async handler() {
-    logger.logMethodArgs?.('defineRoute(`/user/save`)', {userData: this.sharedMeta.body});
+    logger.logMethodArgs?.('defineRoute(`/save-user`)', {userData: this.sharedMeta.body});
 
     // add new user to the user's collection
     const usersCollection = await alwatrNitrobase.openCollection<UserFormData>(config.stores.usersCollection);

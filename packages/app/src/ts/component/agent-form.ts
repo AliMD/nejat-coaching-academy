@@ -4,13 +4,13 @@ import {customElement, property, query} from 'lit/decorators.js';
 
 import {formDataSaverJsonFSM} from './context.js';
 import './file-uploader/main.js';
-import './maskable-input/national-code.js';
-import './maskable-input/serial.js';
-import './maskable-input/sheba.js';
+import {phoneCleaveOptions} from './input-mask-options/phone.js';
+import './text-field.js';
 import {config, logger} from '../lib/config.js';
-import './maskable-input/phone.js';
+import {nationalCodeCleaveOptions, serialCleaveOptions} from './input-mask-options/main.js';
 
 import type {AgentFormData, ProvinceItem} from '@alwatr/swiss-plus-support-common';
+
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -49,7 +49,8 @@ export class AgentFormComponent extends LitElement {
   private onSubmit_() {
     this.formData_ = {
       ...this.formData_,
-      phoneNumber: this.renderRoot.querySelector<HTMLInputElement>('phone-input')!.value,
+      cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
+      nationalCode: this.renderRoot.querySelector<HTMLInputElement>('serial-input[name="nationalCode"]')!.value,
       deviceSerial: this.renderRoot.querySelector<HTMLInputElement>('serial-input[name="deviceSerial"]')!.value,
       invoiceSerial: this.renderRoot.querySelector<HTMLSelectElement>('serial-input[name="invoiceSerial"]')!.value,
     };
@@ -93,25 +94,35 @@ export class AgentFormComponent extends LitElement {
   protected renderInitialStateTemplate_() {
     return html`
       <div>
-        <div class="">
-          <phone-input></phone-input>
-        </div>
+        <text-input
+          dir="ltr"
+          label="شماره همراه"
+          name="cellPhoneNumber"
+          .cleaveOptions=${phoneCleaveOptions}
+        ></text-input>
 
-        <div class="">
-          <national-code-input></national-code-input>
-        </div>
+        <text-input
+          dir="ltr"
+          label="کد ملی"
+          name="nationalCode"
+          .cleaveOptions=${nationalCodeCleaveOptions}
+        ></text-input>
 
-        <div class="">
-          <serial-input label="سریال فاکتور" name="invoiceSerial"></serial-input>
-        </div>
+        <text-input
+          dir="ltr"
+          label="سریال فاکتور"
+          name="invoiceSerial"
+          .cleaveOptions=${serialCleaveOptions}
+        ></text-input>
 
-        <div class="">
-          <serial-input label="سریال دستگاه" name="deviceSerial"></serial-input>
-        </div>
+        <text-input
+          dir="ltr"
+          label="سریال دستگاه"
+          name="deviceSerial"
+          .cleaveOptions=${serialCleaveOptions}
+        ></text-input>
 
-        <div class="">
-          <file-uploader @on-file-uploaded=${this.onFileUploaded_}></file-uploader>
-        </div>
+        <file-uploader @on-file-uploaded=${this.onFileUploaded_}></file-uploader>
       </div>
 
       <div class="mt-6 flex items-center justify-end gap-x-6">
