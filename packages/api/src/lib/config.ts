@@ -6,14 +6,14 @@ export const logger = createLogger(__package_name__);
 packageTracer.add(__package_name__, __package_version__);
 
 if (process.env.NODE_ENV === 'production') {
-  if (process.env.STORE_TOKEN == null) {
-    throw new Error('STORE_TOKEN is required in production');
+  if (process.env.tokenGeneratorSecret == null) {
+    throw new Error('tokenGeneratorSecret is required in production');
   }
 }
 
 export const config = {
   token: {
-    secret: process.env.tokenGeneratorSecret ?? 'YOUR_SECRET',
+    secret: process.env.tokenGeneratorSecret ?? 'DEV_SECRET',
     duration: '1y',
   },
 
@@ -48,8 +48,8 @@ export const config = {
   },
 
   nanotronApiServer: {
-    host: process.env.HOST ?? '0.0.0.0',
-    port: process.env.PORT != null ? +process.env.PORT : 8000,
+    host: process.env.host ?? '0.0.0.0',
+    port: process.env.port !== undefined ? +process.env.port : 8000,
     prefix: '/api/v0/',
     // allowAllOrigin: true,
   },
