@@ -57,9 +57,10 @@ export class ShebaInputComponent extends LitElement {
     this.cleaveInstance_ = new Cleave(this.inputElement_!, {
       prefix: 'IR',
       delimiter: ' ',
-      blocks: [4, 4, 4, 4, 4, 4],
+      blocks: [2, 4, 4, 4, 4, 4, 4],
       uppercase: true,
       noImmediatePrefix: true,
+      numericOnly: true,
     });
   }
 }

@@ -55,11 +55,10 @@ export class SerialInputComponent extends LitElement {
 
     // TODO: Define necessary properties to set dynamically.
     this.cleaveInstance_ = new Cleave(this.inputElement_!, {
-      numeral: true,
-      numericOnly: true,
-      numeralIntegerScale: 10,
-      numeralThousandsGroupStyle: 'none',
-
+      prefix: 'SP',
+      delimiter: '-',
+      blocks: [3, 3, 3],
+      uppercase: true,
     });
   }
 }

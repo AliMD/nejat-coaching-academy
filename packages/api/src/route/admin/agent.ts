@@ -2,18 +2,19 @@ import {config, logger} from '../../lib/config.js';
 import {cryptoFactory} from '../../lib/crypto.js';
 import {alwatrNitrobase} from '../../lib/nitrobase.js';
 import {nanotronApiServer} from '../../lib/server.js';
-import {parseRequestBody} from '../../pre-handler/parse-request-body.js';
+import {parseBodyAsJson} from '../../pre-handler/parse-request-body.js';
+import {sanitizeNumbers} from '../../pre-handler/sanitize-numbers.js';
 
 import type {AdminAgentFormData} from '@alwatr/swiss-plus-support-common';
 
-nanotronApiServer.defineRoute<{requestBody: AdminAgentFormData}>({
+nanotronApiServer.defineRoute<{body: AdminAgentFormData}>({
   method: 'PUT',
   url: '/admin/agent/new',
-  preHandlers: [parseRequestBody],
+  preHandlers: [parseBodyAsJson, sanitizeNumbers],
   async handler() {
-    logger.logMethodArgs?.('defineRoute(`/admin/agent/new`)', {body: this.sharedMeta.requestBody});
+    logger.logMethodArgs?.('defineRoute(`/admin/agent/new`)', {body: this.sharedMeta.body});
 
-    const receivedAgentData = this.sharedMeta.requestBody;
+    const receivedAgentData = this.sharedMeta.body;
 
     // add new agent to the agent's collection
     const agentsCollection = await alwatrNitrobase.openCollection<AdminAgentFormData>(config.stores.agentsCollection);

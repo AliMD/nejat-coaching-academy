@@ -15,6 +15,10 @@
       max-w-screen-large
     ;
 
+    input {
+      background-color: #ffffff;
+    }
+
     /* padding-bottom: calc(
         0.25rem
       + var(--sys-bottom-navigation-bar-height) +

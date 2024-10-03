@@ -2,22 +2,23 @@ import {config, logger} from '../lib/config.js';
 import {cryptoFactory} from '../lib/crypto.js';
 import {alwatrNitrobase} from '../lib/nitrobase.js';
 import {nanotronApiServer} from '../lib/server.js';
-import {parseRequestBody} from '../pre-handler/parse-request-body.js';
+import {parseBodyAsJson} from '../pre-handler/parse-request-body.js';
+import {sanitizeNumbers} from '../pre-handler/sanitize-numbers.js';
 
 import type {AgentFormData} from '@alwatr/swiss-plus-support-common';
 
-nanotronApiServer.defineRoute<{requestBody: AgentFormData}>({
+nanotronApiServer.defineRoute<{body: AgentFormData}>({
   method: 'PUT',
   url: '/agent/save',
-  preHandlers: [parseRequestBody],
+  preHandlers: [parseBodyAsJson, sanitizeNumbers],
   async handler() {
-    logger.logMethodArgs?.('defineRoute(`/agent/save`)', {body: this.sharedMeta.requestBody});
+    logger.logMethodArgs?.('defineRoute(`/agent/save`)', {body: this.sharedMeta.body});
 
     const agentsCollection = await alwatrNitrobase.openCollection<AgentFormData>(config.stores.agentsCollection);
 
     // add new agent to the agent's collection
     const agentId = cryptoFactory.generateUserId();
-    agentsCollection.addItem(agentId, this.sharedMeta.requestBody);
+    agentsCollection.addItem(agentId, this.sharedMeta.body);
     agentsCollection.save();
 
     this.serverResponse.replyJson({
