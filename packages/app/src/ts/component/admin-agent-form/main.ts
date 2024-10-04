@@ -5,10 +5,12 @@ import {customElement, property} from 'lit/decorators.js';
 
 import {agentDataSaverJsonFSM} from './context.js';
 import {logger} from '../../lib/config.js';
-import '../input/main.js';
-import {nationalCodeCleaveOptions, phoneCleaveOptions, shebaCleaveOptions} from '../input-mask-options/main.js';
-
-import type {SelectProvinceCityInputComponent} from '../input/main.js';
+import {
+  nationalCodeCleaveOptions,
+  phoneCleaveOptions,
+  shebaCleaveOptions,
+  type SelectProvinceCityInputComponent
+} from '../input/main.js';
 
 
 declare global {

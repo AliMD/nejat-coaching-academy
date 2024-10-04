@@ -4,10 +4,8 @@ import {customElement, property, query} from 'lit/decorators.js';
 
 import {formDataSaverJsonFSM} from './context.js';
 import './file-uploader/main.js';
-import './input/main.js';
-import {phoneCleaveOptions} from './input-mask-options/phone.js';
+import {nationalCodeCleaveOptions, phoneCleaveOptions, serialCleaveOptions} from './input/main.js';
 import {config, logger} from '../lib/config.js';
-import {nationalCodeCleaveOptions, serialCleaveOptions} from './input-mask-options/main.js';
 
 import type {AgentFormData, ProvinceItem} from '@alwatr/swiss-plus-support-common';
 
@@ -47,12 +45,18 @@ export class AgentFormComponent extends LitElement {
   }
 
   private onSubmit_() {
+    const deviceSerial = this.renderRoot.querySelector<HTMLInputElement>('text-input[name="deviceSerial"]')!.value
+      .substring(serialCleaveOptions.prefix?.length ?? 0); // e.g. Remove `SP` from `invoiceSerial`
+
+    const invoiceSerial = this.renderRoot.querySelector<HTMLInputElement>('text-input[name="invoiceSerial"]')!.value
+      .substring(serialCleaveOptions.prefix?.length ?? 0); // e.g. Remove `SP` from `invoiceSerial`
+
     this.formData_ = {
       ...this.formData_,
       cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
-      nationalCode: this.renderRoot.querySelector<HTMLInputElement>('serial-input[name="nationalCode"]')!.value,
-      deviceSerial: this.renderRoot.querySelector<HTMLInputElement>('serial-input[name="deviceSerial"]')!.value,
-      invoiceSerial: this.renderRoot.querySelector<HTMLSelectElement>('serial-input[name="invoiceSerial"]')!.value,
+      nationalCode: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="nationalCode"]')!.value,
+      deviceSerial,
+      invoiceSerial,
     };
 
     logger.logMethodArgs?.('onSubmit_', {formData: this.formData_});

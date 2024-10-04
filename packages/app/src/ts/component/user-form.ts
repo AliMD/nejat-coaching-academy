@@ -1,4 +1,3 @@
-import {dayOptions, monthOptions, yearOptions} from '@alwatr/swiss-plus-support-common';
 import {renderState} from 'alwatr/nanolib';
 import {html, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
@@ -6,9 +5,8 @@ import {customElement, property, query} from 'lit/decorators.js';
 import {formDataSaverJsonFSM} from './context.js';
 import {config, logger} from '../lib/config.js';
 import './input/main.js';
-import {phoneCleaveOptions, serialCleaveOptions} from './input-mask-options/main.js';
+import {phoneCleaveOptions, serialCleaveOptions, type SelectProvinceCityInputComponent} from './input/main.js';
 
-import type {SelectProvinceCityInputComponent} from './input/main.js';
 import type {ProvinceItem} from '@alwatr/swiss-plus-support-common';
 
 declare global {
@@ -44,18 +42,17 @@ export class UserFormComponent extends LitElement {
   private onSubmit_() {
     const {cityId, provinceId} = this.renderRoot.querySelector<SelectProvinceCityInputComponent>('select-province-city-input')!.value;
 
+    const invoiceSerial = this.renderRoot.querySelector<HTMLInputElement>('text-input[name="invoiceSerial"]')!.value
+      .substring(serialCleaveOptions.prefix?.length ?? 0); // e.g. Remove `SP` from `invoiceSerial`
+
     const formData = {
       cityId,
       provinceId,
+      invoiceSerial,
       firstName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="firstName"]')!.value,
       lastName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="lastName"]')!.value,
       cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
-      invoiceSerial: this.renderRoot.querySelector<HTMLSelectElement>('text-input[name="invoiceSerial"]')!.value,
-      birthDate: {
-        day: this.renderRoot.querySelector<HTMLSelectElement>('select-input[name="day"]')!.value,
-        month: this.renderRoot.querySelector<HTMLSelectElement>('select-input[name="month"]')!.value,
-        year: this.renderRoot.querySelector<HTMLSelectElement>('select-input[name="year"]')!.value,
-      },
+      birthDate: this.renderRoot.querySelector<HTMLSelectElement>('date-input')!.value,
     };
 
     logger.logMethodArgs?.('onSubmit_', {formData});
@@ -115,12 +112,7 @@ export class UserFormComponent extends LitElement {
           .cleaveOptions=${phoneCleaveOptions}
         ></text-input>
 
-      <div>
-        <h4>تاریخ تولد</h4>
-        <select-input name="day" label="روز" .options=${dayOptions.map((item) => ({value: item, label: item}))}></select-input>
-        <select-input name="month" label="ماه" .options=${monthOptions} ></select-input>
-        <select-input name="year" label="سال" .options=${yearOptions.map((item) => ({value: item, label: item}))} ></select-input>
-      </div>
+      <date-input label="تاریخ تولد" name="birthDate"></date-input>
 
       <select-province-city-input></select-province-city-input>
 
