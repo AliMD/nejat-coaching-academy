@@ -35,3 +35,5 @@ export interface CityItem {
 }
 
 export type ProvinceItem = CityItem & { cities: CityItem[] };
+
+export type SelectOptionItem = { value: string; label: string };
