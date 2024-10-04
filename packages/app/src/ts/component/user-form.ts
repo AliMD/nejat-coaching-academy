@@ -1,13 +1,14 @@
-import {dayOptions, monthOptions, provinceOptions, yearOptions} from '@alwatr/swiss-plus-support-common';
+import {dayOptions, monthOptions, yearOptions} from '@alwatr/swiss-plus-support-common';
 import {renderState} from 'alwatr/nanolib';
 import {html, LitElement} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
 import {formDataSaverJsonFSM} from './context.js';
 import {config, logger} from '../lib/config.js';
+import './input/main.js';
 import {phoneCleaveOptions, serialCleaveOptions} from './input-mask-options/main.js';
-import './text-field.js';
 
+import type {SelectProvinceCityInputComponent} from './input/main.js';
 import type {ProvinceItem} from '@alwatr/swiss-plus-support-common';
 
 declare global {
@@ -41,17 +42,19 @@ export class UserFormComponent extends LitElement {
   }
 
   private onSubmit_() {
+    const {cityId, provinceId} = this.renderRoot.querySelector<SelectProvinceCityInputComponent>('select-province-city-input')!.value;
+
     const formData = {
+      cityId,
+      provinceId,
       firstName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="firstName"]')!.value,
       lastName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="lastName"]')!.value,
       cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
       invoiceSerial: this.renderRoot.querySelector<HTMLSelectElement>('text-input[name="invoiceSerial"]')!.value,
-      province: this.renderRoot.querySelector<HTMLSelectElement>('select[name="province"]')!.value,
-      city: this.renderRoot.querySelector<HTMLSelectElement>('select[name="province"]')!.value,
       birthDate: {
-        day: this.renderRoot.querySelector<HTMLSelectElement>('select[name="day"]')!.value,
-        month: this.renderRoot.querySelector<HTMLSelectElement>('select[name="month"]')!.value,
-        year: this.renderRoot.querySelector<HTMLSelectElement>('select[name="year"]')!.value,
+        day: this.renderRoot.querySelector<HTMLSelectElement>('select-input[name="day"]')!.value,
+        month: this.renderRoot.querySelector<HTMLSelectElement>('select-input[name="month"]')!.value,
+        year: this.renderRoot.querySelector<HTMLSelectElement>('select-input[name="year"]')!.value,
       },
     };
 
@@ -96,7 +99,7 @@ export class UserFormComponent extends LitElement {
 
     return html`
       <text-input
-        dir="ltr"
+        input-dir="ltr"
         label="سریال فاکتور"
         name="invoiceSerial"
         .cleaveOptions=${serialCleaveOptions}
@@ -106,7 +109,7 @@ export class UserFormComponent extends LitElement {
       <text-input label="نام خانوادگی" name="lastName"></text-input>
 
       <text-input
-          dir="ltr"
+          input-dir="ltr"
           label="شماره همراه"
           name="cellPhoneNumber"
           .cleaveOptions=${phoneCleaveOptions}
@@ -114,69 +117,12 @@ export class UserFormComponent extends LitElement {
 
       <div>
         <h4>تاریخ تولد</h4>
-        <label for="day" class="block text-sm font-medium leading-6 text-gray-900">روز</label>
-        <select
-          name="day"
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-            focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-        >
-          <option>انتخاب کنید</option>
-          ${dayOptions.map((day) => html`<option value="${day}">${day}</option>`)}
-        </select>
-
-        <label for="month" class="block text-sm font-medium leading-6 text-gray-900">ماه</label>
-        <select
-          name="month"
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-            focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-        >
-          <option>انتخاب کنید</option>
-          ${monthOptions.map((monthItem) => html`<option value="${monthItem.value}">${monthItem.label}</option>`)}
-        </select>
-
-        <label for="year" class="block text-sm font-medium leading-6 text-gray-900">سال</label>
-        <select
-          name="year"
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-            focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-        >
-          <option>انتخاب کنید</option>
-          ${yearOptions.map((year) => html`<option value="${year}">${year}</option>`)}
-        </select>
+        <select-input name="day" label="روز" .options=${dayOptions.map((item) => ({value: item, label: item}))}></select-input>
+        <select-input name="month" label="ماه" .options=${monthOptions} ></select-input>
+        <select-input name="year" label="سال" .options=${yearOptions.map((item) => ({value: item, label: item}))} ></select-input>
       </div>
 
-      <div class="mb-2">
-        <label for="province" class="block text-sm font-medium leading-6 text-gray-900">استان</label>
-        <div class="mt-2">
-          <select
-            @change=${
-              (event: Event) => {
-                this.onProvinceChange_(provinceOptions[((event.target as HTMLSelectElement).value)]);
-              }}
-            name="province"
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-              focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-          >
-            <option>انتخاب کنید</option>
-            ${Object.values(provinceOptions).map((provinceItem) =>
-                html`<option value="${provinceItem.id}">${provinceItem.label}</option>`)
-              }
-          </select>
-        </div>
-      </div>
-
-      <div class="mb-2">
-        <label for="city" class="block text-sm font-medium leading-6 text-gray-900">شهر</label>
-        <div class="mt-2">
-          <select
-            name="city"
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-              focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-          >
-            <option>انتخاب کنید</option>
-          </select>
-        </div>
-      </div>
+      <select-province-city-input></select-province-city-input>
 
       <div class="mt-6 flex items-center justify-end gap-x-6">
         <button

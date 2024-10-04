@@ -1,12 +1,15 @@
-import {provinceOptions, type AdminAgentFormData, type ProvinceItem} from '@alwatr/swiss-plus-support-common';
+import {validateNationalCode, type AdminAgentFormData} from '@alwatr/swiss-plus-support-common';
 import {renderState} from 'alwatr/nanolib';
 import {html, LitElement} from 'lit';
-import {customElement, property, query} from 'lit/decorators.js';
+import {customElement, property} from 'lit/decorators.js';
 
 import {agentDataSaverJsonFSM} from './context.js';
 import {logger} from '../../lib/config.js';
+import '../input/main.js';
 import {nationalCodeCleaveOptions, phoneCleaveOptions, shebaCleaveOptions} from '../input-mask-options/main.js';
-import './../text-field.js';
+
+import type {SelectProvinceCityInputComponent} from '../input/main.js';
+
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -18,15 +21,12 @@ declare global {
 export class AdminAgentFormComponent extends LitElement {
   @property() renderState: typeof agentDataSaverJsonFSM.state;
 
-  @query('select[name="city"]')
-  private citySelectElement_?: HTMLSelectElement;
-
-  private formData_: AdminAgentFormData;
+  private formData__: AdminAgentFormData;
 
   constructor() {
     super();
 
-    this.formData_ = {} as AdminAgentFormData;
+    this.formData__ = {} as AdminAgentFormData;
     this.renderState = 'initial';
   }
 
@@ -43,38 +43,30 @@ export class AdminAgentFormComponent extends LitElement {
   }
 
   private onSubmit_() {
-    this.formData_ = {
-      firstName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="firstName"]')!.value,
-      lastName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="lastName"]')!.value,
-      cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
-      provinceId: this.renderRoot.querySelector<HTMLSelectElement>('select[name="province"]')!.value,
-      cityId: this.renderRoot.querySelector<HTMLSelectElement>('select[name="province"]')!.value,
-      shebaCode: this.renderRoot.querySelector<HTMLSelectElement>('text-input[name="shebaCode"]')!.value,
-      nationalCode: this.renderRoot.querySelector<HTMLSelectElement>('text-input[name="nationalCode"]')!.value,
-      id: 'new',
-    };
-
-    logger.logMethodArgs?.('onSubmit_', {formData: this.formData_});
-
-    agentDataSaverJsonFSM.request({
-      bodyJson: this.formData_
-    });
-  }
-
-  protected onProvinceChange_(selectedProvince?: ProvinceItem) {
-    const citySelectElement = this.citySelectElement_;
-    citySelectElement!.replaceChildren(); // Remove previous option(s)
-
-    if (selectedProvince === undefined) {
+    const nationalCode = this.renderRoot.querySelector<HTMLSelectElement>('text-input[name="nationalCode"]')!.value;
+    if (validateNationalCode(nationalCode) === false) {
+      alert('کد ملی نامعتبر است');
       return;
     }
 
-    for (const city of selectedProvince.cities) {
-      const optionElement = document.createElement('option');
-      optionElement.text = city.label;
-      optionElement.setAttribute('value', city.id + '');
-      citySelectElement!.appendChild(optionElement);
-    }
+    const {cityId, provinceId} = this.renderRoot.querySelector<SelectProvinceCityInputComponent>('select-province-city-input')!.value;
+
+    this.formData__ = {
+      firstName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="firstName"]')!.value,
+      lastName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="lastName"]')!.value,
+      cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
+      shebaCode: this.renderRoot.querySelector<HTMLSelectElement>('text-input[name="shebaCode"]')!.value,
+      nationalCode,
+      provinceId,
+      cityId,
+      id: 'new',
+    };
+
+    logger.logMethodArgs?.('onSubmit_', {formData: this.formData__});
+
+    agentDataSaverJsonFSM.request({
+      bodyJson: this.formData__
+    });
   }
 
   protected renderLoadingStateTemplate_() {
@@ -97,54 +89,23 @@ export class AdminAgentFormComponent extends LitElement {
         <text-input label="نام خانوادگی" name="lastName"></text-input>
 
         <text-input
-          dir="ltr"
+          input-dir="ltr"
           label="کد ملی"
           name="nationalCode"
           .cleaveOptions=${nationalCodeCleaveOptions}
         ></text-input>
 
         <text-input
-          dir="ltr"
+          input-dir="ltr"
           label="شماره همراه"
           name="cellPhoneNumber"
           .cleaveOptions=${phoneCleaveOptions}
         ></text-input>
 
-        <div class="">
-          <label for="province" class="block text-sm font-medium leading-6 text-gray-900">استان</label>
-          <div class="mt-2">
-            <select
-              @change=${
-                (event: Event) => {
-                  this.onProvinceChange_(provinceOptions[((event.target as HTMLSelectElement).value)]);
-                }}
-              name="province"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-               focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-            >
-              <option>انتخاب کنید</option>
-              ${Object.values(provinceOptions).map((provinceItem) =>
-                  html`<option value="${provinceItem.id}">${provinceItem.label}</option>`)
-                }
-            </select>
-          </div>
-        </div>
-
-        <div class="">
-          <label for="city" class="block text-sm font-medium leading-6 text-gray-900">شهر</label>
-          <div class="mt-2">
-            <select
-              name="city"
-              class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
-               focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-            >
-              <option>انتخاب کنید</option>
-            </select>
-          </div>
-        </div>
+        <select-province-city-input></select-province-city-input>
 
           <text-input
-            dir="ltr"
+            input-dir="ltr"
             label="شماره شبا"
             name="shebaCode"
             .cleaveOptions=${shebaCleaveOptions}

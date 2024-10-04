@@ -4,8 +4,8 @@ import {customElement, property, query} from 'lit/decorators.js';
 
 import {formDataSaverJsonFSM} from './context.js';
 import './file-uploader/main.js';
+import './input/main.js';
 import {phoneCleaveOptions} from './input-mask-options/phone.js';
-import './text-field.js';
 import {config, logger} from '../lib/config.js';
 import {nationalCodeCleaveOptions, serialCleaveOptions} from './input-mask-options/main.js';
 
@@ -95,28 +95,28 @@ export class AgentFormComponent extends LitElement {
     return html`
       <div>
         <text-input
-          dir="ltr"
+          input-dir="ltr"
           label="شماره همراه"
           name="cellPhoneNumber"
           .cleaveOptions=${phoneCleaveOptions}
         ></text-input>
 
         <text-input
-          dir="ltr"
+          input-dir="ltr"
           label="کد ملی"
           name="nationalCode"
           .cleaveOptions=${nationalCodeCleaveOptions}
         ></text-input>
 
         <text-input
-          dir="ltr"
+          input-dir="ltr"
           label="سریال فاکتور"
           name="invoiceSerial"
           .cleaveOptions=${serialCleaveOptions}
         ></text-input>
 
         <text-input
-          dir="ltr"
+          input-dir="ltr"
           label="سریال دستگاه"
           name="deviceSerial"
           .cleaveOptions=${serialCleaveOptions}
