@@ -8,12 +8,12 @@ function getLastCommitHash() {
 module.exports = {
   siteUrl: env.siteUrl ?? '',
 
-  siteName: 'Weaver WebSite',
+  siteName: 'Swiss Plus',
 
   theme: {
-    light: '#e2eaf8',
-    dark: '#084073',
-    splashBackground: '#0b0c16', // used in manifest
+    light: '#b40e0b',
+    dark: '#b40e0b',
+    splashBackground: '#b40e0b', // used in manifest
   },
   orientation: 'portrait', // used in manifest
   defaultLocale: 'fa-IR', // used in manifest
