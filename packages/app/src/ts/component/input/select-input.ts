@@ -48,10 +48,11 @@ export class SelectInputComponent extends LitElement {
          focus-within:ring-2 focus-within:ring-primary transition-shadow duration-100"
       >
         <select
-          @change=${(event: Event) => {event.bubbles}}
-          class="peer appearance-none text-center cursor-pointer border border-onSecondaryContainer border-opacity-10
-           focus-visible:outline-2 outline-tertiary bg-transparent inline-block px-4 rounded-md shadow-sm h-10"
+          name=${this.name}
+          class="peer w-full text-right appearance-none outline-none
+           cursor-pointer bg-transparent inline-block px-4 rounded-md shadow-sm h-10"
         >
+          <option>انتخاب کنید</option>
           ${this.options!.map(item => html`<option value=${item.value}>${item.label}</option>`)}
         </select>
         <span

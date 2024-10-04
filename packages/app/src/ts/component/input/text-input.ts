@@ -15,7 +15,6 @@ export class TextInputComponent extends LitElement {
   @property() label: string;
   @property() name: string;
   @property({attribute: false}) cleaveOptions?: CleaveOptions;
-
   @property({type: String, attribute: 'input-dir'}) inputDir: 'ltr' | 'rtl';
 
   @query('input[type="text"]', true)
@@ -60,6 +59,7 @@ export class TextInputComponent extends LitElement {
           dir=${this.inputDir}
           name=${this.name}
           placeholder=${this.label}
+          autocomplete="off"
           class="peer border-none bg-transparent text-onSurface placeholder-transparent focus:border-0
            focus:outline-0 block w-full text-bodyLarge p-2"
         />
