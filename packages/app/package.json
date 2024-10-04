@@ -58,6 +58,7 @@
     "@alwatr/icon-set-extra": "^0.4.0",
     "@alwatr/icon-set-material": "^2.0.1",
     "@alwatr/nano-build": "^1.4.0",
+    "@alwatr/prettier-config": "^1.0.5",
     "@alwatr/swiss-plus-support-common": "workspace:^",
     "@alwatr/tsconfig-base": "^1.3.0",
     "@alwatr/type-helper": "^2.0.0",
