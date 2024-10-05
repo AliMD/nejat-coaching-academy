@@ -108,14 +108,12 @@ export class UserFormComponent extends LitElement {
   }
 
   override render() {
-    return html`<div class="border-b border-gray-900/10 pb-12">${
-      renderState(formDataSaverJsonFSM.state, {
-        _default: 'initial',
-        initial: this.renderInitialStateTemplate_,
-        loading: this.renderLoadingStateTemplate_,
-        failed: this.renderFailedStateTemplate_,
-        complete: this.renderCompleteStateTemplate_,
-      }, this)
-    }</div>`;
+    return renderState(formDataSaverJsonFSM.state, {
+      _default: 'initial',
+      initial: this.renderInitialStateTemplate_,
+      loading: this.renderLoadingStateTemplate_,
+      failed: this.renderFailedStateTemplate_,
+      complete: this.renderCompleteStateTemplate_,
+    }, this);
   }
 }
