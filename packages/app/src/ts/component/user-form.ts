@@ -1,13 +1,11 @@
 import {renderState} from 'alwatr/nanolib';
 import {html, LitElement} from 'lit';
-import {customElement, property, query} from 'lit/decorators.js';
+import {customElement, property} from 'lit/decorators.js';
 
 import {formDataSaverJsonFSM} from './context.js';
 import {config, logger} from '../lib/config.js';
 import './input/main.js';
 import {phoneCleaveOptions, serialCleaveOptions, type SelectProvinceCityInputComponent} from './input/main.js';
-
-import type {ProvinceItem} from '@alwatr/swiss-plus-support-common';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -18,9 +16,6 @@ declare global {
 @customElement('user-form')
 export class UserFormComponent extends LitElement {
   @property() renderState: typeof formDataSaverJsonFSM.state;
-
-  @query('select[name="city"]')
-  private citySelectElement_?: HTMLSelectElement;
 
   constructor() {
     super();
@@ -63,22 +58,6 @@ export class UserFormComponent extends LitElement {
     });
   }
 
-  protected onProvinceChange_(selectedProvince?: ProvinceItem) {
-    const citySelectElement = this.citySelectElement_;
-    citySelectElement!.replaceChildren(); // Remove previous option(s)
-
-    if (selectedProvince === undefined) {
-      return;
-    }
-
-    for (const city of selectedProvince.cities) {
-      const optionElement = document.createElement('option');
-      optionElement.text = city.label;
-      optionElement.setAttribute('value', city.id + '');
-      citySelectElement!.appendChild(optionElement);
-    }
-  }
-
   protected renderLoadingStateTemplate_() {
     return html`<p>Loading...</p>`;
   }
@@ -118,11 +97,12 @@ export class UserFormComponent extends LitElement {
 
       <div class="mt-6 flex items-center justify-end gap-x-6">
         <button
+          class="w-full text-onPrimary bg-primary py-2 rounded"
+          aria-disabled=${this.renderState === 'loading'}
           @click=${this.onSubmit_}
-          type="submit"
-          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline
-          focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >ارسال</button>
+        >
+          <span>ارسال</span>
+        </button>
       </div>
     `;
   }

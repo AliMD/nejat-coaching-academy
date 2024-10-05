@@ -1,13 +1,13 @@
 import {renderState} from 'alwatr/nanolib';
 import {html, LitElement} from 'lit';
-import {customElement, property, query} from 'lit/decorators.js';
+import {customElement, property} from 'lit/decorators.js';
 
 import {formDataSaverJsonFSM} from './context.js';
 import './file-uploader/main.js';
 import {nationalCodeCleaveOptions, phoneCleaveOptions, serialCleaveOptions} from './input/main.js';
 import {config, logger} from '../lib/config.js';
 
-import type {AgentFormData, ProvinceItem} from '@alwatr/swiss-plus-support-common';
+import type {AgentFormData} from '@alwatr/swiss-plus-support-common';
 
 
 declare global {
@@ -19,9 +19,6 @@ declare global {
 @customElement('agent-form')
 export class AgentFormComponent extends LitElement {
   @property() renderState: typeof formDataSaverJsonFSM.state;
-
-  @query('select[name="city"]')
-  private citySelectElement_?: HTMLSelectElement;
 
   private formData_: AgentFormData;
 
@@ -65,16 +62,6 @@ export class AgentFormComponent extends LitElement {
       url: config.api.agent.save,
       bodyJson: this.formData_
     });
-  }
-
-  protected onProvinceChange_(selectedProvince?: ProvinceItem) {
-    const citySelectElement = this.citySelectElement_;
-    citySelectElement!.replaceChildren(); // Remove previous option(s)
-
-    if (selectedProvince === undefined) {
-      return;
-    }
-
   }
 
   protected onFileUploaded_(event: CustomEvent<{fileId: number}>) {
@@ -126,16 +113,18 @@ export class AgentFormComponent extends LitElement {
           .cleaveOptions=${serialCleaveOptions}
         ></text-input>
 
-        <file-uploader @on-file-uploaded=${this.onFileUploaded_}></file-uploader>
+        <file-uploader class="block mt-4" @on-file-uploaded=${this.onFileUploaded_}></file-uploader>
       </div>
 
-      <div class="mt-6 flex items-center justify-end gap-x-6">
+      <div class="mt-4">
         <button
+          class="flex h-10 w-full mt-6 cursor-pointer select-none items-center justify-center rounded-xl bg-primary px-6 transition-opacity
+           elevation-0 state-onPrimary hover:elevation-1 active:elevation-0 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          aria-disabled=${this.renderState === 'loading'}
           @click=${this.onSubmit_}
-          type="submit"
-          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline
-          focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >ارسال</button>
+        >
+          <span class="px-2 text-labelLarge">ارسال</span>
+        </button>
       </div>
     `;
   }

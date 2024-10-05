@@ -116,11 +116,12 @@ export class AdminAgentFormComponent extends LitElement {
 
       <div class="mt-6 flex items-center justify-end gap-x-6">
         <button
+          class="w-full text-onPrimary bg-primary py-2 rounded"
+          aria-disabled=${this.renderState === 'loading'}
           @click=${this.onSubmit_}
-          type="submit"
-          class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline
-          focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >ارسال</button>
+        >
+          <span>ارسال</span>
+        </button>
       </div>
     `;
   }
