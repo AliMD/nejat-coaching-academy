@@ -43,14 +43,14 @@ export class SelectInputComponent extends BaseElement {
     return html`
       <label
         for=${this.name}
-        class="relative mt-4 block rounded ring-1 ring-outline bg-surface focus-within:border-primary
+        class="relative block rounded-lg ring-1 ring-outline bg-surface focus-within:border-primary
          focus-within:ring-2 focus-within:ring-primary transition-shadow duration-100"
       >
         <select
           name=${this.name}
           @change=${() => this.dispatchEvent(new CustomEvent('input-change'))}
-          class="peer w-full text-right appearance-none outline-none
-           cursor-pointer bg-transparent inline-block px-4 rounded-md shadow-sm h-10"
+          class="peer text-start appearance-none outline-none
+           cursor-pointer bg-transparent block px-4 shadow-sm h-10"
         >
           ${this.options!.map(item => html`<option value=${item.value}>${item.label}</option>`)}
         </select>
