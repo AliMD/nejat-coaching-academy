@@ -30,7 +30,6 @@ for (const colorName of materialColorPalletteNames) {
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['dist/**/*.html', 'dist/es/**/*.js'],
-  darkMode: 'class',
   theme: {
     extend: {
       animation: animationTheme.animation,
