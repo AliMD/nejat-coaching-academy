@@ -1,18 +1,11 @@
 import {validateNationalCode, type AdminAgentFormData} from '@alwatr/swiss-plus-support-common';
-import {renderState} from 'alwatr/nanolib';
 import {html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import {customElement} from 'lit/decorators.js';
 
-import {BaseElement} from './base-element.js';
+import {AbstractFormElement} from './abstract-form.js';
 import {agentDataSaverJsonFSM} from './context.js';
 import {logger} from '../lib/config.js';
-import {
-  nationalCodeCleaveOptions,
-  phoneCleaveOptions,
-  shebaCleaveOptions,
-  type SelectProvinceCityInputComponent
-} from './input/main.js';
-
+import {nationalCodeCleaveOptions, phoneCleaveOptions, shebaCleaveOptions, type SelectProvinceCityInputComponent} from './input/main.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -21,27 +14,16 @@ declare global {
 }
 
 @customElement('admin-agent-form')
-export class AdminAgentFormComponent extends BaseElement {
-  @property() renderState: typeof agentDataSaverJsonFSM.state;
-
-  private formData__: AdminAgentFormData;
-
+export class AdminAgentFormComponent extends AbstractFormElement {
   constructor() {
     super();
 
-    this.formData__ = {} as AdminAgentFormData;
-    this.renderState = 'initial';
-  }
-
-  override connectedCallback(): void {
-    super.connectedCallback();
-
     agentDataSaverJsonFSM.subscribe(({state}) => {
-      this.renderState = state;
+      this.renderState_ = state;
     });
   }
 
-  private onSubmit_() {
+  protected onSubmit_() {
     const nationalCode = this.renderRoot.querySelector<HTMLSelectElement>('text-input[name="nationalCode"]')!.value;
     if (validateNationalCode(nationalCode) === false) {
       alert('کد ملی نامعتبر است');
@@ -50,10 +32,10 @@ export class AdminAgentFormComponent extends BaseElement {
 
     // FIXME: Validate `provinceId` & `cityId`
 
-    const {cityId = '', provinceId = ''} = this.renderRoot.querySelector<SelectProvinceCityInputComponent>
-    ('select-province-city-input')!.value;
+    const {cityId = '', provinceId = ''} =
+      this.renderRoot.querySelector<SelectProvinceCityInputComponent>('select-province-city-input')!.value;
 
-    this.formData__ = {
+    const formData: AdminAgentFormData = {
       firstName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="firstName"]')!.value,
       lastName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="lastName"]')!.value,
       cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
@@ -64,78 +46,54 @@ export class AdminAgentFormComponent extends BaseElement {
       id: 'new',
     };
 
-    logger.logMethodArgs?.('onSubmit_', {formData: this.formData__});
+    logger.logMethodArgs?.('onSubmit_', {formData: formData});
 
     agentDataSaverJsonFSM.request({
-      bodyJson: this.formData__
+      bodyJson: formData,
     });
   }
 
-  protected renderLoadingStateTemplate_() {
-    return html`<p>Loading...</p>`;
-  }
-
-  protected renderCompleteStateTemplate_() {
-    return html`<p>Submitted successfully...</p>`;
-  }
-
-  protected renderFailedStateTemplate_() {
-    // TODO: handle errors
-    return this.renderInitialStateTemplate_();
-  }
-
-  protected renderInitialStateTemplate_() {
+  protected renderFormTemplate_() {
     return html`
-      <div class="">
-        <text-input label="نام" name="firstName"></text-input>
-        <text-input label="نام خانوادگی" name="lastName"></text-input>
-
-        <text-input
-          input-dir="ltr"
-          label="کد ملی"
-          name="nationalCode"
-          type="number"
-          .cleaveOptions=${nationalCodeCleaveOptions}
-        ></text-input>
-
-        <text-input
-          input-dir="ltr"
-          label="شماره همراه"
-          name="cellPhoneNumber"
-          .cleaveOptions=${phoneCleaveOptions}
-        ></text-input>
-
-        <select-province-city-input></select-province-city-input>
-
-          <text-input
-            input-dir="ltr"
-            label="شماره شبا"
-            name="shebaCode"
-            .cleaveOptions=${shebaCleaveOptions}
-          ></text-input>
+      <div
+        class="flex gap-3 first-of-type:aria-disabled:pointer-events-none aria-disabled:opacity-50"
+        aria-disabled=${this.renderState_ === 'loading'}
+      >
+        <text-input class="basis-2/5" label="نام" name="firstName"></text-input>
+        <text-input class="basis-3/5" label="نام خانوادگی" name="lastName"></text-input>
       </div>
 
-      <div class="mt-6 flex items-center justify-end gap-x-6">
-        <button
-          class="w-full text-onPrimary bg-primary py-2 rounded"
-          aria-disabled=${this.renderState === 'loading'}
-          @click=${this.onSubmit_}
-        >
-          <span>ارسال</span>
-        </button>
-      </div>
+      <text-input
+        input-dir="ltr"
+        label="شماره همراه"
+        name="cellPhoneNumber"
+        .cleaveOptions=${phoneCleaveOptions}
+        class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
+        aria-disabled=${this.renderState_ === 'loading'}
+      ></text-input>
+
+      <text-input
+        input-dir="ltr"
+        label="کد ملی"
+        name="nationalCode"
+        .cleaveOptions=${nationalCodeCleaveOptions}
+        class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
+        aria-disabled=${this.renderState_ === 'loading'}
+      ></text-input>
+
+      <select-province-city-input
+        class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
+        aria-disabled=${this.renderState_ === 'loading'}
+      ></select-province-city-input>
+
+      <text-input
+        input-dir="ltr"
+        label="شماره شبا"
+        name="shebaCode"
+        .cleaveOptions=${shebaCleaveOptions}
+        class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
+        aria-disabled=${this.renderState_ === 'loading'}
+      ></text-input>
     `;
-  }
-
-  override render() {
-    return html`<div class="border-b border-gray-900/10 pb-12">${
-      renderState(agentDataSaverJsonFSM.state, {
-        _default: 'initial',
-        initial: this.renderInitialStateTemplate_,
-        loading: this.renderLoadingStateTemplate_,
-        failed: this.renderFailedStateTemplate_,
-        complete: this.renderCompleteStateTemplate_,
-      }, this)
-    }</div>`;
   }
 }
