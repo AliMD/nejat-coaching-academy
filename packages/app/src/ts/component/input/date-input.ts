@@ -2,7 +2,8 @@ import {dayOptions, monthOptions} from '@alwatr/swiss-plus-support-common';
 import {html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
-import './select-input.js';
+import {type SelectInputComponent} from './select-input.js';
+import {type TextInputComponent} from './text-input.js';
 import {BaseElement} from '../base-element.js';
 import {yearInDateInputCleaveOptions} from './main.js';
 
@@ -21,19 +22,19 @@ export class DateInputComponent extends BaseElement {
   @property({type: String, attribute: 'input-dir'}) inputDir: 'ltr' | 'rtl';
 
   @query('select-input[name="day"]', true)
-  private daySelectElement__?: HTMLSelectElement;
+  private daySelectElement__?: SelectInputComponent;
 
   @query('select-input[name="month"]', true)
-  private monthSelectElement__?: HTMLSelectElement;
+  private monthSelectElement__?: SelectInputComponent;
 
-  @query('select-input[name="year"]', true)
-  private yearSelectElement__?: HTMLSelectElement;
+  @query('text-input[name="year"]', true)
+  private yearInputElement__?: TextInputComponent;
 
   private value_: string;
   get value() {
     const _day = this.daySelectElement__!.value;
     const _month = this.monthSelectElement__!.value;
-    const _year = this.yearSelectElement__!.value;
+    const _year = this.yearInputElement__!.value;
     this.value_ = `${_day}/${_month}/${_year}`;
     return this.value_;
   }
