@@ -48,7 +48,10 @@ export class AdminAgentFormComponent extends BaseElement {
       return;
     }
 
-    const {cityId, provinceId} = this.renderRoot.querySelector<SelectProvinceCityInputComponent>('select-province-city-input')!.value;
+    // FIXME: Validate `provinceId` & `cityId`
+
+    const {cityId = '', provinceId = ''} = this.renderRoot.querySelector<SelectProvinceCityInputComponent>
+    ('select-province-city-input')!.value;
 
     this.formData__ = {
       firstName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="firstName"]')!.value,
@@ -91,6 +94,7 @@ export class AdminAgentFormComponent extends BaseElement {
           input-dir="ltr"
           label="کد ملی"
           name="nationalCode"
+          type="number"
           .cleaveOptions=${nationalCodeCleaveOptions}
         ></text-input>
 
@@ -98,6 +102,7 @@ export class AdminAgentFormComponent extends BaseElement {
           input-dir="ltr"
           label="شماره همراه"
           name="cellPhoneNumber"
+          type="number"
           .cleaveOptions=${phoneCleaveOptions}
         ></text-input>
 

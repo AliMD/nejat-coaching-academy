@@ -79,6 +79,7 @@ export class AgentFormComponent extends BaseElement {
           input-dir="ltr"
           label="شماره همراه"
           name="cellPhoneNumber"
+          type="number"
           .cleaveOptions=${phoneCleaveOptions}
         ></text-input>
 
@@ -86,6 +87,7 @@ export class AgentFormComponent extends BaseElement {
           input-dir="ltr"
           label="کد ملی"
           name="nationalCode"
+          type="number"
           .cleaveOptions=${nationalCodeCleaveOptions}
         ></text-input>
 

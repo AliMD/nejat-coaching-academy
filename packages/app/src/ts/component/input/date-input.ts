@@ -67,6 +67,7 @@ export class DateInputComponent extends BaseElement {
         name="year"
         label="سال"
         input-dir="ltr"
+        type="number"
         .cleaveOptions=${yearInDateInputCleaveOptions}
       ></text-input>
     `;
