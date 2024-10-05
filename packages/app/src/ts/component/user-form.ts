@@ -90,15 +90,15 @@ export class UserFormComponent extends BaseElement {
 
       <select-province-city-input></select-province-city-input>
 
-      <div class="mt-6 flex items-center justify-end gap-x-6">
-        <button
-          class="w-full text-onPrimary bg-primary py-2 rounded"
-          aria-disabled=${this.renderState === 'loading'}
-          @click=${this.onSubmit_}
-        >
-          <span>ارسال</span>
-        </button>
-      </div>
+      <button
+        class="flex items-center justify-center gap-2 h-10 px-6 rounded-3xl cursor-pointer select-none bg-primary
+        state-onPrimary text-labelLarge elevation-0 hover:elevation-1 active:elevation-0
+        aria-disabled:pointer-events-none aria-disabled:opacity-50 disabled:pointer-events-none disabled:opacity-50"
+        aria-disabled=${this.renderState === 'loading'}
+        @click=${this.onSubmit_}
+      >
+        <span>ثبت اطلاعات</span>
+      </button>
     `;
   }
 
