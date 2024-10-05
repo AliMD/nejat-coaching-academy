@@ -1,9 +1,9 @@
-import {provinceOptions, type CityItem, type ProvinceItem} from '@alwatr/swiss-plus-support-common';
+import {provinceOptions, type CityItem} from '@alwatr/swiss-plus-support-common';
 import {html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
 import {BaseElement} from '../base-element.js';
-
+import './select-input.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -16,10 +16,10 @@ export class SelectProvinceCityInputComponent extends BaseElement {
   @property({type: String, attribute: 'dir'}) inputDir: 'ltr' | 'rtl';
   @property({type: Array, state: true}) cities?: CityItem[];
 
-  @query('select[name="province"]', true)
+  @query('select-input[name="province"]', true)
   private provinceSelectElement__?: HTMLInputElement;
 
-  @query('select[name="city"]', true)
+  @query('select-input[name="city"]', true)
   private citySelectElement__?: HTMLInputElement;
 
   private value_: { cityId: string; provinceId: string };
@@ -43,58 +43,24 @@ export class SelectProvinceCityInputComponent extends BaseElement {
     this.cities = [];
   }
 
-  protected onProvinceChange_(selectedProvince?: ProvinceItem) {
-    if (selectedProvince === undefined) {
-      this.cities = [];
-      return;
-    }
-
-    this.cities = selectedProvince.cities;
+  protected onProvinceChange_() {
+    this.cities = provinceOptions[this.provinceSelectElement__!.value].cities;
   }
 
   override render() {
     return html`
-      <label
-        for="province"
-        class="relative mt-4 block rounded ring-1 ring-outline bg-surface focus-within:border-primary
-         focus-within:ring-2 focus-within:ring-primary transition-shadow duration-100"
-      >
-        <select
-          @change=${
-            (event: Event) => {
-              this.onProvinceChange_(provinceOptions[((event.target as HTMLSelectElement).value)]);
-            }}
-          name="province"
-          class="peer w-full text-right appearance-none outline-none
-           cursor-pointer bg-transparent inline-block px-4 rounded-md shadow-sm h-10"
-        >
-          ${Object.values(provinceOptions).map(item => html`<option value=${item.id}>${item.label}</option>`)}
-        </select>
-        <span
-          class="pointer-events-none absolute block start-3 top-0 -translate-y-1/2 bg-inherit px-2 text-bodySmall
-           text-onSurfaceVariant transition-all duration-150 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-bodyLarge
-            peer-focus:top-0 peer-focus:text-bodySmall peer-focus:text-primary"
-        >استان</span>
-      </label>
+      <select-input
+        @input-change=${this.onProvinceChange_}
+        name="province"
+        label="استان"
+        .options=${Object.values(provinceOptions).map(item => ({value: item.id, label: item.label}))}
+      ></select-input>
 
-      <label
-        for="city"
-        class="relative mt-4 block rounded ring-1 ring-outline bg-surface focus-within:border-primary
-         focus-within:ring-2 focus-within:ring-primary transition-shadow duration-100"
-      >
-        <select
-          name="city"
-          class="peer w-full text-right appearance-none outline-none
-           cursor-pointer bg-transparent inline-block px-4 rounded-md shadow-sm h-10"
-        >
-          ${this.cities!.map(item => html`<option value=${item.id}>${item.label}</option>`)}
-        </select>
-        <span
-          class="pointer-events-none absolute block start-3 top-0 -translate-y-1/2 bg-inherit px-2 text-bodySmall
-           text-onSurfaceVariant transition-all duration-150 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-bodyLarge
-            peer-focus:top-0 peer-focus:text-bodySmall peer-focus:text-primary"
-        >شهر</span>
-      </label>
+      <select-input
+        name="province"
+        label="شهر"
+        .options=${this.cities!.map(item => ({value: item.id, label: item.label}))}
+      ></select-input>
     `;
   }
 }
