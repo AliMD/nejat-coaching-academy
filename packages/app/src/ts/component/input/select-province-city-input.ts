@@ -32,6 +32,8 @@ export class SelectProvinceCityInputComponent extends BaseElement {
     return this.value_;
   }
 
+  override customClass = 'flex gap-3';
+
   constructor() {
     super();
 
@@ -50,6 +52,7 @@ export class SelectProvinceCityInputComponent extends BaseElement {
   override render() {
     return html`
       <select-input
+        class="basis-3/5"
         @input-change=${this.onProvinceChange_}
         name="province"
         label="استان"
@@ -57,6 +60,7 @@ export class SelectProvinceCityInputComponent extends BaseElement {
       ></select-input>
 
       <select-input
+        class="basis-2/5"
         name="province"
         label="شهر"
         .options=${this.cities!.map(item => ({value: item.id, label: item.label}))}
