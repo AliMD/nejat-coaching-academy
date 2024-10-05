@@ -18,8 +18,15 @@ export const shebaCleaveOptions: CleaveOptions = {
   numericOnly: true,
 };
 
-export const serialCleaveOptions: CleaveOptions = {
+export const deviceSerialCleaveOptions: CleaveOptions = {
   prefix: 'SP',
+  blocks: [2, 3, 3, 3],
+  // noImmediatePrefix: true,
+  uppercase: true,
+};
+
+export const invoiceSerialCleaveOptions: CleaveOptions = {
+  prefix: 'IV',
   blocks: [2, 3, 3, 3],
   // noImmediatePrefix: true,
   uppercase: true,
@@ -29,6 +36,7 @@ export const nationalCodeCleaveOptions: CleaveOptions = {
   numeral: true,
   numericOnly: true,
   numeralIntegerScale: 10,
+  numeralDecimalScale: 0,
   numeralThousandsGroupStyle: 'none',
 };
 
