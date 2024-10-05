@@ -81,12 +81,7 @@ export class FileUploaderComponent extends BaseElement {
         class="flex flex-col gap-2 items-center justify-center w-full h-48 border-2 border-outline border-dashed rounded-lg
           cursor-pointer bg-surfaceVariant state-onSurfaceVariant text-bodyMedium"
       >
-        <svg
-          class="size-8"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 16"
-        >
+        <svg class="size-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16">
           <path
             stroke="currentColor"
             stroke-linecap="round"
@@ -99,20 +94,8 @@ export class FileUploaderComponent extends BaseElement {
         </svg>
         <p class="text-bodyLarge mt-2">آپلود تصویر گارانتی امضا شده</p>
         <p>برای بارگذاری <b>کلیک کنید</b> یا فایل را اینجا رها کنید</p>
-        <input id="dropzone-file" type="file" class="hidden" />
+        <input type="file" id="dropzone-file" class="hidden" @change=${this.onFileSelection__} />
       </label>
     `;
-    // return html`
-    //   <label
-    //     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-    //     for="file_input"
-    //   >بارگذاری تصویر</label>
-    //   <input
-    //     @change=${this.onFileSelection__}
-    //     type="file"
-    //     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50
-    //     dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-    //   >
-    // `;
   }
 }
