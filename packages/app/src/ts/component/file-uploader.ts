@@ -1,9 +1,9 @@
 import {html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
-import {fileUploaderJsonFSM} from './context.js';
-import {BaseElement} from '../base-element.js';
-import {snackbarSignal} from '../snackbar/main.js';
+import {BaseElement} from './base-element.js';
+import {fileUploaderJsonFSM} from './file-uploader/context.js';
+import {snackbarSignal} from './snackbar/main.js';
 
 declare global {
   interface HTMLElementTagNameMap {
