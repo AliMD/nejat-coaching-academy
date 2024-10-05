@@ -13,6 +13,8 @@ declare global {
 
 @customElement('date-input')
 export class DateInputComponent extends BaseElement {
+  override customClass = 'flex justify-between gap-3';
+
   @property() label: string;
   @property() name: string;
   @property({type: String, attribute: 'input-dir'}) inputDir: 'ltr' | 'rtl';
@@ -47,14 +49,24 @@ export class DateInputComponent extends BaseElement {
 
   override render() {
     return html`
-      <div class="flex flex-col">
-        <h4>${this.label}</h4>
-        <div class="flex flex-row justify-between gap-x-2">
-          <select-input name="day" label="روز" .options=${dayOptions.map((item) => ({value: item, label: item}))}></select-input>
-          <select-input name="month" label="ماه" .options=${monthOptions} ></select-input>
-          <select-input name="year" label="سال" .options=${yearOptions.map((item) => ({value: item, label: item}))} ></select-input>
-        </div>
-      </div>
+      <select-input
+        class="basis-3/12"
+        name="day"
+        label="روز"
+        .options=${dayOptions.map((item) => ({value: item, label: item}))}
+      ></select-input>
+      <select-input
+        class="basis-6/12"
+        name="month"
+        label="ماه"
+        .options=${monthOptions}
+      ></select-input>
+      <select-input
+        class="basis-3/12"
+        name="year"
+        label="سال"
+        .options=${yearOptions.map((item) => ({value: item, label: item}))}
+      ></select-input>
     `;
   }
 }
