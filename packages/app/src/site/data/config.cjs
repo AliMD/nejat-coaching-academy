@@ -11,9 +11,9 @@ module.exports = {
   siteName: 'Swiss Plus',
 
   theme: {
-    light: '#b40e0b',
-    dark: '#b40e0b',
-    splashBackground: '#b40e0b', // used in manifest
+    light: '#9CF1EC',
+    dark: '#80D5D0',
+    splashBackground: '#80D5D0', // used in manifest
   },
   orientation: 'portrait', // used in manifest
   defaultLocale: 'fa-IR', // used in manifest
