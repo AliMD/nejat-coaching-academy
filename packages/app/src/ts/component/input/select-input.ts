@@ -22,20 +22,16 @@ export class SelectInputComponent extends BaseElement {
   @query('select', true)
   private selectElement_?: HTMLInputElement;
 
-  private value_: string;
   get value() {
-    this.value_ = this.selectElement_!.value;
-    return this.value_;
+    return this.selectElement_?.value;
   }
 
   constructor() {
     super();
 
-    this.value_ = '';
     this.name = 'selectInput';
     this.label = 'select input';
     this.inputDir = 'rtl';
-    this.options = [];
   }
 
 
@@ -52,7 +48,7 @@ export class SelectInputComponent extends BaseElement {
           class="peer text-start appearance-none outline-none
            cursor-pointer bg-transparent block px-4 shadow-sm h-10"
         >
-          ${this.options!.map(item => html`<option value=${item.value}>${item.label}</option>`)}
+          ${this.options?.map(item => html`<option value=${item.value}>${item.label}</option>`)}
         </select>
         <span
           class="pointer-events-none absolute block start-3 top-0 -translate-y-1/2 bg-inherit px-2 text-bodySmall
