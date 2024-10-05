@@ -1,9 +1,10 @@
-import {dayOptions, monthOptions, yearOptions} from '@alwatr/swiss-plus-support-common';
+import {dayOptions, monthOptions} from '@alwatr/swiss-plus-support-common';
 import {html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
 import './select-input.js';
 import {BaseElement} from '../base-element.js';
+import {yearInDateInputCleaveOptions} from './main.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -46,7 +47,6 @@ export class DateInputComponent extends BaseElement {
     this.inputDir = 'rtl';
   }
 
-
   override render() {
     return html`
       <select-input
@@ -61,12 +61,13 @@ export class DateInputComponent extends BaseElement {
         label="ماه"
         .options=${monthOptions}
       ></select-input>
-      <select-input
+      <text-input
         class="basis-3/12"
         name="year"
         label="سال"
-        .options=${yearOptions.map((item) => ({value: item, label: item}))}
-      ></select-input>
+        input-dir="ltr"
+        .cleaveOptions=${yearInDateInputCleaveOptions}
+      ></text-input>
     `;
   }
 }
