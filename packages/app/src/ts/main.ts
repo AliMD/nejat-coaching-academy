@@ -1,4 +1,4 @@
-import './component/admin-agent-form/main.js';
+import './component/admin-agent-form.js';
 import './component/agent-form.js';
 import './component/user-form.js';
 import {logger} from './lib/config.js';

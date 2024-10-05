@@ -10,3 +10,13 @@ export const formDataSaverJsonFSM = new AlwatrJsonFetchStateMachine({
     method: 'PUT',
   } as FetchOptions
 });
+
+export const agentDataSaverJsonFSM = new AlwatrJsonFetchStateMachine({
+  name: 'form-data-saver',
+  initialState: 'initial',
+  fetch: {
+    ...config.fetchOptions,
+    method: 'PUT',
+    url: config.api.adminAgent.save,
+  } as FetchOptions
+});

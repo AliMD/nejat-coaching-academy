@@ -3,15 +3,15 @@ import {renderState} from 'alwatr/nanolib';
 import {html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
+import {BaseElement} from './base-element.js';
 import {agentDataSaverJsonFSM} from './context.js';
-import {logger} from '../../lib/config.js';
-import {BaseElement} from '../base-element.js';
+import {logger} from '../lib/config.js';
 import {
   nationalCodeCleaveOptions,
   phoneCleaveOptions,
   shebaCleaveOptions,
   type SelectProvinceCityInputComponent
-} from '../input/main.js';
+} from './input/main.js';
 
 
 declare global {
