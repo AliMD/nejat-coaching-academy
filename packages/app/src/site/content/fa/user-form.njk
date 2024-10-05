@@ -3,17 +3,15 @@ title: فرم کاربران
 navId: user-form
 ---
 
-<div class="fixed top-0 left-0 right-0 z-below">
-  <img class="w-full h-auto aspect-[1/1.28]" src="/img/banner1.jpeg" alt="swiss plus concept product" />
-</div>
-
-<main class="flex flex-col pt-[95%] min-h-screen-safe dark">
-  <div class="bg-surface py-8 px-8 rounded-t-[2rem] grow">
-    <img class="w-56 h-auto invert pb-8 ml-auto mr-auto" src="/img/logo.png" alt="Swiss Plus" />
-    <div class="mb-6">
-      <h1 class="text-2xl font-bold text-primary mb-3">{{ title }}</h1>
-      <p class="text-sm">توضیحات</p>
-    </div>
-    <user-form></user-form>
-  </div>
+<main class="bg-surface text-onSurface px-8 py-6 rounded-t-[2rem] grow flex flex-col gap-6">
+  <img class="w-48 h-auto invert ml-auto mr-auto aspect-[524/79]" src="/img/logo.png" alt="Swiss Plus Logotype" />
+  <h1 class="text-titleLarge text-primary mt-4">فرم تکمیل گارانتی</h1>
+  <p class="text-bodyMedium">
+    با تکمیل این فرم، شما می‌توانید گارانتی دستگاه خریداری شده خود را به ۳۶ ماه افزایش دهید!
+    </br/>
+    لطفاً اطلاعات مربوط به دستگاه خود را با دقت وارد کنید تا از خدمات گارانتی بهره‌مند شوید.
+    </br/>
+    پس از ارسال فرم، تیم پشتیبانی ما اطلاعات شما را بررسی کرده و گارانتی شما را تمدید خواهد کرد.
+  </p>
+  <user-form></user-form>
 </main>
