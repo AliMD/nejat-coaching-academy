@@ -66,7 +66,6 @@ export class UserFormComponent extends BaseElement {
   }
 
   protected renderInitialStateTemplate_() {
-
     return html`
       <text-input
         input-dir="ltr"
@@ -75,15 +74,17 @@ export class UserFormComponent extends BaseElement {
         .cleaveOptions=${serialCleaveOptions}
       ></text-input>
 
-      <text-input label="نام" name="firstName"></text-input>
-      <text-input label="نام خانوادگی" name="lastName"></text-input>
+      <div class="flex gap-3">
+        <text-input class="basis-2/5" label="نام" name="firstName"></text-input>
+        <text-input class="basis-3/5" label="نام خانوادگی" name="lastName"></text-input>
+      </div>
 
       <text-input
-          input-dir="ltr"
-          label="شماره همراه"
-          name="cellPhoneNumber"
-          .cleaveOptions=${phoneCleaveOptions}
-        ></text-input>
+        input-dir="ltr"
+        label="شماره همراه"
+        name="cellPhoneNumber"
+        .cleaveOptions=${phoneCleaveOptions}
+      ></text-input>
 
       <date-input label="تاریخ تولد" name="birthDate"></date-input>
 
