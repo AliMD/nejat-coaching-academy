@@ -1,5 +1,5 @@
 import {provinceOptions, type CityItem} from '@alwatr/swiss-plus-support-common';
-import {html} from 'lit';
+import {html, type PropertyValues} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
 import {BaseElement} from '../base-element.js';
@@ -66,5 +66,10 @@ export class SelectProvinceCityInputComponent extends BaseElement {
         .options=${this.cities!.map(item => ({value: item.id, label: item.label}))}
       ></select-input>
     `;
+  }
+
+  protected override firstUpdated(_changedProperties: PropertyValues): void {
+    super.firstUpdated(_changedProperties);
+    this.onProvinceChange_();
   }
 }
