@@ -6,7 +6,7 @@ export const phoneCleaveOptions: CleaveOptions = {
   prefix: '09',
   phone: true,
   phoneRegionCode: 'IR',
-  noImmediatePrefix: true,
+  // noImmediatePrefix: true,
 };
 
 export const shebaCleaveOptions: CleaveOptions = {
@@ -14,14 +14,14 @@ export const shebaCleaveOptions: CleaveOptions = {
   delimiter: ' ',
   blocks: [2, 4, 4, 4, 4, 4, 4],
   uppercase: true,
-  noImmediatePrefix: true,
+  // noImmediatePrefix: true,
   numericOnly: true,
 };
 
 export const serialCleaveOptions: CleaveOptions = {
   prefix: 'SP',
   blocks: [2, 3, 3, 3],
-  noImmediatePrefix: true,
+  // noImmediatePrefix: true,
   uppercase: true,
 };
 
@@ -34,6 +34,7 @@ export const nationalCodeCleaveOptions: CleaveOptions = {
 
 export const yearInDateInputCleaveOptions: CleaveOptions = {
   prefix: '13',
-  noImmediatePrefix: true,
+  blocks: [4],
+  // noImmediatePrefix: true,
   numericOnly: true,
 };
