@@ -1,6 +1,8 @@
 import Cleave from 'cleave.js';
-import {html, LitElement, type PropertyValues} from 'lit';
+import {html, type PropertyValues} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
+
+import {BaseElement} from '../base-element.js';
 
 import type {CleaveOptions} from 'cleave.js/options';
 
@@ -11,7 +13,7 @@ declare global {
 }
 
 @customElement('text-input')
-export class TextInputComponent extends LitElement {
+export class TextInputComponent extends BaseElement {
   @property() label: string;
   @property() name: string;
   @property({attribute: false}) cleaveOptions?: CleaveOptions;

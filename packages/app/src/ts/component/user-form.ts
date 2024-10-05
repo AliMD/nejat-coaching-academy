@@ -37,13 +37,10 @@ export class UserFormComponent extends LitElement {
   private onSubmit_() {
     const {cityId, provinceId} = this.renderRoot.querySelector<SelectProvinceCityInputComponent>('select-province-city-input')!.value;
 
-    const invoiceSerial = this.renderRoot.querySelector<HTMLInputElement>('text-input[name="invoiceSerial"]')!.value
-      .substring(serialCleaveOptions.prefix?.length ?? 0); // e.g. Remove `SP` from `invoiceSerial`
-
     const formData = {
       cityId,
       provinceId,
-      invoiceSerial,
+      deviceSerial: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="deviceSerial"]')!.value,
       firstName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="firstName"]')!.value,
       lastName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="lastName"]')!.value,
       cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
@@ -76,8 +73,8 @@ export class UserFormComponent extends LitElement {
     return html`
       <text-input
         input-dir="ltr"
-        label="سریال فاکتور"
-        name="invoiceSerial"
+        label="سریال دستگاه"
+        name="deviceSerial"
         .cleaveOptions=${serialCleaveOptions}
       ></text-input>
 

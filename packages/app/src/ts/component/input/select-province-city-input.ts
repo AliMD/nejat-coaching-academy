@@ -1,6 +1,8 @@
 import {provinceOptions, type CityItem, type ProvinceItem} from '@alwatr/swiss-plus-support-common';
-import {html, LitElement} from 'lit';
+import {html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
+
+import {BaseElement} from '../base-element.js';
 
 
 declare global {
@@ -10,7 +12,7 @@ declare global {
 }
 
 @customElement('select-province-city-input')
-export class SelectProvinceCityInputComponent extends LitElement {
+export class SelectProvinceCityInputComponent extends BaseElement {
   @property({type: String, attribute: 'dir'}) inputDir: 'ltr' | 'rtl';
   @property({type: Array, state: true}) cities?: CityItem[];
 
@@ -51,7 +53,7 @@ export class SelectProvinceCityInputComponent extends LitElement {
       return;
     }
 
-    this.cities = [...selectedProvince.cities];
+    this.cities = selectedProvince.cities;
   }
 
   override render() {
@@ -70,7 +72,6 @@ export class SelectProvinceCityInputComponent extends LitElement {
           class="peer w-full text-right appearance-none outline-none
            cursor-pointer bg-transparent inline-block px-4 rounded-md shadow-sm h-10"
         >
-          <option>انتخاب استان</option>
           ${Object.values(provinceOptions).map(item => html`<option value=${item.id}>${item.label}</option>`)}
         </select>
         <span
@@ -90,7 +91,6 @@ export class SelectProvinceCityInputComponent extends LitElement {
           class="peer w-full text-right appearance-none outline-none
            cursor-pointer bg-transparent inline-block px-4 rounded-md shadow-sm h-10"
         >
-          <option>انتخاب شهر</option>
           ${this.cities!.map(item => html`<option value=${item.id}>${item.label}</option>`)}
         </select>
         <span

@@ -1,7 +1,8 @@
-import {html, LitElement} from 'lit';
+import {html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
 import {fileUploaderJsonFSM} from './context.js';
+import {BaseElement} from '../base-element.js';
 import {snackbarSignal} from '../snackbar/main.js';
 
 declare global {
@@ -11,7 +12,7 @@ declare global {
 }
 
 @customElement('file-uploader')
-export class FileUploaderComponent extends LitElement {
+export class FileUploaderComponent extends BaseElement {
   @property() renderState: typeof fileUploaderJsonFSM.state;
 
   @query('input[type="file"]')

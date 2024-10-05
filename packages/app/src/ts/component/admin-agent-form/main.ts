@@ -1,10 +1,11 @@
 import {validateNationalCode, type AdminAgentFormData} from '@alwatr/swiss-plus-support-common';
 import {renderState} from 'alwatr/nanolib';
-import {html, LitElement} from 'lit';
+import {html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 import {agentDataSaverJsonFSM} from './context.js';
 import {logger} from '../../lib/config.js';
+import {BaseElement} from '../base-element.js';
 import {
   nationalCodeCleaveOptions,
   phoneCleaveOptions,
@@ -20,7 +21,7 @@ declare global {
 }
 
 @customElement('admin-agent-form')
-export class AdminAgentFormComponent extends LitElement {
+export class AdminAgentFormComponent extends BaseElement {
   @property() renderState: typeof agentDataSaverJsonFSM.state;
 
   private formData__: AdminAgentFormData;

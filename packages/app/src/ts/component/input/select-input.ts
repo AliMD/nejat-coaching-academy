@@ -1,5 +1,7 @@
-import {html, LitElement} from 'lit';
+import {html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
+
+import {BaseElement} from '../base-element.js';
 
 import type {SelectOptionItem} from '@alwatr/swiss-plus-support-common';
 
@@ -10,7 +12,7 @@ declare global {
 }
 
 @customElement('select-input')
-export class SelectInputComponent extends LitElement {
+export class SelectInputComponent extends BaseElement {
   @property() label: string;
   @property() name: string;
   @property({attribute: false}) options?: SelectOptionItem[];
@@ -52,7 +54,6 @@ export class SelectInputComponent extends LitElement {
           class="peer w-full text-right appearance-none outline-none
            cursor-pointer bg-transparent inline-block px-4 rounded-md shadow-sm h-10"
         >
-          <option>انتخاب کنید</option>
           ${this.options!.map(item => html`<option value=${item.value}>${item.label}</option>`)}
         </select>
         <span

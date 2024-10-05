@@ -1,14 +1,14 @@
 import {renderState} from 'alwatr/nanolib';
-import {html, LitElement} from 'lit';
+import {html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
+import {BaseElement} from './base-element.js';
 import {formDataSaverJsonFSM} from './context.js';
 import './file-uploader/main.js';
 import {nationalCodeCleaveOptions, phoneCleaveOptions, serialCleaveOptions} from './input/main.js';
 import {config, logger} from '../lib/config.js';
 
 import type {AgentFormData} from '@alwatr/swiss-plus-support-common';
-
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -17,7 +17,7 @@ declare global {
 }
 
 @customElement('agent-form')
-export class AgentFormComponent extends LitElement {
+export class AgentFormComponent extends BaseElement {
   @property() renderState: typeof formDataSaverJsonFSM.state;
 
   private formData_: AgentFormData;

@@ -1,8 +1,9 @@
 import {dayOptions, monthOptions, yearOptions} from '@alwatr/swiss-plus-support-common';
-import {html, LitElement} from 'lit';
+import {html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
 import './select-input.js';
+import {BaseElement} from '../base-element.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -11,7 +12,7 @@ declare global {
 }
 
 @customElement('date-input')
-export class DateInputComponent extends LitElement {
+export class DateInputComponent extends BaseElement {
   @property() label: string;
   @property() name: string;
   @property({type: String, attribute: 'input-dir'}) inputDir: 'ltr' | 'rtl';
