@@ -83,7 +83,6 @@ export class UserFormComponent extends BaseElement {
         input-dir="ltr"
         label="شماره همراه"
         name="cellPhoneNumber"
-        type="number"
         .cleaveOptions=${phoneCleaveOptions}
       ></text-input>
 

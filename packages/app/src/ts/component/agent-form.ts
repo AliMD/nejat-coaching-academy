@@ -79,7 +79,6 @@ export class AgentFormComponent extends BaseElement {
           input-dir="ltr"
           label="شماره همراه"
           name="cellPhoneNumber"
-          type="number"
           .cleaveOptions=${phoneCleaveOptions}
         ></text-input>
 
