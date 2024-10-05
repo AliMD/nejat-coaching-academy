@@ -48,6 +48,7 @@ export class SelectInputComponent extends BaseElement {
       >
         <select
           name=${this.name}
+          @change=${() => this.dispatchEvent(new CustomEvent('input-change'))}
           class="peer w-full text-right appearance-none outline-none
            cursor-pointer bg-transparent inline-block px-4 rounded-md shadow-sm h-10"
         >
