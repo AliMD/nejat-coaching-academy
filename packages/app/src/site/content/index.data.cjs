@@ -1,5 +1,5 @@
 module.exports = {
-  layout: 'fancy',
+  layout: 'fancy-form',
   permalink: '{{ page.filePathStem }}.html',
   title: 'پشتیبانی نمایندگان سوئیس پلاس',
   locale: 'fa-IR',
