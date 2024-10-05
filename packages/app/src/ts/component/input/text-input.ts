@@ -18,31 +18,28 @@ export class TextInputComponent extends BaseElement {
   @property() name: string;
   @property({attribute: false}) cleaveOptions?: CleaveOptions;
   @property({type: String, attribute: 'input-dir'}) inputDir: 'ltr' | 'rtl';
+  @property() type: 'text' | 'number';
 
   @query('input[type="text"]', true)
   private inputElement_?: HTMLInputElement;
 
   private cleaveInstance_?: Cleave;
 
-  private value_: string;
   get value() {
     if (this.cleaveInstance_ === undefined) {
-      this.value_ = this.inputElement_!.value;
-    }
-    else {
-      this.value_ = this.cleaveInstance_.getRawValue();
+      return this.inputElement_!.value;
     }
 
-    return this.value_;
+    return this.cleaveInstance_.getRawValue();
   }
 
   constructor() {
     super();
 
-    this.value_ = '';
     this.name = 'textField';
     this.label = 'text field';
     this.inputDir = 'rtl';
+    this.type = 'text';
   }
 
 
@@ -54,7 +51,7 @@ export class TextInputComponent extends BaseElement {
          focus-within:ring-2 focus-within:ring-primary transition-shadow duration-100"
       >
         <input
-          type="text"
+          type=${this.type}
           dir=${this.inputDir}
           name=${this.name}
           placeholder=${this.label}
