@@ -1,9 +1,10 @@
 import {delay} from 'alwatr/nanolib';
-import {html, LitElement, nothing, type PropertyValues, type TemplateResult} from 'lit';
+import {html, nothing, type PropertyValues, type TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
 import {snackbarActionButtonClickedSignal} from './signal.js';
 import {logger} from '../../lib/config.js';
+import {BaseElement} from '../base-element.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -12,7 +13,7 @@ declare global {
 }
 
 @customElement('snack-bar')
-export class SnackbarComponent extends LitElement {
+export class SnackbarComponent extends BaseElement {
   @property({type: String}) content = '';
   @property({type: String, attribute: 'action-button-label'}) actionButtonLabel: string | null = null;
   @property({type: Boolean, attribute: 'add-close-button'}) addCloseButton = false;
@@ -31,9 +32,6 @@ export class SnackbarComponent extends LitElement {
     });
   }
 
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    return this;
-  }
 
   /**
    * Close element and remove it from the DOM.

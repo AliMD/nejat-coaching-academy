@@ -7,4 +7,8 @@ export class BaseElement extends LitElement {
     super();
     this.className = `${this.customClass} ${this.className}`;
   }
+
+  protected override createRenderRoot(): HTMLElement | DocumentFragment {
+    return this;
+  }
 }

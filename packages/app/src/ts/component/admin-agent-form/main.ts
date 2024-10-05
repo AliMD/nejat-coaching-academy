@@ -33,10 +33,6 @@ export class AdminAgentFormComponent extends BaseElement {
     this.renderState = 'initial';
   }
 
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    return this;
-  }
-
   override connectedCallback(): void {
     super.connectedCallback();
 

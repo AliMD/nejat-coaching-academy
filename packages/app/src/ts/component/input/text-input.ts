@@ -45,9 +45,6 @@ export class TextInputComponent extends BaseElement {
     this.inputDir = 'rtl';
   }
 
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    return this;
-  }
 
   override render() {
     return html`

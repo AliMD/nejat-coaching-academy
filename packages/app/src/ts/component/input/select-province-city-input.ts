@@ -43,10 +43,6 @@ export class SelectProvinceCityInputComponent extends BaseElement {
     this.cities = [];
   }
 
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    return this;
-  }
-
   protected onProvinceChange_(selectedProvince?: ProvinceItem) {
     if (selectedProvince === undefined) {
       this.cities = [];

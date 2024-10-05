@@ -29,10 +29,6 @@ export class AgentFormComponent extends BaseElement {
     this.renderState = 'initial';
   }
 
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    return this;
-  }
-
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -42,18 +38,12 @@ export class AgentFormComponent extends BaseElement {
   }
 
   private onSubmit_() {
-    const deviceSerial = this.renderRoot.querySelector<HTMLInputElement>('text-input[name="deviceSerial"]')!.value
-      .substring(serialCleaveOptions.prefix?.length ?? 0); // e.g. Remove `SP` from `invoiceSerial`
-
-    const invoiceSerial = this.renderRoot.querySelector<HTMLInputElement>('text-input[name="invoiceSerial"]')!.value
-      .substring(serialCleaveOptions.prefix?.length ?? 0); // e.g. Remove `SP` from `invoiceSerial`
-
     this.formData_ = {
       ...this.formData_,
       cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
       nationalCode: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="nationalCode"]')!.value,
-      deviceSerial,
-      invoiceSerial,
+      deviceSerial: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="deviceSerial"]')!.value,
+      invoiceSerial: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="invoiceSerial"]')!.value,
     };
 
     logger.logMethodArgs?.('onSubmit_', {formData: this.formData_});

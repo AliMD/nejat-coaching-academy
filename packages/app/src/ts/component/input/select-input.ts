@@ -38,9 +38,6 @@ export class SelectInputComponent extends BaseElement {
     this.options = [];
   }
 
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    return this;
-  }
 
   override render() {
     return html`

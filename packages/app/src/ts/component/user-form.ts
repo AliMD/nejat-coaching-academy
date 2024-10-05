@@ -1,7 +1,8 @@
 import {renderState} from 'alwatr/nanolib';
-import {html, LitElement} from 'lit';
+import {html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 
+import {BaseElement} from './base-element.js';
 import {formDataSaverJsonFSM} from './context.js';
 import {config, logger} from '../lib/config.js';
 import './input/main.js';
@@ -14,16 +15,12 @@ declare global {
 }
 
 @customElement('user-form')
-export class UserFormComponent extends LitElement {
+export class UserFormComponent extends BaseElement {
   @property() renderState: typeof formDataSaverJsonFSM.state;
 
   constructor() {
     super();
     this.renderState = 'initial';
-  }
-
-  protected override createRenderRoot(): HTMLElement | DocumentFragment {
-    return this;
   }
 
   override connectedCallback(): void {
