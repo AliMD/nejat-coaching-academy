@@ -50,7 +50,7 @@ export class TextInputComponent extends BaseElement {
     return html`
       <label
         for=${this.name}
-        class="relative mt-4 block rounded ring-1 ring-outline bg-surface focus-within:border-primary
+        class="relative block rounded-lg ring-1 ring-outline bg-surface focus-within:border-primary
          focus-within:ring-2 focus-within:ring-primary transition-shadow duration-100"
       >
         <input
@@ -64,8 +64,8 @@ export class TextInputComponent extends BaseElement {
         />
         <span
           class="pointer-events-none absolute block start-3 top-0 -translate-y-1/2 bg-inherit px-2 text-bodySmall
-           text-onSurfaceVariant transition-all duration-150 peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-bodyLarge
-            peer-focus:top-0 peer-focus:text-bodySmall peer-focus:text-primary"
+            text-onSurfaceVariant transition-all duration-150 peer-placeholder-shown:top-1/2
+            peer-placeholder-shown:text-bodyLarge peer-focus:top-0 peer-focus:text-bodySmall peer-focus:text-primary"
         >${this.label}</span>
       </label>
     `;
@@ -78,6 +78,5 @@ export class TextInputComponent extends BaseElement {
       // TODO: Define necessary properties to set dynamically.
       this.cleaveInstance_ = new Cleave(this.inputElement_!, this.cleaveOptions);
     }
-
   }
 }
