@@ -1,6 +1,6 @@
 FROM ghcr.io/alwatr/node:22 AS builder
 
-# RUN set -ex; apk add --no-cache git
+RUN set -ex; apk add --no-cache git
 RUN set -ex; corepack enable;
 
 COPY . .
