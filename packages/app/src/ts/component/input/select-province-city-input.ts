@@ -1,5 +1,5 @@
 import {provinceOptions, type CityItem} from '@alwatr/swiss-plus-support-common';
-import {html, type PropertyValues} from 'lit';
+import {html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 
 import {BaseElement} from '../base-element.js';
