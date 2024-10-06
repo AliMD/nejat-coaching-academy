@@ -12,8 +12,8 @@ packageTracer.add(__package_name__, __package_version__);
  * ```
  */
 
-const srvBaseUrl = localJsonStorage.getItem<{url: string}>('debugApi', {url: 'http://localhost:8000/'}, 1).url;
-const apiBaseUrl = srvBaseUrl + 'api/v0/';
+const srvBaseUrl = localJsonStorage.getItem<{url: string}>('debugApi', {url: '/'}, 1).url;
+const apiBaseUrl = srvBaseUrl + 'api/v1/';
 
 export const config = {
   api: {
