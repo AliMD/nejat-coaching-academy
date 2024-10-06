@@ -17,6 +17,11 @@ export const config = {
     duration: '1y',
   },
 
+  upload: {
+    basePath: './upload/',
+    // TODO: fileSizeLimit: 0,
+  },
+
   nitrobase: {
     rootPath: './db',
     defaultChangeDebounce: 2_000, // for demo
@@ -26,6 +31,18 @@ export const config = {
     usersCollection: {
       name: 'user-info',
       region: Region.PerUser,
+      type: StoreFileType.Collection,
+    },
+
+    agentsCollection: {
+      name: 'agent-info',
+      region: Region.PerUser,
+      type: StoreFileType.Collection,
+    },
+
+    fileMetaCollection: {
+      name: 'file-meta',
+      region: Region.Secret,
       type: StoreFileType.Collection,
     },
   },

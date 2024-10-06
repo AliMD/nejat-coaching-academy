@@ -1,4 +1,4 @@
-@apiUrl = http://localhost:8000
+@apiUrl = http://localhost:8000/api/v0
 
 # @userId = user_id
 # @userToken = user_token
@@ -7,3 +7,28 @@
 
 ### api home
 GET {{apiUrl}}/
+
+###
+
+PUT {{apiUrl}}/agent/save
+Content-Type: application/json
+
+{
+  "fullName": "Test Testi",
+  "nationalCode": "522222222"
+}
+
+###
+
+PUT {{apiUrl}}/admin/agent/new
+Content-Type: application/json
+
+{
+  "firstName": "تست",
+  "lastName": "تستی",
+  "phoneNumber": "09156557133",
+  "nationalCode": "5220044699",
+  "shebaCode": "IR2020202020202020202020",
+  "provinceId": "1",
+  "cityId": "1"
+}
