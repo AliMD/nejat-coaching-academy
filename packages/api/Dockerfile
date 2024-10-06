@@ -20,7 +20,7 @@ LABEL org.opencontainers.image.base.name="ghcr.io/alwatr/node:22"
 COPY --from=builder /app/packages/api/dist/ .
 RUN set -ex; \
   corepack enable; \
-  npm install -g sharp;
+  npm install sharp;
 # RUN set -eux; ls -RlahF /app;
 
 # ENV NODE_OPTIONS --enable-source-maps
