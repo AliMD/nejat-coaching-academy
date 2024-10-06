@@ -9,8 +9,13 @@ if (process.env.NODE_ENV === 'production') {
   if (process.env.tokenGeneratorSecret == null) {
     throw new Error('tokenGeneratorSecret is required in production');
   }
+
   if (process.env.dbPath == null) {
     throw new Error('dbPath is required in production');
+  }
+
+  if (process.env.uploadPath == null) {
+    throw new Error('uploadPath is required in production');
   }
 }
 
@@ -21,7 +26,7 @@ export const config = {
   },
 
   upload: {
-    basePath: './upload/',
+    basePath: process.env.uploadPath ?? './upload/',
     // TODO: fileSizeLimit: 0,
   },
 
