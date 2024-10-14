@@ -1,4 +1,4 @@
-import {dayOptions, monthOptions} from '@alwatr/swiss-plus-support-common';
+import {dayOptions, monthOptions} from 'common';
 import {html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 

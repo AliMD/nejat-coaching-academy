@@ -3,8 +3,6 @@ import {customElement, property, query} from 'lit/decorators.js';
 
 import {BaseElement} from '../base-element.js';
 
-import type {SelectOptionItem} from '@alwatr/swiss-plus-support-common';
-
 declare global {
   interface HTMLElementTagNameMap {
     'select-input': SelectInputComponent;

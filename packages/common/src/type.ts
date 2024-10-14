@@ -1,5 +1,5 @@
 declare global {
-  interface User {
+  type User = {
     firstName: string;
     lastName: string;
     cellPhoneNumber: string;
@@ -13,7 +13,7 @@ declare global {
 
   type UserFormData = User & { deviceSerial: string; provinceId: string; cityId: string; };
 
-  interface AgentFormData {
+  type AgentFormData = {
     cellPhoneNumber: string;
     nationalCode: string;
     invoiceSerial: string;
@@ -29,7 +29,7 @@ declare global {
   };
 
 
-  interface CityItem {
+  type CityItem = {
     id: string;
     label: string;
     slug: string;

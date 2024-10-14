@@ -1,6 +1,6 @@
 import {join} from 'path';
 
-import {writeFile} from '@alwatr/node-fs';
+import {writeFile} from 'alwatr/nanolib/node-fs';
 import sharp from 'sharp';
 
 import {config, logger} from '../lib/config.js';

@@ -39,7 +39,7 @@ export class UserFormComponent extends AbstractFormElement {
     logger.logMethodArgs?.('onSubmit_', {formData});
 
     formDataSaverJsonFSM.request({
-      url: config.api.user.save,
+      url: config.api.saveUser,
       bodyJson: formData,
     });
   }

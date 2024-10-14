@@ -1,4 +1,4 @@
-import {provinceOptions, type CityItem} from '@alwatr/swiss-plus-support-common';
+import {provinceOptions} from 'common';
 import {html} from 'lit';
 import {customElement, property, query} from 'lit/decorators.js';
 

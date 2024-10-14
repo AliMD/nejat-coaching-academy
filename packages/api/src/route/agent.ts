@@ -5,8 +5,6 @@ import {nanotronApiServer} from '../lib/server.js';
 import {parseBodyAsJson} from '../pre-handler/parse-request-body.js';
 import {sanitizeNumbers} from '../pre-handler/sanitize-numbers.js';
 
-import type {AgentFormData} from '@alwatr/swiss-plus-support-common';
-
 nanotronApiServer.defineRoute<{body: AgentFormData}>({
   method: 'PUT',
   url: '/save-agent',

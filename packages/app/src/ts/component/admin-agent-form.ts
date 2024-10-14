@@ -1,4 +1,4 @@
-import {validateNationalCode, type AdminAgentFormData} from '@alwatr/swiss-plus-support-common';
+import {validateNationalCode} from 'common';
 import {html} from 'lit';
 import {customElement} from 'lit/decorators.js';
 

@@ -7,8 +7,6 @@ import './file-uploader.js';
 import {nationalCodeCleaveOptions, phoneCleaveOptions, deviceSerialCleaveOptions, invoiceSerialCleaveOptions} from './input/main.js';
 import {config, logger} from '../lib/config.js';
 
-import type {AgentFormData} from '@alwatr/swiss-plus-support-common';
-
 declare global {
   interface HTMLElementTagNameMap {
     'agent-form': AgentFormComponent;
