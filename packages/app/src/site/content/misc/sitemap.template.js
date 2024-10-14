@@ -1,9 +1,7 @@
 class Sitemap {
   data() {
     return {
-      layout: false,
       permalink:' /error-404.html',
-      eleventyExcludeFromCollections: true,
     };
   }
 

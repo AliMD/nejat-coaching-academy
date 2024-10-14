@@ -1,5 +1,5 @@
 {
-  "name": "@alwatr/swiss-plus-support-api",
+  "name": "api",
   "version": "2.0.0-alpha.0",
   "baseVersion": "2.0.0",
   "description": "Weaver is a powerful and flexible framework designed to streamline the development of all websites and web applications within our organization.",
@@ -26,10 +26,6 @@
     ]
   },
   "prettier": "@alwatr/prettier-config",
-  "nano-build-development": {
-    "sourcemap": true,
-    "sourcesContent": true
-  },
   "scripts": {
     "s": "yarn run start",
     "b": "yarn run build",
@@ -51,14 +47,13 @@
     "sharp": "^0.33.5"
   },
   "devDependencies": {
-    "@alwatr/nano-build": "^1.4.0",
-    "@alwatr/node-fs": "^1.1.0",
-    "@alwatr/prettier-config": "^1.0.5",
-    "@alwatr/swiss-plus-support-common": "workspace:^",
-    "@alwatr/tsconfig-base": "^1.3.0",
-    "@alwatr/type-helper": "^2.0.0",
-    "@types/node": "^22.7.4",
+    "@alwatr/nano-build": "^2.0.2",
+    "@alwatr/prettier-config": "^1.0.6",
+    "@alwatr/tsconfig-base": "^1.3.2",
+    "@alwatr/type-helper": "^2.0.2",
+    "@types/node": "^22.7.5",
     "alwatr": "workspace:^",
-    "typescript": "^5.6.2"
+    "common": "workspace:^",
+    "typescript": "^5.6.3"
   }
 }

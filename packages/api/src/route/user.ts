@@ -4,8 +4,7 @@ import {alwatrNitrobase} from '../lib/nitrobase.js';
 import {nanotronApiServer} from '../lib/server.js';
 import {parseBodyAsJson} from '../pre-handler/parse-request-body.js';
 import {sanitizeNumbers} from '../pre-handler/sanitize-numbers.js';
-
-import type {UserFormData} from '@alwatr/swiss-plus-support-common';
+import type {UserFormData} from 'common';
 
 nanotronApiServer.defineRoute<{body: UserFormData}>({
   method: 'PUT',

@@ -1,4 +1,4 @@
-FROM ghcr.io/alwatr/node:22 AS builder
+FROM ghcr.io/alwatr/node:22.9.0 AS builder
 
 RUN set -ex; \
   apk add --no-cache git; \
@@ -14,8 +14,8 @@ RUN set -eux; \
 
 # ---
 
-FROM ghcr.io/alwatr/node:22
-LABEL org.opencontainers.image.base.name="ghcr.io/alwatr/node:22"
+FROM ghcr.io/alwatr/node:22.9.0
+LABEL org.opencontainers.image.base.name="ghcr.io/alwatr/node:22.9.0"
 
 COPY --from=builder /app/packages/api/dist/ .
 RUN set -ex; \
