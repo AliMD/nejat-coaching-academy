@@ -17,7 +17,7 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url); // ESM way to access require
 const windstylePath = require.resolve('@alwatr/windstyle').replace('/dist/main.cjs', '/');
 
-const basePath = 'src/css/'
+const basePath = 'src/css/';
 
 const postCssPlugins = [
   postcssImport({

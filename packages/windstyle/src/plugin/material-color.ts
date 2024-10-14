@@ -62,7 +62,6 @@ export const materialColorPlugin = plugin(({addUtilities, theme}) => {
     } as DictionaryReq<string | DictionaryReq<string>>,
   } as const;
 
-
   const mediaRuleColors = {} as DictionaryReq<string>;
   for (const colorName of materialColorPalletteNames) {
     const colorVarName = `--sys-color-${colorName}`;

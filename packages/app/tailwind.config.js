@@ -38,7 +38,7 @@ export default {
       zIndex: zIndexTheme.zIndex,
       fontFamily: typographyTheme.fontFamily,
       fontSize: typographyTheme.fontSize,
-      colors: materialColorTheme
+      colors: materialColorTheme,
     },
   },
   plugins: [
