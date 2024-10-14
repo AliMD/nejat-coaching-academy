@@ -1,7 +1,7 @@
 class Sitemap {
   data() {
     return {
-      permalink:' /sitemap.xml',
+      permalink: '/sitemap.xml',
     };
   }
 
