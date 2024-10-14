@@ -42,7 +42,7 @@ const imageFilePresetRecord = {
  */
 nanotronApiServer.defineRoute({
   method: 'POST',
-  url: '/file/upload',
+  url: '/upload-image',
   async handler() {
     logger.logMethod?.('defineRoute(`/file/upload`)');
 
