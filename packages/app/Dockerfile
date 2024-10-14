@@ -1,12 +1,21 @@
-FROM ghcr.io/alwatr/node:22.9.0 AS builder
+FROM ghcr.io/alwatr/node:20.18.0 AS builder
 
 RUN apk add --no-cache git;
 RUN set -ex; corepack enable;
 
-ARG siteUrl=${siteUrl}
-ENV siteUrl=${siteUrl}
+COPY package.json yarn.lock ./
+COPY packages/alwatr/package.json packages/alwatr/
+COPY packages/api/package.json packages/api/
+COPY packages/app/package.json packages/app/
+COPY packages/common/package.json packages/common/
+COPY packages/windstyle/package.json packages/windstyle/
+
+RUN yarn install;
 
 COPY . .
+
+ARG siteUrl=${siteUrl}
+ENV siteUrl=${siteUrl}
 
 RUN set -eux; \
   yarn install --immutable; \
