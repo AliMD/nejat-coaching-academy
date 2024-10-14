@@ -1,7 +1,7 @@
 class Sitemap {
   data() {
     return {
-      permalink:' /error-404.html',
+      permalink:' /sitemap.xml',
     };
   }
 
