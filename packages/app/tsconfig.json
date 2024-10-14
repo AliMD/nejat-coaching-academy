@@ -1,0 +1,11 @@
+{
+  "extends": "@alwatr/tsconfig-base/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src/ts",
+    // "outDir": "dist/es",
+    "noEmit": true,
+    "types": ["node", "@alwatr/nano-build", "@alwatr/type-helper", "common"]
+  },
+  "include": ["src/ts/**/*.ts"],
+  "references": [{"path": "../common"}, { "path": "../alwatr" }]
+}

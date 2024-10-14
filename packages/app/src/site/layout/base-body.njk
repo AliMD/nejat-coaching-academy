@@ -1,0 +1,14 @@
+---
+layout: base-html
+---
+
+<body class="color-scheme-auto">
+  {# {% include "bottom-navigation-bar.njk" %} #}
+  {# {% include "navigation-drawer.njk" %} #}
+
+  {{ content | safe }}
+
+  {# {% renderFile "./content/_include/prerender.data.cjs", {
+    collections: collections.all
+  } %} #}
+</body>

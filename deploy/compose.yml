@@ -1,0 +1,152 @@
+networks:
+  internal:
+  alwatr-public-network:
+    name: alwatr-public-network
+    external: true
+
+services:
+  app:
+    image: $appImage
+
+    cpu_count: 1
+    cpu_shares: 1024
+    mem_limit: 256m
+
+    restart: unless-stopped
+
+    networks:
+      alwatr-public-network:
+
+    environment:
+      - NGINX_FORCE_DOMAIN=${appForceDomain:-}
+      - NGINX_ACCESS_LOG=${appAccessLog:-off}
+      - NGINX_DISALLOW_ROBOTS=${appDisallowRobots:-}
+
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '2'
+
+    labels:
+      traefik.enable: true
+      traefik.port: 80
+      traefik.frontend.rule: Host:${appDomains}; PathPrefix:/;
+      traefik.frontend.entryPoints: http, https
+      traefik.frontend.redirect.entryPoint: https
+
+  api:
+    image: $apiImage
+
+    cpu_count: 1
+    cpu_shares: 1024
+    mem_limit: 256m
+
+    stop_grace_period: 30s
+
+    restart: unless-stopped
+
+    networks:
+      alwatr-public-network:
+
+    environment:
+      - dbPath=/data/db
+      - uploadPath=/cdn
+      - tokenGeneratorSecret=${tokenGeneratorSecret}
+      - DEBUG=${apiDebug:-}
+
+    volumes:
+      - type: bind
+        source: ./_data/db
+        target: /db
+        bind:
+          create_host_path: true
+      - type: bind
+        source: ./_data/cdn/
+        target: /cdn
+        bind:
+          create_host_path: true
+
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '2'
+
+    labels:
+      traefik.enable: true
+      traefik.port: 80
+      traefik.frontend.rule: Host:${appDomains}; PathPrefix:/api/v1/;
+      traefik.frontend.entryPoints: http, https
+      traefik.frontend.redirect.entryPoint: https
+
+  db:
+    image: ghcr.io/alwatr/nitrobase-nginx:7.2
+
+    cpu_count: 1
+    cpu_shares: 1024
+    mem_limit: 256m
+
+    restart: unless-stopped
+
+    networks:
+      alwatr-public-network:
+
+    environment:
+      - NGINX_DOCUMENT_ROOT=/db
+      - NGINX_ACCESS_LOG=${dbAccessLog:-off}
+
+    volumes:
+      - type: bind
+        source: ./_data/db
+        target: /db
+        bind:
+          create_host_path: true
+
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '2'
+
+    labels:
+      traefik.enable: true
+      traefik.port: 80
+      traefik.frontend.rule: Host:${appDomains}; PathPrefix:/api/s7/;
+      traefik.frontend.entryPoints: http, https
+      traefik.frontend.redirect.entryPoint: https
+
+  cdn:
+    image: ghcr.io/alwatr/nginx-cdn:2.5.0
+
+    cpu_count: 1
+    cpu_shares: 1024
+    mem_limit: 256m
+
+    restart: unless-stopped
+
+    networks:
+      alwatr-public-network:
+
+    environment:
+      - NGINX_ACCESS_LOG=${cdnAccessLog:-off}
+
+    volumes:
+      - type: bind
+        source: ./_data/cdn/
+        target: /data/cdn
+        bind:
+          create_host_path: true
+
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '2'
+
+    labels:
+      traefik.enable: true
+      traefik.port: 80
+      traefik.frontend.rule: Host:${appDomains}; PathPrefix:/cdn/;
+      traefik.frontend.entryPoints: http, https
+      traefik.frontend.redirect.entryPoint: https

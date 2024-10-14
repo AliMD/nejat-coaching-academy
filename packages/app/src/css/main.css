@@ -1,0 +1,25 @@
+@import 'tailwindcss/base';
+@import 'windstyle/base/custom-media';
+@import 'windstyle/base/normalize';
+@import 'windstyle/base/safe-area-inset';
+@import 'windstyle/base/font-vazirmatn';
+@import 'windstyle/base/scrollbar';
+@import 'windstyle/base/alpine';
+
+@import 'tailwindcss/components';
+@import 'windstyle/component/alwatr-icon';
+@import 'windstyle/component/bottom-navigation-bar';
+@import 'windstyle/component/icon-btn';
+@import 'windstyle/component/navigation-drawer';
+/* @import 'windstyle/component/page-header'; */
+
+@import 'tailwindcss/utilities';
+@import 'windstyle/utility/hide-spin';
+@import 'windstyle/utility/overflow-clip';
+@import 'windstyle/utility/text-ellipsis';
+
+@import './layout/config.css';
+@import './layout/body.css';
+@import './layout/main-container.css';
+
+@import './component/typography-demo.css';
