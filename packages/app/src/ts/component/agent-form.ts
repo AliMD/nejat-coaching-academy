@@ -39,7 +39,7 @@ export class AgentFormComponent extends AbstractFormElement {
     logger.logMethodArgs?.('onSubmit_', {formData: this.formData_});
 
     formDataSaverJsonFSM.request({
-      url: config.api.agent.save,
+      url: config.api.saveAgent,
       bodyJson: this.formData_,
     });
   }

@@ -24,16 +24,18 @@ export class UserFormComponent extends AbstractFormElement {
   }
 
   protected onSubmit_() {
-    const {cityId, provinceId} = this.renderRoot.querySelector<SelectProvinceCityInputComponent>('select-province-city-input')!.value;
+    const selectProvinceCity = this.renderRoot.querySelector<SelectProvinceCityInputComponent>('select-province-city-input')!;
+    const cityId = selectProvinceCity.value!.cityId!;
+    const provinceId = selectProvinceCity.value!.provinceId!;
 
-    const formData = {
+    const formData: UserFormData = {
       cityId,
       provinceId,
       deviceSerial: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="deviceSerial"]')!.value,
       firstName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="firstName"]')!.value,
       lastName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="lastName"]')!.value,
       cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
-      birthDate: this.renderRoot.querySelector<HTMLSelectElement>('date-input')!.value,
+      birthDate: this.renderRoot.querySelector<HTMLSelectElement>('date-input')!.value!, // FIXME: Check the correct type
     };
 
     logger.logMethodArgs?.('onSubmit_', {formData});

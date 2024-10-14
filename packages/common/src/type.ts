@@ -4,14 +4,18 @@ declare global {
     lastName: string;
     cellPhoneNumber: string;
     nationalCode: string;
-    birthDate: {
-      day: string;
-      month: string;
-      year: string;
-    }
+    birthDate: string;
   }
 
-  type UserFormData = User & { deviceSerial: string; provinceId: string; cityId: string; };
+  type UserFormData = {
+    firstName: string;
+    lastName: string;
+    cellPhoneNumber: string;
+    birthDate: string;
+    deviceSerial: string;
+    provinceId: string;
+    cityId: string;
+  };
 
   type AgentFormData = {
     cellPhoneNumber: string;
