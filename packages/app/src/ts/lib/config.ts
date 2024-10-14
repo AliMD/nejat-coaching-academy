@@ -5,15 +5,9 @@ __dev_mode__: packageTracer.add(__package_name__, __package_version__);
 export const logger = /* #__PURE__ */ createLogger(__package_name__)
 logger.logFileModule?.('config');
 
-/**
- * Debug API.
- *
- * ```ts
- * localStorage.setItem('debugApi.v1', JSON.stringify({url: "http://localhost:8000/"}))
- * ```
- */
+let srvBaseUrl = '/';
+__dev_mode__: srvBaseUrl = 'http://localhost:8000';
 
-const srvBaseUrl = '/';
 const apiBaseUrl = resolveUrl(srvBaseUrl, '/api/v1');
 const nitrobase = resolveUrl(srvBaseUrl, '/api/s7');
 const cdnBaseUrl = resolveUrl(srvBaseUrl, '/cdn');
