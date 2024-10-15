@@ -9,29 +9,6 @@ export const phoneCleaveOptions: CleaveOptions = {
   // noImmediatePrefix: true,
 };
 
-export const shebaCleaveOptions: CleaveOptions = {
-  prefix: 'IR',
-  delimiter: ' ',
-  blocks: [2, 4, 4, 4, 4, 4, 4],
-  uppercase: true,
-  // noImmediatePrefix: true,
-  numericOnly: true,
-};
-
-export const deviceSerialCleaveOptions: CleaveOptions = {
-  prefix: 'SP',
-  blocks: [2, 3, 3, 3],
-  // noImmediatePrefix: true,
-  uppercase: true,
-};
-
-export const invoiceSerialCleaveOptions: CleaveOptions = {
-  prefix: 'IV',
-  blocks: [2, 3, 3, 3],
-  // noImmediatePrefix: true,
-  uppercase: true,
-};
-
 export const nationalCodeCleaveOptions: CleaveOptions = {
   numeral: true,
   numericOnly: true,

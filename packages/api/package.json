@@ -21,9 +21,7 @@
     "url": "https://github.com/Alwatr/weaver/issues"
   },
   "nano-build": {
-    "external": [
-      "sharp"
-    ]
+    "external": []
   },
   "prettier": "@alwatr/prettier-config",
   "scripts": {
@@ -42,9 +40,6 @@
     "clean": "rm -rfv dist *.tsbuildinfo",
     "serve": "yarn node --enable-source-maps dist/main.mjs",
     "serve:debug": "yarn node --inspect --enable-source-maps dist/main.mjs"
-  },
-  "dependencies": {
-    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@alwatr/nano-build": "^2.0.2",

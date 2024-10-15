@@ -30,8 +30,7 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --start-interval=1s --
 
 COPY --from=builder /app/packages/api/dist/ .
 RUN set -ex; \
-  corepack enable; \
-  npm install sharp;
+  corepack enable;
 # RUN set -eux; ls -RlahF /app;
 
 # ENV NODE_OPTIONS --enable-source-maps

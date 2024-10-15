@@ -1,5 +1,3 @@
-import type {ProvinceItem} from './types/main.js';
-
 export const monthOptions = [
   { label: 'فروردین', value: '1' },
   { label: 'اردیبهشت', value: '2' },
