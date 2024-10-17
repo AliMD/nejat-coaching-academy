@@ -13,7 +13,7 @@ nanotronApiServer.defineRoute<{body: UserFormData}>({
     logger.logMethodArgs?.('defineRoute(`/save-user`)', {userData: this.sharedMeta.body});
 
     // add new user to the user's collection
-    const usersCollection = await alwatrNitrobase.openCollection<UserFormData>(config.stores.usersCollection);
+    const usersCollection = await alwatrNitrobase.openCollection<DictionaryReq>(config.nitrobase.usersCollection);
 
     const userId = cryptoFactory.generateUserId();
     usersCollection.addItem(userId, this.sharedMeta.body);
