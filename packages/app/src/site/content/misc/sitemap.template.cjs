@@ -5,7 +5,7 @@ class Sitemap {
     };
   }
 
-  render ({collections, config}) {
+  render({collections, config}) {
     let xml = '<?xml version="1.0" encoding="utf-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 
     for (const page of collections.all) {
@@ -21,7 +21,7 @@ class Sitemap {
     xml += '</urlset>\n';
 
     return xml;
-  };
+  }
 }
 
 module.exports = Sitemap;
