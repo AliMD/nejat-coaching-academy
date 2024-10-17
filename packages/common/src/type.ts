@@ -3,6 +3,25 @@ declare global {
     cellPhoneNumber: string;
   };
 
+  type User = {
+    cellPhoneNumber: string;
+    cash: number;
+    courseIds: string[];
+    missionDoneIds: string[];
+    missionIds: string[];
+  }
+
+  type Mission = {
+    id: string;
+    title: string;
+    done?: true;
+    steps: {
+      id: string;
+      title: string;
+      done?: true;
+    }[]
+  }
+
   type CityItem = {
     id: string;
     label: string;
