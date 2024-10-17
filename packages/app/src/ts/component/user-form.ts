@@ -4,8 +4,7 @@ import {customElement} from 'lit/decorators.js';
 import {AbstractFormElement} from './abstract-form.js';
 import {formDataSaverJsonFSM} from './context.js';
 import {config, logger} from '../lib/config.js';
-import './input/main.js';
-import {phoneCleaveOptions, deviceSerialCleaveOptions, type SelectProvinceCityInputComponent} from './input/main.js';
+import {phoneCleaveOptions} from './input/main.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -24,18 +23,8 @@ export class UserFormComponent extends AbstractFormElement {
   }
 
   protected onSubmit_() {
-    const selectProvinceCity = this.renderRoot.querySelector<SelectProvinceCityInputComponent>('select-province-city-input')!;
-    const cityId = selectProvinceCity.value!.cityId!;
-    const provinceId = selectProvinceCity.value!.provinceId!;
-
     const formData: UserFormData = {
-      cityId,
-      provinceId,
-      deviceSerial: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="deviceSerial"]')!.value,
-      firstName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="firstName"]')!.value,
-      lastName: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="lastName"]')!.value,
       cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
-      birthDate: this.renderRoot.querySelector<HTMLSelectElement>('date-input')!.value!, // FIXME: Check the correct type
     };
 
     logger.logMethodArgs?.('onSubmit_', {formData});
@@ -50,41 +39,12 @@ export class UserFormComponent extends AbstractFormElement {
     return html`
       <text-input
         input-dir="ltr"
-        label="سریال دستگاه"
-        name="deviceSerial"
-        .cleaveOptions=${deviceSerialCleaveOptions}
-        class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-        aria-disabled=${this.renderState_ === 'loading'}
-      ></text-input>
-
-      <div
-        class="flex gap-3 first-of-type:aria-disabled:pointer-events-none aria-disabled:opacity-50"
-        aria-disabled=${this.renderState_ === 'loading'}
-      >
-        <text-input class="basis-2/5" label="نام" name="firstName"></text-input>
-        <text-input class="basis-3/5" label="نام خانوادگی" name="lastName"></text-input>
-      </div>
-
-      <text-input
-        input-dir="ltr"
         label="شماره همراه"
         name="cellPhoneNumber"
         .cleaveOptions=${phoneCleaveOptions}
         class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
         aria-disabled=${this.renderState_ === 'loading'}
       ></text-input>
-
-      <date-input
-        label="تاریخ تولد"
-        name="birthDate"
-        class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-        aria-disabled=${this.renderState_ === 'loading'}
-      ></date-input>
-
-      <select-province-city-input
-        class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-        aria-disabled=${this.renderState_ === 'loading'}
-      ></select-province-city-input>
     `;
   }
 }

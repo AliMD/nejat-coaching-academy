@@ -1,37 +1,26 @@
 declare global {
-  type User = {
-    firstName: string;
-    lastName: string;
-    cellPhoneNumber: string;
-    nationalCode: string;
-    birthDate: string;
-  }
-
   type UserFormData = {
-    firstName: string;
-    lastName: string;
     cellPhoneNumber: string;
-    birthDate: string;
-    deviceSerial: string;
-    provinceId: string;
-    cityId: string;
   };
 
-  type AgentFormData = {
+  type User = {
     cellPhoneNumber: string;
-    nationalCode: string;
-    invoiceSerial: string;
-    deviceSerial: string;
-    fileId: number | string;
+    cash: number;
+    courseIds: string[];
+    missionDoneIds: string[];
+    missionIds: string[];
   }
 
-  type AdminAgentFormData = Omit<User, 'birthDate'> & {
+  type Mission = {
     id: string;
-    provinceId: string;
-    cityId: string;
-    shebaCode: string;
-  };
-
+    title: string;
+    done?: true;
+    steps: {
+      id: string;
+      title: string;
+      done?: true;
+    }[]
+  }
 
   type CityItem = {
     id: string;
