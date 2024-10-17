@@ -12,7 +12,7 @@ nanotronApiServer.defineRoute<{body: AgentFormData}>({
   async handler() {
     logger.logMethodArgs?.('defineRoute(`/save-agent`)', {body: this.sharedMeta.body});
 
-    const agentsCollection = await alwatrNitrobase.openCollection<AgentFormData>(config.stores.agentsCollection);
+    const agentsCollection = await alwatrNitrobase.openCollection<AgentFormData>(config.nitrobase.agentsCollection);
 
     // add new agent to the agent's collection
     const agentId = cryptoFactory.generateUserId();

@@ -15,7 +15,7 @@ nanotronApiServer.defineRoute<{body: AdminAgentFormData}>({
     const receivedAgentData = this.sharedMeta.body;
 
     // add new agent to the agent's collection
-    const agentsCollection = await alwatrNitrobase.openCollection<AdminAgentFormData>(config.stores.agentsCollection);
+    const agentsCollection = await alwatrNitrobase.openCollection<AdminAgentFormData>(config.nitrobase.agentsCollection);
     const agentCollectionItems = agentsCollection.items();
 
     let agentItemsIteratorResultObject;

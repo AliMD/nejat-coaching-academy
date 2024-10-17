@@ -34,7 +34,7 @@ export const config = {
   } as CryptoFactoryConfig,
 
   upload: {
-    basePath: env.uploadPath,
+    basePath: env.uploadPath!,
     // TODO: fileSizeLimit: 0,
   },
 

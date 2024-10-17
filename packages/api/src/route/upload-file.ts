@@ -80,7 +80,7 @@ nanotronApiServer.defineRoute({
     await writeFile(absolutePath, buffer.toString());
 
     // TODO: Save data of the file
-    const fileMetaCollection = await alwatrNitrobase.openCollection(config.stores.fileMetaCollection);
+    const fileMetaCollection = await alwatrNitrobase.openCollection(config.nitrobase.fileMetaCollection);
     const fileId = fileMetaCollection.appendItem({
       fileName,
       variants,
