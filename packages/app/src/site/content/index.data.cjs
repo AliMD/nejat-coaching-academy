@@ -1,11 +1,11 @@
 module.exports = {
   layout: 'fancy-form',
   permalink: '{{ page.filePathStem }}.html',
-  title: 'پشتیبانی نمایندگان سوئیس پلاس',
+  title: 'آکادمی کوچینگ نجات',
   locale: 'fa-IR',
   dir: 'rtl',
-  description: 'پشتیبانی نمایندگان سوئیس پلاس',
+  description: 'آکادمی کوچینگ نجات',
   socialImage: '/img/meta/social.jpeg',
   // socialImageAlt: '',
-  tags: ['swiss-plus', 'swiss', 'پشتیبانی', 'نمایندگان'],
+  tags: ['coaching', 'nejat', 'آکادمی', 'کوچینگ', 'نجات'],
 };
