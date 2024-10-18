@@ -1,18 +1,14 @@
 @layer components {
   .bottom-navigation-bar {
-    @apply fixed
-      z-fixed
-      bottom-1
-      pb-safe;
+    @apply fixed z-fixed;
 
     left: calc(0.75rem + var(--safe-area-inset-left));
     right: calc(0.75rem + var(--safe-area-inset-right));
-    /* bottom: calc(0.25rem + var(--safe-area-inset-bottom)); */
+    bottom: calc(0.5rem  + var(--safe-area-inset-bottom));
 
     nav {
       @apply flex
-        h-20
-        rounded-3xl
+        rounded-full
         items-stretch
         bg-surfaceContainer
         text-onSurfaceVariant
@@ -23,6 +19,8 @@
         mx-auto
         cursor-pointer
         select-none;
+
+        /* h-20 */
     }
   }
 }
