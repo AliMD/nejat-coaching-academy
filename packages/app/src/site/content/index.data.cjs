@@ -1,5 +1,5 @@
 module.exports = {
-  layout: 'fancy-form',
+  layout: 'fancy',
   permalink: '{{ page.filePathStem }}.html',
   title: 'آکادمی کوچینگ نجات',
   locale: 'fa-IR',
