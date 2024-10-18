@@ -17,14 +17,14 @@ async function updateInvitingUserData(
 
   const invitingUserData = await findInvitingUser(referralCode);
 
-  if (invitingUserData !== undefined) {
-    usersCollection.mergeItemData(invitingUserData.id, {
-      cash: invitingUserData.cash + 100_000,
-      invitedUserIds: invitingUserData.invitedUserIds.concat(invitedUserId),
-    });
+  if (invitingUserData === undefined || invitingUserData.invitedUserIds.indexOf(invitedUserId) > -1) return;
 
-    usersCollection.save();
-  }
+  usersCollection.mergeItemData(invitingUserData.id, {
+    cash: invitingUserData.cash + 100_000,
+    invitedUserIds: invitingUserData.invitedUserIds.concat(invitedUserId),
+  });
+
+  usersCollection.save();
 }
 
 nanotronApiServer.defineRoute<{body: UserFormData}>({
@@ -52,7 +52,7 @@ nanotronApiServer.defineRoute<{body: UserFormData}>({
     usersCollection.save();
 
     if (this.sharedMeta.body.referralCode !== undefined) {
-      updateInvitingUserData(userId, this.sharedMeta.body.referralCode, usersCollection);
+      await updateInvitingUserData(userId, this.sharedMeta.body.referralCode, usersCollection);
     }
 
     this.serverResponse.replyJson({

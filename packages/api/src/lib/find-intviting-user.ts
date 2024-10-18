@@ -1,12 +1,14 @@
 import {config, logger} from './config.js';
 import {alwatrNitrobase} from './nitrobase.js';
 
-import type { CollectionItem } from 'alwatr/nitrobase';
+import type { CollectionItem, CollectionReference } from 'alwatr/nitrobase';
 
-export async function findInvitingUser(referralCode: string): Promise<User | undefined> {
+export async function findInvitingUser(referralCode: string, usersCollection?: CollectionReference<User>): Promise<User | undefined> {
   logger.logMethodArgs?.('updateInvitingUserData', {referralCode});
 
-  const usersCollection = await alwatrNitrobase.openCollection<User>(config.nitrobase.usersCollection);
+  if (usersCollection === undefined) {
+    usersCollection = await alwatrNitrobase.openCollection<User>(config.nitrobase.usersCollection);
+  }
 
   const usersCollectionItems = usersCollection.items();
 
@@ -14,9 +16,7 @@ export async function findInvitingUser(referralCode: string): Promise<User | und
   while ((userItemsIteratorResultObject = usersCollectionItems.next()).done === false) {
     const _userItem = userItemsIteratorResultObject.value.data;
 
-    if (_userItem.referralCode !== referralCode) {
-      continue;
-    }
+    if (_userItem.referralCode !== referralCode) continue;
 
     userItemsIteratorResultObject = {...userItemsIteratorResultObject, done: true};
     break;
