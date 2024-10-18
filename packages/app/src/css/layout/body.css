@@ -1,13 +1,9 @@
 @layer base {
   body {
-    @apply flex
-      flex-col
+    @apply break-words
       touch-pan-x
       touch-pan-y
       touch-pinch-zoom
-      break-words
-      bg-surface
-      font-vazirmatn
       text-bodyMedium
       text-onBackground
       p-safe
