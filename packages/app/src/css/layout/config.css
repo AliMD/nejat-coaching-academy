@@ -1,6 +1,6 @@
 @layer base {
   :root {
-    --sys-scrollbar-size: 0.2rem;
+    --sys-scrollbar-size: 0rem;
     /* --comp-page-header-height: 4rem; */
   }
 }
