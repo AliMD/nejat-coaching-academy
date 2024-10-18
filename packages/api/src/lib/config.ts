@@ -55,18 +55,6 @@ export const config = {
       region: Region.PerUser,
       type: StoreFileType.Collection,
     } as StoreFileStat,
-
-    agentsCollection: {
-      name: 'agent-info',
-      region: Region.PerUser,
-      type: StoreFileType.Collection,
-    } as StoreFileStat,
-
-    fileMetaCollection: {
-      name: 'file-meta',
-      region: Region.Secret,
-      type: StoreFileType.Collection,
-    } as StoreFileStat,
   } as const,
 
   fetchOptions: {
