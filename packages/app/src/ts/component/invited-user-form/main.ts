@@ -3,7 +3,7 @@ import {html} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 
 import {BaseElement} from '../base-element.js';
-import './../user-form.js';
+import '../user-form.js';
 import {getInvitingUserDataJsonFSM} from './context.js';
 import { getReferralCodeFromUrl } from './get-referral-code.js';
 
