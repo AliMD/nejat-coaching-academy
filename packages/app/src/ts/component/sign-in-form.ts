@@ -4,8 +4,8 @@ import {customElement, state} from 'lit/decorators.js';
 
 import {AbstractFormElement} from './abstract-form.js';
 import {formDataSaverJsonFSM} from './context.js';
-import {config, logger} from '../lib/config.js';
-import {phoneCleaveOptions} from './input/main.js';
+import {logger} from '../lib/config.js';
+// import {phoneCleaveOptions} from './input/main.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -15,6 +15,8 @@ declare global {
 
 @customElement('sign-in-form')
 export class SignInFormComponent extends AbstractFormElement {
+  override customClass = "hidden";
+
   @state()
   private getReferralCode__ = false;
 
@@ -45,78 +47,114 @@ export class SignInFormComponent extends AbstractFormElement {
     });
   }
 
+  override connectedCallback(): void {
+    super.connectedCallback();
+    setTimeout(() => {
+      this.classList.remove('hidden');
+      this.classList.add('block');
+      document.documentElement.classList.add('overflow-hidden');
+    }, 3000);
+  }
+
   private onCellphoneSubmit__() {
     this.registerUserData!.cellPhoneNumber = this.renderRoot.querySelector<HTMLInputElement>(
-      'text-input[name="cellPhoneNumber"]')!.value;
+      'input[name="cellPhoneNumber"]')!.value;
 
     this.getReferralCode__ = true;
   }
 
   protected onSubmit_() {
     this.registerUserData!.referralCode = this.renderRoot.querySelector<HTMLInputElement>(
-      'text-input[name="referralCode"]')!.value;
+      'input[name="referralCode"]')!.value;
 
     logger.logMethodArgs?.('onSubmit_', {registerUserData: this.registerUserData});
 
-    formDataSaverJsonFSM.request({
-      url: config.api.registerUser,
-      bodyJson: this.registerUserData,
-    });
+    setTimeout(() => {
+      this.renderState_ = 'complete';
+    }, 3000);
+
+    // formDataSaverJsonFSM.request({
+    //   url: config.api.registerUser,
+    //   bodyJson: this.registerUserData,
+    // });
+  }
+
+  private hideTheForm__() {
+    setTimeout(() => {
+      this.setAttribute('aria-hidden', 'true');
+    }, 3000);
   }
 
   protected override renderCompleteStateTemplate_() {
+    this.hideTheForm__();
+
     return html`
-      <div class="bg-surfaceVariant text-primary p-8 text-bodyLarge flex flex-col items-center gap-5 rounded-3xl">
-        <div>اطلاعات با موفقیت ثبت شد.</div>
+      <div class="bg-surfaceVariant text-onSurface p-8 text-bodyLarge flex flex-col items-center gap-5 rounded-3xl">
+        <div>به جمع ما خوش آمدید.</div>
       </div>
-      `;
+    `;
   }
 
   protected renderReferralCodeTemplate_() {
     return html`
-      <text-input
-        input-dir="ltr"
-        label="کد معرف"
+      <h2 class="text-titleLarge text-center">
+        انگار یه چیزی کمه!
+      </h2>
+      <p class="text-bodyLarge text-center">
+        برای عضویت و استفاده از همه امکانات مدرسه ما،
+         به یه کد معرف نیاز داری. از دوستات که قبلا عضو شدن، کدشون رو بگیر و به جمع ما بپیوند! 🎉
+      </p>
+
+      <input
+        type="number"
+        dir="ltr"
         name="referralCode"
-        class="w-32"
-        aria-disabled=${this.renderState_ === 'loading'}
-      ></text-input>
+        autocomplete="off"
+        placeholder="1 2 3 4 5 6"
+        required
+        class="block bg-surface text-center bg-opacity-60 state-onSurface text-bodyLarge
+         p-2.5 mx-6 my-1 w-auto rounded-xl ring-1 ring-outline focus:outline-0 focus:ring-opacity-100"
+      />
+
       <button
         @click=${this.onSubmit_}
-        class="flex items-center justify-center gap-2 h-10 px-6 rounded-3xl cursor-pointer select-none bg-secondary
-          state-onSecondary text-labelLarge elevation-0 hover:elevation-1 active:elevation-0
+        class="mx-6 px-3 py-2.5 rounded-full cursor-pointer select-none bg-primary
+          state-onPrimary text-labelLarge elevation-0 hover:elevation-1 active:elevation-0
           aria-disabled:pointer-events-none aria-disabled:opacity-50 disabled:pointer-events-none disabled:opacity-50"
       >
-        <span>دریافت هدیه</span>
+        عضویت
       </button>
     `;
   }
 
   protected renderGetPhoneTemplate_() {
     return html`
-      <div class="flex flex-col gap-4">
-        <p class="text-bodySmall text-center text-onError-light">
-          توجه داشته باشید در صورتیکه شماره همراه خود رو نادرست وارد کنید، هدیه ای به شما تعلق نخواهد گرفت.
-        </p>
-        <div class="flex gap-3 justify-center">
-          <text-input
-            input-dir="ltr"
-            label="شماره همراه"
-            name="cellPhoneNumber"
-            .cleaveOptions=${phoneCleaveOptions}
-            class="aria-disabled:pointer-events-none aria-disabled:opacity-50"
-            aria-disabled=${this.renderState_ === 'loading'}
-          ></text-input>
-          <button
-            @click=${this.onCellphoneSubmit__}
-            class="flex items-center justify-center gap-2 h-10 px-6 rounded-3xl cursor-pointer select-none bg-secondary
-              state-onSecondary text-labelLarge elevation-0 hover:elevation-1 active:elevation-0
-              aria-disabled:pointer-events-none aria-disabled:opacity-50 disabled:pointer-events-none disabled:opacity-50"
-          >
-            <span>ثبت</span>
-          </button>
-        </div>
-      </div>
+      <h2 class="text-titleLarge text-center">
+        یه قدم تا شروع ماجراجویی!
+      </h2>
+      <p class="text-bodyLarge text-center">
+        لطفا با شماره موبایلت وارد شو تا بتونی ادامه بدی! 🚀
+      </p>
+
+      <input
+        type="tel"
+        dir="ltr"
+        name="cellPhoneNumber"
+        autocomplete="off"
+        value="+98 91"
+        required
+        class="block bg-surface bg-opacity-60 state-onSurface text-bodyLarge p-2.5 mx-6 my-1
+          w-auto rounded-xl ring-1 ring-outline focus:outline-0 focus:ring-opacity-100"
+      />
+
+      <button
+        @click=${this.onCellphoneSubmit__}
+        class="mx-6 px-3 py-2.5 rounded-full cursor-pointer select-none bg-primary
+        state-onPrimary text-labelLarge elevation-0 hover:elevation-1 active:elevation-0
+        aria-disabled:pointer-events-none aria-disabled:opacity-50 disabled:pointer-events-none disabled:opacity-50"
+      >
+        ورود / عضویت
+      </button>
     `;
   }
 
@@ -127,6 +165,11 @@ export class SignInFormComponent extends AbstractFormElement {
   }
 
   protected override renderInitialStateTemplate_() {
-    return this.renderFormTemplate_();
+    return html`
+      <div class="fixed z-popover left-4 right-4 bottom-4 bg-surfaceVariant text-onSurface px-4 pt-6 pb-7 rounded-xl flex flex-col gap-4">
+        ${this.renderFormTemplate_()}
+      </div>
+      <div class="scrim backdrop-blur-sm" opened></div>
+    `;
   }
 }
