@@ -1,6 +1,6 @@
 import {config, logger} from '../lib/config.js';
 import {cryptoFactory} from '../lib/crypto.js';
-import {findInvitingUser} from '../lib/find-intviting-user.js';
+import {findInvitingUser} from '../lib/find-inviting-user.js';
 import {alwatrNitrobase} from '../lib/nitrobase.js';
 import {nanotronApiServer} from '../lib/server.js';
 import {parseBodyAsJson} from '../pre-handler/parse-request-body.js';
@@ -10,8 +10,8 @@ import type { CollectionReference } from 'alwatr/nitrobase';
 
 async function updateInvitingUserData(
   invitedUserId: string,
-  referralCode: string,
-  usersCollection: CollectionReference<User>
+  referralCode: number,
+  usersCollection: CollectionReference<AcademyUser>
 ): Promise<void> {
   logger.logMethodArgs?.('updateInvitingUserData', {invitedUserId, referralCode});
 
@@ -27,18 +27,18 @@ async function updateInvitingUserData(
   usersCollection.save();
 }
 
-nanotronApiServer.defineRoute<{body: UserFormData}>({
+nanotronApiServer.defineRoute<{body: AcademyUserFormData}>({
   method: 'PUT',
-  url: '/save-user',
+  url: '/register-user',
   preHandlers: [parseBodyAsJson, sanitizeNumbers],
   async handler() {
-    logger.logMethodArgs?.('defineRoute(`/save-user`)', {userData: this.sharedMeta.body});
+    logger.logMethodArgs?.('defineRoute(`/register-user`)', {userData: this.sharedMeta.body});
 
-    const usersCollection = await alwatrNitrobase.openCollection<User>(config.nitrobase.usersCollection);
+    const usersCollection = await alwatrNitrobase.openCollection<AcademyUser>(config.nitrobase.usersCollection);
 
     // add new user to the user's collection
     const userId = cryptoFactory.generateUserId();
-    const referralCode = cryptoFactory.generateToken([userId]);
+    const referralCode = 'test';
     usersCollection.addItem(userId, {
       id: userId,
       cellPhoneNumber: this.sharedMeta.body.cellPhoneNumber,
@@ -65,7 +65,7 @@ nanotronApiServer.defineRoute<{body: UserFormData}>({
         invitedCount: 0,
         preRegisterCount: 0,
         registeredCount: 0,
-      } as UserDataAfterSave,
+      } as AcademyUserDataAfterSave,
     });
   },
 });
