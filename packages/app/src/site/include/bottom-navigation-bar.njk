@@ -4,19 +4,19 @@
       {% alwatrIcon "keyboard_arrow_up" %}
     </button>
 
-    <a href="/" class="icon-btn" aria-selected="true">
+    <a href="/" class="icon-btn" aria-selected="{{ navId == 'home' }}">
       {% alwatrIcon "school" %}
     </a>
 
-    <a href="/" class="icon-btn">
+    <a href="/fa/tasks.html" class="icon-btn" aria-selected="{{ navId == 'tasks' }}">
       {% alwatrIcon "add_task" %}
     </a>
 
-    <a href="/" class="icon-btn">
+    <a href="/fa/wallet.html" class="icon-btn" aria-selected="{{ navId == 'wallet' }}">
       {% alwatrIcon "wallet" %}
     </a>
 
-    <a href="/" class="icon-btn">
+    <a href="/fa/contact.html" class="icon-btn" aria-selected="{{ navId == 'contact' }}">
       {% alwatrIcon "call" %}
     </a>
   </nav>
