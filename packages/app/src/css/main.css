@@ -10,7 +10,9 @@
 @import 'windstyle/component/alwatr-icon';
 @import 'windstyle/component/bottom-navigation-bar';
 @import 'windstyle/component/icon-btn';
-@import 'windstyle/component/navigation-drawer';
+@import 'windstyle/component/scrim';
+@import 'windstyle/component/noise';
+/* @import 'windstyle/component/navigation-drawer'; */
 /* @import 'windstyle/component/page-header'; */
 
 @import 'tailwindcss/utilities';
