@@ -8,12 +8,12 @@ function getLastCommitHash() {
 module.exports = {
   siteUrl: env.siteUrl ?? '',
 
-  siteName: 'Swiss Plus',
+  siteName: 'Nejat Academy',
 
   theme: {
-    light: '#9CF1EC',
-    dark: '#80D5D0',
-    splashBackground: '#80D5D0', // used in manifest
+    light: '#004E1D',
+    dark: '#52E576',
+    splashBackground: '#F3FCEF', // used in manifest
   },
   orientation: 'portrait', // used in manifest
   defaultLocale: 'fa-IR', // used in manifest
