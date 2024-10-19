@@ -50,10 +50,10 @@ export const config = {
       rootPath: env.dbPath!,
     } as AlwatrNitrobaseConfig,
 
-    usersCollection: {
+    userInfoDocument: {
       name: 'user-info',
-      region: Region.PerUser,
-      type: StoreFileType.Collection,
+      region: Region.PerOwner,
+      type: StoreFileType.Document,
     } as StoreFileStat,
   } as const,
 

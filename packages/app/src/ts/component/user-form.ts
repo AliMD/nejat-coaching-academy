@@ -37,7 +37,7 @@ export class UserFormComponent extends AbstractFormElement {
   }
 
   protected onSubmit_() {
-    const formData: AcademyUserFormData = {
+    const formData: SignInFormData = {
       cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
     };
 
