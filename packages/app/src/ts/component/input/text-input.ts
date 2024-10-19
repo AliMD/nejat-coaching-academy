@@ -21,7 +21,7 @@ export class TextInputComponent extends BaseElement {
   @property() type: 'text' | 'number';
 
   @query('input[type="text"]', true)
-  private inputElement_?: HTMLInputElement;
+  inputElement_?: HTMLInputElement;
 
   private cleaveInstance_?: Cleave;
 

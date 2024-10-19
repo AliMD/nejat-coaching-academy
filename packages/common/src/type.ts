@@ -1,10 +1,10 @@
 declare global {
-  type UserFormData = {
+  type AcademyUserFormData = {
     cellPhoneNumber: string;
-    referralCode?: string;
+    referralCode: string;
   };
 
-  type User = {
+  type AcademyUser = {
     id: string;
     referralCode: string;
     cellPhoneNumber: string;
@@ -14,7 +14,7 @@ declare global {
     registeredUserIds: string[];
   }
 
-  type UserDataAfterSave = {
+  type AcademyUserDataAfterSave = {
     id: string;
     cellPhoneNumber: string;
     referralCode: string;

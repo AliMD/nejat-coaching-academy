@@ -15,7 +15,7 @@ declare global {
 
 @customElement('user-form')
 export class UserFormComponent extends AbstractFormElement {
-  private userData__?: UserDataAfterSave;
+  private userData__?: AcademyUserDataAfterSave;
 
   constructor() {
     super();
@@ -37,7 +37,7 @@ export class UserFormComponent extends AbstractFormElement {
   }
 
   protected onSubmit_() {
-    const formData: UserFormData = {
+    const formData: AcademyUserFormData = {
       cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
     };
 

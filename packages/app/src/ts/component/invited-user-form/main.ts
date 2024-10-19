@@ -20,7 +20,7 @@ export class InvitedUserFormComponent extends BaseElement {
   @state()
   protected renderState_: ServerRequestState = 'initial';
 
-  private invitingUserData__?: User;
+  private invitingUserData__?: AcademyUser;
 
   constructor() {
     super();

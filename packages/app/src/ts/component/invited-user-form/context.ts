@@ -2,7 +2,7 @@ import {AlwatrJsonFetchStateMachine, type FetchOptions} from 'alwatr/flux';
 
 import {config} from '../../lib/config.js';
 
-export const getInvitingUserDataJsonFSM = new AlwatrJsonFetchStateMachine<User>({
+export const getInvitingUserDataJsonFSM = new AlwatrJsonFetchStateMachine<AcademyUser>({
   name: 'inviting-user-data-fetcher',
   initialState: 'initial',
   fetch: {

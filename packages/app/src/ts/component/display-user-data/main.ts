@@ -18,7 +18,7 @@ export class DisplayUserDataComponent extends BaseElement {
   @state()
   protected renderState_: ServerRequestState = 'initial';
 
-  private userData__?: UserDataAfterSave;
+  private userData__?: AcademyUserDataAfterSave;
 
   override connectedCallback(): void {
     super.connectedCallback();
