@@ -14,7 +14,7 @@ const nitrobase = resolveUrl(srvBaseUrl, '/api/s7');
 export const config = {
   api: {
     base: apiBaseUrl,
-    saveUser: resolveUrl(apiBaseUrl, '/save-user'),
+    registerUser: resolveUrl(apiBaseUrl, '/register-user'),
   } as const,
 
   nitrobase: {
