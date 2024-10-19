@@ -1,0 +1,21 @@
+@layer components {
+  .scrim {
+    @apply pointer-events-none
+      fixed
+      top-0
+      left-0
+      right-0
+      h-screen
+      z-scrim
+      bg-scrim
+      opacity-0
+      bg-opacity-60
+      transition-opacity
+      duration-200
+      will-change-[opacity];
+
+    &[opened] {
+      @apply pointer-events-auto opacity-100;
+    }
+  }
+}
