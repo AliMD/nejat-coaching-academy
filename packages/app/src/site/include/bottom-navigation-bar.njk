@@ -1,11 +1,11 @@
 <footer class="bottom-navigation-bar">
   <nav class="p-2 justify-between">
-    <button class="icon-btn">
-      {% alwatrIcon "keyboard_arrow_up" %}
-    </button>
+    <a href="/fa/about.html" class="icon-btn" aria-selected="{{ navId == 'about' }}">
+      {% alwatrIcon "school" %}
+    </a>
 
     <a href="/" class="icon-btn" aria-selected="{{ navId == 'home' }}">
-      {% alwatrIcon "school" %}
+      {% alwatrIcon "explore" %}
     </a>
 
     <a href="/fa/tasks.html" class="icon-btn" aria-selected="{{ navId == 'tasks' }}">
@@ -16,8 +16,8 @@
       {% alwatrIcon "wallet" %}
     </a>
 
-    <a href="/fa/contact.html" class="icon-btn" aria-selected="{{ navId == 'contact' }}">
-      {% alwatrIcon "call" %}
-    </a>
+    <button class="icon-btn">
+      {% alwatrIcon "keyboard_arrow_up" %}
+    </button>
   </nav>
 </footer>
