@@ -29,10 +29,10 @@ async function updateInvitingUserData(
 
 nanotronApiServer.defineRoute<{body: AcademyUserFormData}>({
   method: 'PUT',
-  url: '/register-user',
+  url: '/sign-in',
   preHandlers: [parseBodyAsJson, sanitizeNumbers],
   async handler() {
-    logger.logMethodArgs?.('defineRoute(`/register-user`)', {userData: this.sharedMeta.body});
+    logger.logMethodArgs?.('defineRoute(`/sign-in`)', {userData: this.sharedMeta.body});
 
     const usersCollection = await alwatrNitrobase.openCollection<AcademyUser>(config.nitrobase.usersCollection);
 

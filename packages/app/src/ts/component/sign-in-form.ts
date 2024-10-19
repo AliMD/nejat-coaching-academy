@@ -9,12 +9,12 @@ import {phoneCleaveOptions} from './input/main.js';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'register-form': RegisterFormComponent;
+    'sign-in-form': SignInFormComponent;
   }
 }
 
-@customElement('register-form')
-export class RegisterFormComponent extends AbstractFormElement {
+@customElement('sign-in-form')
+export class SignInFormComponent extends AbstractFormElement {
   @state()
   private getReferralCode__ = false;
 
