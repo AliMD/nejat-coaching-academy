@@ -11,6 +11,7 @@ declare global {
     phoneNumber: number;
     cash: number;
     invitedUserCount: number;
+    invitingUserIds: string[];
   }
 
   type AuthData = {
@@ -23,6 +24,7 @@ declare global {
   }
 
   type InvitationCodeDocument = {
+    invitingUserId: string;
     invitationCode: number;
   }
 
