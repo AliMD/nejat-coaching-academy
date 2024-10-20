@@ -1,12 +1,9 @@
-import {getStorePath} from '@alwatr/nitrobase-helper';
-import {localJsonStorage, renderState} from 'alwatr/nanolib';
-import { hashString, nitrobaseStats } from 'common';
-import {html, nothing, type PropertyValues} from 'lit';
+import {renderState} from 'alwatr/nanolib';
+import {html, type PropertyValues, type TemplateResult} from 'lit';
 import {customElement, state} from 'lit/decorators.js';
 
 import {BaseElement} from '../base-element.js';
-import { getEntityFSM, signUpUserFSM } from './context.js';
-import { config } from '../../lib/config.js';
+import {singInFormMachine, type SingInFormMachineState} from './fsm.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -20,29 +17,60 @@ export class SignInFormComponent extends BaseElement {
   protected opened = false;
 
   @state()
-  protected renderState_: 'initial' | 'sign_in' | 'sign_up' | 'complete' = 'initial';
+  protected renderState_: SingInFormMachineState = 'initial';
+
+  private formTemplate: unknown;
 
   private formData: SignUpFormData = {
     phoneNumber: '',
     invitationCode: '',
-    password: ''
+    password: '',
+  };
+
+  override connectedCallback(): void {
+    super.connectedCallback();
+    singInFormMachine.subscribe(({state}) => {
+      this.renderState_ = state;
+
+      if (state === 'sign_in_error') {
+        alert('رمز عبور معتبر نیست.');
+      }
+
+      if (state === 'invalid_invitation_code') {
+        alert('کد دعوت معتبر نیست.');
+      }
+
+      if (state === 'sign_up_error') {
+        alert('خطا در ثبت داده ها');
+      }
+
+      if (state === 'complete') {
+        setTimeout(() => {
+          this.opened = false;
+        }, 2_000);
+      }
+    });
   }
 
-  override render() {
-    const content = renderState<unknown, typeof this.renderState_>(
+  override render(): TemplateResult {
+    this.formTemplate = renderState<unknown, typeof this.renderState_>(
       this.renderState_,
       {
         _default: 'initial',
-        initial: () => nothing,
+        initial: this.renderInitialState_,
+        loading: this.renderLoadingState_,
         sign_in: this.renderSignInState_,
+        sign_in_error: 'sign_in',
         sign_up: this.renderSignUpState_,
+        sign_up_error: 'sign_up',
+        invalid_invitation_code: 'sign_up',
         complete: this.renderCompleteState_,
       },
       this,
     );
 
     return html`
-      <div class="sign-in-form" ?opened=${this.opened}>${content}</div>
+      <div class="sign-in-form" ?opened=${this.opened}>${this.formTemplate}</div>
       <div class="scrim backdrop-blur-sm" ?opened=${this.opened}></div>
     `;
   }
@@ -51,15 +79,9 @@ export class SignInFormComponent extends BaseElement {
     super.firstUpdated(_changedProperties);
 
     // check if signed in, remove myself
-    setTimeout(
-      () => {
-        this.renderState_ = 'sign_in';
-        setTimeout(() => {
-          this.opened = true;
-        }, 500);
-      },
-      Math.random() * 5_000 + 3_000,
-    );
+    setTimeout(() => {
+      this.opened = true;
+    }, Math.random() * 5_000 + 3_000);
   }
 
   protected renderInitialState_() {
@@ -83,6 +105,7 @@ export class SignInFormComponent extends BaseElement {
         class="mx-6 px-3 py-2.5 rounded-full cursor-pointer select-none bg-primary
         state-onPrimary text-labelLarge elevation-0 hover:elevation-1 active:elevation-0
         aria-disabled:pointer-events-none aria-disabled:opacity-50 disabled:pointer-events-none disabled:opacity-50"
+        aria-disabled=${this.renderState_ === 'loading'}
       >
         ورود / عضویت
       </button>
@@ -91,8 +114,7 @@ export class SignInFormComponent extends BaseElement {
 
   protected renderSignInState_() {
     return html`
-      <h2 class="text-titleLarge text-center">یه قدم تا شروع ماجراجویی!</h2>
-      <p class="text-bodyLarge text-center">لطفا با شماره موبایلت وارد شو تا بتونی ادامه بدی! 🚀</p>
+      <h2 class="text-titleLarge text-center">یه رمز عبور برای خودت ثبت کن</h2>
 
       <input
         type="number"
@@ -193,52 +215,52 @@ export class SignInFormComponent extends BaseElement {
     `;
   }
 
+  protected renderLoadingState_() {
+    return html`
+      ${this.formTemplate}
+
+      <div
+        role="status"
+        class="flex items-center justify-center gap-2 h-10 px-6 rounded-3xl pointer-events-none select-none
+          bg-surfaceVariant text-onSurfaceVariant text-labelLarge"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 100 101"
+          aria-hidden="true"
+          class="size-6 text-surface text-opacity-20 fill-primary animate-spin"
+        >
+          <path
+            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766
+            22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013
+            91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50
+            9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+            fill="currentColor"
+          />
+          <path
+            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692
+            89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698
+            1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501
+            6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402
+            10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849
+            25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676
+            39.0409Z"
+            fill="currentFill"
+          />
+        </svg>
+        <span>در حال ذخیره...</span>
+      </div>
+    `;
+  }
+
   protected checkPhoneHandler_() {
     this.formData.phoneNumber = this.renderRoot.querySelector<HTMLInputElement>('[name="phoneNumber"]')!.value;
-
-    getEntityFSM.request({
-      url: config.nitrobase.base + '/' + getStorePath(nitrobaseStats.phoneDocument),
-    });
-
-    getEntityFSM.subscribe(({state}) => {
-      const response = getEntityFSM.rawResponse;
-      if (state !== 'complete' || response === undefined) return;
-
-      if (response.status === 404) {
-        this.renderState_ = 'sign_up';
-        return;
-      }
-
-      if (response.ok === true && response.status === 200) {
-        this.renderState_ = 'sign_in';
-      }
-    });
+    singInFormMachine.onRequestCheckPhone(this.formData.phoneNumber);
   }
 
   protected signInHandler_() {
     this.formData.password = this.renderRoot.querySelector<HTMLInputElement>('[name="password"]')!.value;
-
-    getEntityFSM.request({
-      url: config.nitrobase.base + '/' + getStorePath(nitrobaseStats.authDocument),
-      headers: {
-        'Auth': hashString(this.formData.phoneNumber + ':' + this.formData.password),
-      }
-    });
-
-    getEntityFSM.subscribe(({state}) => {
-      const response = getEntityFSM.rawResponse;
-      if (state !== 'complete' || response === undefined) return;
-
-      if (response.status === 404) {
-        alert('رمز عبور معتبر نیست.');
-        return;
-      }
-
-      if (response.ok === true && response.status === 200) {
-        localJsonStorage.setItem('userAuth', { ...getEntityFSM.jsonResponse! });
-        this.opened = false;
-      }
-    });
+    singInFormMachine.onRequestSignIn(this.formData.phoneNumber, this.formData.password);
   }
 
   protected signUpHandler_() {
@@ -251,49 +273,6 @@ export class SignInFormComponent extends BaseElement {
       return;
     }
 
-    getEntityFSM.request({
-      url: config.nitrobase.base + '/' + getStorePath(nitrobaseStats.invitationCodeDocument),
-      headers: {
-        'Auth': hashString(this.formData.invitationCode),
-      }
-    });
-
-    getEntityFSM.subscribe(({state}) => {
-      const response = getEntityFSM.rawResponse;
-      if (state !== 'complete' || response === undefined) return;
-
-      if (response.status === 404) {
-        alert('کد دعوت معتبر نیست.');
-        return;
-      }
-
-      if (response.ok === true && response.status === 200) {
-        this.requestApiToSignUp__();
-      }
-    });
-  }
-
-  private requestApiToSignUp__() {
-    signUpUserFSM.request({
-      url: config.api.signUp,
-      bodyJson: {
-        phoneNumber: this.formData.phoneNumber,
-        invitationCode: this.formData.invitationCode,
-        password: hashString(this.formData.password)
-      } as SignUpFormData
-    });
-
-    signUpUserFSM.subscribe(({state}) => {
-      if (state === 'complete') {
-        const authData = signUpUserFSM.jsonResponse;
-        if (authData === undefined) return;
-
-        localJsonStorage.setItem('userAuth', { ...authData });
-        this.renderState_ = 'complete';
-        setTimeout(() => {
-          this.opened = false;
-        }, 2_000);
-      }
-    });
+    singInFormMachine.onRequestSignUp(this.formData.phoneNumber, this.formData.invitationCode, this.formData.password);
   }
 }
