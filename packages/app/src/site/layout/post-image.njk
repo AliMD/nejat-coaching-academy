@@ -31,3 +31,18 @@ author:
 <main class="bg-surface text-onSurface text-bodyMedium px-6 pt-8 pb-8 rounded-t-[2rem] grow flex flex-col gap-3">
   {{ content | safe }}
 </main>
+
+<!-- Floating Back and Next Buttons -->
+<div class="fixed items-end bottom-20 left-3 right-3 flex">
+  <a
+    href="#"
+    class="icon-btn size-14 bg-surfaceContainer state-onSurfaceContainer translucent elevation-1">
+    {% alwatrIcon "keyboard_arrow_right" %}
+  </a>
+  <div class="grow"></div>
+  <a
+    href="#"
+    class="icon-btn size-14 bg-surfaceContainer state-onSurfaceContainer translucent elevation-1">
+    {% alwatrIcon "keyboard_arrow_left" %}
+  </a>
+</div>
