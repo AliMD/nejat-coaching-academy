@@ -54,7 +54,7 @@ export class InvitedUserFormComponent extends BaseElement {
   protected renderCompleteStateTemplate_() {
     return html`
       <p class="text-labelMedium">
-        شما از طرف شماره ${this.invitingUserData__!.cellPhoneNumber} به آکادمی کوچینگ نجات دعوت شدید.
+        شما از طرف شماره ${this.invitingUserData__!.cellPhoneNumber} به مدسه ما دعوت شدید.
         برای ادامه مسیر با وارد کردن شماره خود با ما همراه باشید.
       </p>
       <user-form></user-form>

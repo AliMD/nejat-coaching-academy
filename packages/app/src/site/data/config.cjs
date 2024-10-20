@@ -8,7 +8,7 @@ function getLastCommitHash() {
 module.exports = {
   siteUrl: env.siteUrl ?? '',
 
-  siteName: 'Nejat Academy',
+  siteName: 'مدرسه ما',
 
   theme: {
     light: '#004E1D',
