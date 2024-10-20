@@ -1,25 +1,25 @@
-import {config, logger} from './config.js';
-import {alwatrNitrobase} from './nitrobase.js';
+import {logger} from './config.js';
+// import {alwatrNitrobase} from './nitrobase.js';
 
-import type {CollectionItem} from 'alwatr/nitrobase';
+// import type {CollectionItem} from 'alwatr/nitrobase';
 
-export async function findInvitingUser(referralCode: number): Promise<AcademyUser | undefined> {
+export async function findInvitingUser(referralCode: number): Promise<void> {
   logger.logMethodArgs?.('updateInvitingUserData', {referralCode});
 
-  const usersCollection = await alwatrNitrobase.openCollection<AcademyUser>(config.nitrobase.usersCollection);
+  // const usersCollection = await alwatrNitrobase.openDocument<UserDocument>(config.nitrobase.);
 
-  const usersCollectionItems = usersCollection.items();
+  // const usersCollectionItems = usersCollection.items();
 
-  let userItemsIteratorResultObject;
-  while ((userItemsIteratorResultObject = usersCollectionItems.next()).done === false) {
-    const _userItem = userItemsIteratorResultObject.value.data;
+  // let userItemsIteratorResultObject;
+  // while ((userItemsIteratorResultObject = usersCollectionItems.next()).done === false) {
+  //   const _userItem = userItemsIteratorResultObject.value.data;
 
-    if (_userItem.referralCode !== referralCode) continue;
+  //   if (_userItem.referralCode !== referralCode) continue;
 
-    userItemsIteratorResultObject = {...userItemsIteratorResultObject, done: true};
-    break;
-  }
+  //   userItemsIteratorResultObject = {...userItemsIteratorResultObject, done: true};
+  //   break;
+  // }
 
-  logger.logMethodArgs?.('updateInvitingUserData', {userData: userItemsIteratorResultObject.value});
-  return (userItemsIteratorResultObject.value as CollectionItem<AcademyUser> | undefined)?.data;
+  // logger.logMethodArgs?.('updateInvitingUserData', {userData: userItemsIteratorResultObject.value});
+  // return (userItemsIteratorResultObject.value as CollectionItem<AcademyUser> | undefined)?.data;
 }
