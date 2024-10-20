@@ -34,12 +34,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: swiss-plus-support-app
+          - name: nejat-coaching-academy-app
             path: ./packages/app
             context: .
-          - name: swiss-plus-support-api
-            path: ./packages/api
-            context: .
+          # - name: nejat-coaching-academy-api
+          #   path: ./packages/api
+          #   context: .
 
     permissions:
       contents: read
