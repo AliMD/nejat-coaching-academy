@@ -10,19 +10,11 @@ __dev_mode__: srvBaseUrl = 'http://localhost:8000';
 
 const apiBaseUrl = resolveUrl(srvBaseUrl, '/api/v1');
 const nitrobase = resolveUrl(srvBaseUrl, '/api/s7');
-const cdnBaseUrl = resolveUrl(srvBaseUrl, '/cdn');
 
 export const config = {
-  cdn: {
-    base: cdnBaseUrl,
-    uploadedImages: resolveUrl(cdnBaseUrl, '/image/uploaded'),
-  },
   api: {
     base: apiBaseUrl,
-    saveUser: resolveUrl(apiBaseUrl, '/save-user'),
-    saveAgent: resolveUrl(apiBaseUrl, '/save-agent'),
-    saveAdminAgent: resolveUrl(apiBaseUrl, '/admin-save-agent'),
-    uploadImage: resolveUrl(apiBaseUrl, '/upload-image'),
+    registerUser: resolveUrl(apiBaseUrl, '/register-user'),
   } as const,
 
   nitrobase: {

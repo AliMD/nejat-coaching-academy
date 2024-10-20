@@ -1,0 +1,30 @@
+<footer class="bottom-navigation-bar">
+  <nav class="p-2 justify-between">
+    <a href="/fa/about.html" class="icon-btn" aria-selected="{{ navId == 'about' }}">
+      {% alwatrIcon "school" %}
+    </a>
+
+    <a href="/" class="icon-btn" aria-selected="{{ navId == 'home' }}">
+      {% alwatrIcon "explore" %}
+    </a>
+
+    <a href="/fa/tasks.html" class="icon-btn" aria-selected="{{ navId == 'tasks' }}">
+      {% alwatrIcon "add_task" %}
+    </a>
+
+    <a href="/fa/wallet.html" class="icon-btn" aria-selected="{{ navId == 'wallet' }}">
+      {% alwatrIcon "wallet" %}
+    </a>
+
+    {# {% if navBack %}
+      <button class="icon-btn">
+        {% alwatrIcon "keyboard_arrow_left" %}
+      </button>
+    {% else %}
+    {% endif %} #}
+
+    <button class="icon-btn">
+      {% alwatrIcon "keyboard_arrow_up" %}
+    </button>
+  </nav>
+</footer>

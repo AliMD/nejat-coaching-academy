@@ -8,6 +8,9 @@
       cursor-pointer
       size-12
       rounded-full
-      state-onSurfaceVariant;
+      state-onSurfaceVariant
+      aria-selected:pointer-events-none
+      aria-selected:bg-secondaryContainer
+      aria-selected:text-onSecondaryContainer;
   }
 }

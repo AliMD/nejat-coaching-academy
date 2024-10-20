@@ -1,0 +1,10 @@
+@layer components {
+  .sign-in-form {
+    @apply fixed z-modal left-4 right-4 bottom-4 bg-surfaceVariant text-onSurface px-4 pt-6 pb-7
+    rounded-xl flex flex-col gap-4 transform-gpu translate-y-full opacity-0 pointer-events-none transition-[transform,opacity] will-change-[opacity,transform] duration-300;
+
+    &[opened] {
+      @apply transform-gpu translate-y-0 opacity-100 pointer-events-auto;
+    }
+  }
+}

@@ -1,24 +1,20 @@
 @layer base {
   body {
-    @apply flex
-      flex-col
+    @apply break-words
       touch-pan-x
       touch-pan-y
       touch-pinch-zoom
-      break-words
-      bg-surface
-      font-vazirmatn
       text-bodyMedium
       text-onBackground
-      p-safe
+      px-safe
+      pt-0
       min-h-dvh;
 
-    /* padding-bottom: calc(
+    padding-bottom: calc(
         0.25rem
-      + var(--sys-bottom-navigation-bar-height) +
-      + 0.25rem
+      + 4rem
       + var(--safe-area-inset-bottom)
-    ); */
+    );
 
     /* @media (--expanded) {
       & {

@@ -1,14 +1,27 @@
 declare global {
-  type UserFormData = {
+  type SignUpFormData = {
     cellPhoneNumber: string;
+    invitationCode: string;
   };
 
-  type User = {
+  type AcademyUser = {
+    id: string;
+    invitationCode: string;
     cellPhoneNumber: string;
     cash: number;
-    courseIds: string[];
-    missionDoneIds: string[];
-    missionIds: string[];
+    invitedUserIds: string[];
+    preRegisterUserIds: string[];
+    registeredUserIds: string[];
+  }
+
+  type AcademyUserDataAfterSave = {
+    id: string;
+    cellPhoneNumber: string;
+    invitationCode: string;
+    cash: number;
+    invitedCount: number;
+    preRegisterCount: number;
+    registeredCount: number;
   }
 
   type Mission = {

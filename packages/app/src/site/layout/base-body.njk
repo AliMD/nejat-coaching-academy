@@ -2,9 +2,9 @@
 layout: base-html
 ---
 
-<body class="color-scheme-auto">
-  {# {% include "bottom-navigation-bar.njk" %} #}
-  {# {% include "navigation-drawer.njk" %} #}
+<body class="color-scheme-auto flex flex-col bg-surface font-vazirmatn">
+  {% include "bottom-navigation-bar.njk" %}
+  {# <sign-in-form></sign-in-form> #}
 
   {{ content | safe }}
 
