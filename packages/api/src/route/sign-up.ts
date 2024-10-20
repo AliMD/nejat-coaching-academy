@@ -1,30 +1,34 @@
 import {config, logger} from '../lib/config.js';
 import {cryptoFactory} from '../lib/crypto.js';
-import {findInvitingUser} from '../lib/find-inviting-user.js';
+// import {findInvitingUser} from '../lib/find-inviting-user.js';
 import {alwatrNitrobase} from '../lib/nitrobase.js';
 import {nanotronApiServer} from '../lib/server.js';
 import {parseBodyAsJson} from '../pre-handler/parse-request-body.js';
 import {sanitizeNumbers} from '../pre-handler/sanitize-numbers.js';
 
-import type {CollectionReference} from 'alwatr/nitrobase';
+// import type {CollectionReference} from 'alwatr/nitrobase';
 
-async function updateInvitingUserData(
-  invitedUserId: string,
-  invitationCode: number,
-  usersCollection: CollectionReference<AcademyUser>
-): Promise<void> {
-  logger.logMethodArgs?.('updateInvitingUserData', {invitedUserId, invitationCode});
+// async function updateInvitingUserData(
+//   invitedUserId: string,
+//   invitationCode: number,
+//   usersCollection: CollectionReference<AcademyUser>
+// ): Promise<void> {
+//   logger.logMethodArgs?.('updateInvitingUserData', {invitedUserId, invitationCode});
 
-  const invitingUserData = await findInvitingUser(invitationCode);
+//   const invitingUserData = await findInvitingUser(invitationCode);
 
-  if (invitingUserData === undefined || invitingUserData.invitedUserIds.indexOf(invitedUserId) > -1) return;
+//   if (invitingUserData === undefined || invitingUserData.invitedUserIds.indexOf(invitedUserId) > -1) return;
 
-  usersCollection.mergeItemData(invitingUserData.id, {
-    cash: invitingUserData.cash + 100_000,
-    invitedUserIds: invitingUserData.invitedUserIds.concat(invitedUserId),
-  });
+//   usersCollection.mergeItemData(invitingUserData.id, {
+//     cash: invitingUserData.cash + 100_000,
+//     invitedUserIds: invitingUserData.invitedUserIds.concat(invitedUserId),
+//   });
 
-  usersCollection.save();
+//   usersCollection.save();
+// }
+
+function normalizePhoneNumber(phoneNumber: string): number {
+  return Number(phoneNumber);
 }
 
 nanotronApiServer.defineRoute<{body: SignUpFormData}>({
@@ -32,41 +36,66 @@ nanotronApiServer.defineRoute<{body: SignUpFormData}>({
   url: '/sign-up',
   preHandlers: [parseBodyAsJson, sanitizeNumbers],
   async handler() {
-    logger.logMethodArgs?.('defineRoute(`/sign-in`)', {userData: this.sharedMeta.body});
+    logger.logMethodArgs?.('defineRoute(`/sign-up`)', {signUpData: this.sharedMeta.body});
 
     // add new user to the user's collection
     const userId = cryptoFactory.generateUserId();
-    const invitationCode = 'test';
+    const userToken = cryptoFactory.generateToken([userId]);
+    const normalizedPhoneNumber = normalizePhoneNumber(this.sharedMeta.body.phoneNumber);
+    const invitationCode = 12345;
 
-    alwatrNitrobase.newDocument<AcademyUser>(
+    alwatrNitrobase.newDocument<PhoneNumberDocument>(
       {
-        ...config.nitrobase.userInfoDocument,
-        ownerId: this.sharedMeta.body.cellPhoneNumber
+        ...config.nitrobase.phoneDocument,
+        ownerId: this.sharedMeta.body.phoneNumber
       },
       {
-        id: userId,
-        cellPhoneNumber: this.sharedMeta.body.cellPhoneNumber,
-        invitationCode,
-        cash: 0,
-        invitedUserIds: [],
-        preRegisterUserIds: [],
-        registeredUserIds: []
+        phoneNumber: normalizedPhoneNumber, // TODO: Convert to a hashed string
       }
     );
 
-    await updateInvitingUserData(userId, this.sharedMeta.body.invitationCode, userInfoDoc);
+    alwatrNitrobase.newDocument<InvitationCodeDocument>(
+      {
+        ...config.nitrobase.invitationCodeDocument,
+        ownerId: invitationCode + '', // TODO: Convert to a hashed string
+      },
+      {
+        invitationCode,
+      }
+    );
+
+    alwatrNitrobase.newDocument<AuthDocument>(
+      {
+        ...config.nitrobase.phoneDocument,
+        ownerId: this.sharedMeta.body.password
+      },
+      {
+        auth: this.sharedMeta.body.password
+      }
+    );
+
+    alwatrNitrobase.newDocument<UserDocument>(
+      {
+        ...config.nitrobase.phoneDocument,
+        ownerId: userToken
+      },
+      {
+        id: userId,
+        cash: 0,
+        invitationCode,
+        invitedUserCount: 0,
+        phoneNumber: normalizedPhoneNumber,
+      }
+    );
+
+    // await updateInvitingUserData(userId, this.sharedMeta.body.invitationCode, userInfoDoc);
 
     this.serverResponse.replyJson({
       ok: true,
       data: {
-        id: userId,
-        cellPhoneNumber: this.sharedMeta.body.cellPhoneNumber,
-        invitationCode,
-        cash: 0,
-        invitedCount: 0,
-        preRegisterCount: 0,
-        registeredCount: 0,
-      } as AcademyUserDataAfterSave,
+        userId,
+        userToken
+      } as AuthData,
     });
   },
 });
