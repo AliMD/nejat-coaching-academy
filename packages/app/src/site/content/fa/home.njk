@@ -16,7 +16,14 @@ banner:
     با تمرکز بر اهداف و ارزش‌هایت، به سمت موفقیت پیش برو.
   </p>
 
-  <img class="block w-full h-auto aspect-square select-none rounded-2xl my-2 elevation-1" src="/img/banner-5.jpeg" alt="گروهی از افراد شاد و موفق">
+  <div class="flex flex-col gap-4">
+    {%- for post in collections.post -%}
+      <a
+        href="{{ post.url }}"
+        class="block {{ post.data.banner.aspect }} rounded-2xl elevation-1 bg-no-repeat bg-center bg-cover"
+        style="background-image: url('{{ post.data.banner.image }}');"
+      ></a>
+    {%- endfor -%}
+  </div>
 
-  <p class="text-titleMedium text-center">در دست ساخت...</p>
 </main>
