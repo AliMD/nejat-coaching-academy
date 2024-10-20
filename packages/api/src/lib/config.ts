@@ -1,7 +1,7 @@
 import {createLogger, packageTracer, type FetchOptions} from 'alwatr/nanolib';
-import {Region, StoreFileType, type AlwatrNitrobaseConfig, type StoreFileStat} from 'alwatr/nitrobase';
 
 import type {CryptoFactoryConfig, NanotronApiServerConfig} from 'alwatr/nanotron';
+import type {AlwatrNitrobaseConfig} from 'alwatr/nitrobase';
 
 __dev_mode__: packageTracer.add(__package_name__, __package_version__);
 
@@ -49,30 +49,6 @@ export const config = {
     config: {
       rootPath: env.dbPath!,
     } as AlwatrNitrobaseConfig,
-
-    userInfoDocument: {
-      name: 'user-info',
-      region: Region.PerOwner,
-      type: StoreFileType.Document,
-    } as StoreFileStat,
-
-    phoneDocument: {
-      name: 'phone',
-      region: Region.PerOwner,
-      type: StoreFileType.Document,
-    } as StoreFileStat,
-
-    authDocument: {
-      name: 'auth',
-      region: Region.PerOwner,
-      type: StoreFileType.Document,
-    } as StoreFileStat,
-
-    invitationCodeDocument: {
-      name: 'invitation-code',
-      region: Region.PerOwner,
-      type: StoreFileType.Document,
-    } as StoreFileStat,
   } as const,
 
   fetchOptions: {
