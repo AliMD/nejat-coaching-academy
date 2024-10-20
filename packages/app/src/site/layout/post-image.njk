@@ -1,0 +1,33 @@
+---
+layout: base-body
+banner:
+  image: /img/post-1.jpeg
+  alt: "آکادمی کوچینگ نجات"
+  aspect: aspect-[3/4]
+author:
+  name: "محمد صادق نجات"
+  avatar: /img/avatar.jpeg
+---
+
+<figure class="relative">
+  <div class="block {{ banner.aspect }} rounded-b-3xl elevation-1 bg-no-repeat bg-center bg-cover"
+    style="background-image: url('{{ banner.image }}');">
+    <img class="sr-only" src="{{ banner.image }}" alt="{{ banner.alt }}" />
+  </div>
+
+  <div class="flex items-center ps-24 pe-2">
+    <p class="text-titleMedium">{{ author.name }}</p>
+    <div class="grow"></div>
+    <button class="icon-btn state-error">{% alwatrIcon "favorite" %}</button>
+    <button class="icon-btn state-tertiary">{% alwatrIcon "chat_bubble" %}</button>
+    <button class="icon-btn">{% alwatrIcon "share" %}</button>
+  </div>
+
+  <img
+    class="absolute bottom-4 right-6 block size-16 rounded-full ring-2 ring-primary ring-offset-background ring-offset-2"
+    src="{{ author.avatar }}" alt="{{ author.name }}" />
+</figure>
+
+<main class="bg-surface text-onSurface text-bodyMedium px-6 pt-8 pb-8 rounded-t-[2rem] grow flex flex-col gap-3">
+  {{ content | safe }}
+</main>
