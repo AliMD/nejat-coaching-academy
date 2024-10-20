@@ -1,4 +1,4 @@
-import {Region, StoreFileType, type StoreFileStat} from 'alwatr/nitrobase';
+import {Region, StoreFileType, type StoreFileStat} from '@alwatr/nitrobase-types';
 
 export const nitrobaseStats = {
   userInfoDocument: {
