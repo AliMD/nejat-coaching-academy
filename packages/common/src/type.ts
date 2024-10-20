@@ -44,6 +44,11 @@ declare global {
   type ProvinceItem = CityItem & { cities: CityItem[] };
 
   type SelectOptionItem = { value: string; label: string };
+
+  type UploadResult = {
+    ok: boolean;
+    data: {fileId: string | number}
+  }
 }
 
 export {};

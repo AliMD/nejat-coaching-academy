@@ -6,25 +6,22 @@ import {nanotronApiServer} from '../lib/server.js';
 import {parseBodyAsJson} from '../pre-handler/parse-request-body.js';
 import {sanitizeNumbers} from '../pre-handler/sanitize-numbers.js';
 
-import type {CollectionReference} from 'alwatr/nitrobase';
-
 async function updateInvitingUserData(
   invitedUserId: string,
   invitationCode: number,
-  usersCollection: CollectionReference<AcademyUser>
 ): Promise<void> {
   logger.logMethodArgs?.('updateInvitingUserData', {invitedUserId, invitationCode});
 
   const invitingUserData = await findInvitingUser(invitationCode);
 
-  if (invitingUserData === undefined || invitingUserData.invitedUserIds.indexOf(invitedUserId) > -1) return;
+  if (invitingUserData === undefined) return;
 
-  usersCollection.mergeItemData(invitingUserData.id, {
-    cash: invitingUserData.cash + 100_000,
-    invitedUserIds: invitingUserData.invitedUserIds.concat(invitedUserId),
-  });
+  // usersCollection.mergeItemData(invitingUserData.id, {
+  //   cash: invitingUserData.cash + 100_000,
+  //   invitedUserIds: invitingUserData.invitedUserIds.concat(invitedUserId),
+  // });
 
-  usersCollection.save();
+  // usersCollection.save();
 }
 
 nanotronApiServer.defineRoute<{body: SignUpFormData}>({
@@ -54,7 +51,7 @@ nanotronApiServer.defineRoute<{body: SignUpFormData}>({
       }
     );
 
-    await updateInvitingUserData(userId, this.sharedMeta.body.invitationCode, userInfoDoc);
+    await updateInvitingUserData(userId, +this.sharedMeta.body.invitationCode);
 
     this.serverResponse.replyJson({
       ok: true,

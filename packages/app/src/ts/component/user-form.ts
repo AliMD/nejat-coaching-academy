@@ -37,20 +37,20 @@ export class UserFormComponent extends AbstractFormElement {
   }
 
   protected onSubmit_() {
-    const formData: SignInFormData = {
+    const formData = {
       cellPhoneNumber: this.renderRoot.querySelector<HTMLInputElement>('text-input[name="cellPhoneNumber"]')!.value,
     };
 
     logger.logMethodArgs?.('onSubmit_', {formData});
 
     formDataSaverJsonFSM.request({
-      url: config.api.saveUser,
+      url: config.api.registerUser,
       bodyJson: formData,
     });
   }
 
   protected override renderCompleteStateTemplate_() {
-    const referralCodeUrl = location.origin + `/referral?code=${this.userData__!.referralCode}`;
+    const referralCodeUrl = location.origin + `/referral?code=${this.userData__!.invitationCode}`;
 
     return html`
       <div class="bg-surfaceVariant text-primary p-8 text-bodyLarge flex flex-col items-center gap-5 rounded-3xl">
