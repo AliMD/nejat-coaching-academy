@@ -1,4 +1,6 @@
-import {config, logger} from '../lib/config.js';
+import {hashString, nitrobaseStats} from 'common';
+
+import {logger} from '../lib/config.js';
 import {cryptoFactory} from '../lib/crypto.js';
 // import {findInvitingUser} from '../lib/find-inviting-user.js';
 import {alwatrNitrobase} from '../lib/nitrobase.js';
@@ -46,18 +48,18 @@ nanotronApiServer.defineRoute<{body: SignUpFormData}>({
 
     alwatrNitrobase.newDocument<PhoneNumberDocument>(
       {
-        ...config.nitrobase.phoneDocument,
-        ownerId: this.sharedMeta.body.phoneNumber
+        ...nitrobaseStats.phoneDocument,
+        ownerId: hashString(normalizedPhoneNumber + '')
       },
       {
-        phoneNumber: normalizedPhoneNumber, // TODO: Convert to a hashed string
+        phoneNumber: normalizedPhoneNumber,
       }
     );
 
     alwatrNitrobase.newDocument<InvitationCodeDocument>(
       {
-        ...config.nitrobase.invitationCodeDocument,
-        ownerId: invitationCode + '', // TODO: Convert to a hashed string
+        ...nitrobaseStats.invitationCodeDocument,
+        ownerId: hashString(invitationCode + ''),
       },
       {
         invitationCode,
@@ -66,7 +68,7 @@ nanotronApiServer.defineRoute<{body: SignUpFormData}>({
 
     alwatrNitrobase.newDocument<AuthDocument>(
       {
-        ...config.nitrobase.phoneDocument,
+        ...nitrobaseStats.authDocument,
         ownerId: this.sharedMeta.body.password
       },
       {
@@ -76,7 +78,7 @@ nanotronApiServer.defineRoute<{body: SignUpFormData}>({
 
     alwatrNitrobase.newDocument<UserDocument>(
       {
-        ...config.nitrobase.phoneDocument,
+        ...nitrobaseStats.userInfoDocument,
         ownerId: userToken
       },
       {
