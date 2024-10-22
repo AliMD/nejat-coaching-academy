@@ -1,4 +1,16 @@
 {
-  "layout": "post-image",
-  "tags": "post"
+  "layout": null,
+  "tags": "post",
+  "permalink": false,
+
+  "title": "Page title ...",
+  "banner": {
+    "image": "/img/meta/social.png",
+    "alt": "Post Image ...",
+    "aspect": "aspect-[3/4]"
+  },
+  "author": {
+    "name": "Author Name",
+    "avatar": "/img/meta/social.png"
+  }
 }
