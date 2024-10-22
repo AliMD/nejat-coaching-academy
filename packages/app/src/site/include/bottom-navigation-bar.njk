@@ -1,30 +1,47 @@
 <footer class="bottom-navigation-bar">
-  <nav class="p-2 justify-between">
-    <a href="/fa/about.html" class="icon-btn" aria-selected="{{ navId == 'about' }}">
-      {% alwatrIcon "school" %}
-    </a>
+  {% if pagination %}
+    <nav class="p-2 justify-between">
+      <a href="{{ pagination.href.next }}" class="icon-btn" aria-disabled="{{ pagination.href.next == null }}">
+        {% alwatrIcon "keyboard_arrow_right" %}
+      </a>
 
-    <a href="/" class="icon-btn" aria-selected="{{ navId == 'home' }}">
-      {% alwatrIcon "explore" %}
-    </a>
+      <a href="/" class="icon-btn" aria-selected="{{ navId == 'home' }}">
+        {% alwatrIcon "explore" %}
+      </a>
 
-    <a href="/fa/tasks.html" class="icon-btn" aria-selected="{{ navId == 'tasks' }}">
-      {% alwatrIcon "add_task" %}
-    </a>
+      <a href="/fa/tasks/" class="icon-btn" aria-selected="{{ navId == 'tasks' }}">
+        {% alwatrIcon "add_task" %}
+      </a>
 
-    <a href="/fa/wallet.html" class="icon-btn" aria-selected="{{ navId == 'wallet' }}">
-      {% alwatrIcon "wallet" %}
-    </a>
+      <a href="/fa/wallet/" class="icon-btn" aria-selected="{{ navId == 'wallet' }}">
+        {% alwatrIcon "wallet" %}
+      </a>
 
-    {# {% if navBack %}
-      <button class="icon-btn">
+      <a href="{{ pagination.href.previous }}" class="icon-btn" aria-disabled="{{ pagination.href.previous == null }}">
         {% alwatrIcon "keyboard_arrow_left" %}
-      </button>
-    {% else %}
-    {% endif %} #}
+      </a>
+    </nav>
+  {% else %}
+    <nav class="p-2 justify-between">
+      <a href="/fa/about/" class="icon-btn" aria-selected="{{ navId == 'about' }}">
+        {% alwatrIcon "school" %}
+      </a>
 
-    <button class="icon-btn">
-      {% alwatrIcon "keyboard_arrow_up" %}
-    </button>
-  </nav>
+      <a href="/" class="icon-btn" aria-selected="{{ navId == 'home' }}">
+        {% alwatrIcon "explore" %}
+      </a>
+
+      <a href="/fa/tasks/" class="icon-btn" aria-selected="{{ navId == 'tasks' }}">
+        {% alwatrIcon "add_task" %}
+      </a>
+
+      <a href="/fa/wallet/" class="icon-btn" aria-selected="{{ navId == 'wallet' }}">
+        {% alwatrIcon "wallet" %}
+      </a>
+
+      <button class="icon-btn">
+        {% alwatrIcon "keyboard_arrow_up" %}
+      </button>
+    </nav>
+  {% endif %}
 </footer>
