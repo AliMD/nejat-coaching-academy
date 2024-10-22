@@ -1,22 +1,15 @@
 ---
 layout: base-body
-banner:
-  image: /img/post-1.jpeg
-  alt: "مدسه ما"
-  aspect: aspect-[3/4]
-author:
-  name: "محمد صادق نجات"
-  avatar: /img/avatar.jpeg
 ---
 
-<figure class="relative">
-  <div class="block {{ banner.aspect }} rounded-b-3xl elevation-1 bg-no-repeat bg-center bg-cover"
-    style="background-image: url('{{ banner.image }}');">
-    <img class="sr-only" src="{{ banner.image }}" alt="{{ banner.alt }}" />
+<figure class="relative bg-surfaceContainer elevation-1 rounded-b-3xl">
+  <div class="block {{ post.data.banner.aspect }} rounded-b-3xl bg-no-repeat bg-center bg-cover"
+    style="background-image: url('{{ post.data.banner.image }}');">
+    <img class="sr-only" src="{{ post.data.banner.image }}" alt="{{ post.data.banner.alt }}" />
   </div>
 
-  <div class="flex items-center ps-24 pe-2">
-    <p class="text-titleMedium">{{ author.name }}</p>
+  <div class="flex items-center ps-24 pe-2 py-1">
+    <p class="text-titleMedium">{{ post.data.author.name }}</p>
     <div class="grow"></div>
     <button class="icon-btn state-error">{% alwatrIcon "favorite" %}</button>
     <button class="icon-btn state-tertiary">{% alwatrIcon "chat_bubble" %}</button>
@@ -25,24 +18,28 @@ author:
 
   <img
     class="absolute bottom-4 right-6 block size-16 rounded-full ring-2 ring-primary ring-offset-background ring-offset-2"
-    src="{{ author.avatar }}" alt="{{ author.name }}" />
+    src="{{ post.data.author.avatar }}" alt="{{ post.data.author.name }}" />
 </figure>
 
 <main class="bg-surface text-onSurface text-bodyMedium px-6 pt-8 pb-8 rounded-t-[2rem] grow flex flex-col gap-3">
   {{ content | safe }}
 </main>
 
-<!-- Floating Back and Next Buttons -->
+{# <!-- Floating Back and Next Buttons -->
 <div class="fixed items-end bottom-20 left-3 right-3 flex">
+  {% if pagination.href.next %}
   <a
-    href="#"
+    href="{{ pagination.href.next }}"
     class="icon-btn size-14 bg-surfaceContainer state-onSurfaceContainer translucent elevation-1">
     {% alwatrIcon "keyboard_arrow_right" %}
   </a>
+  {% endif %}
   <div class="grow"></div>
+  {% if pagination.href.previous %}
   <a
-    href="#"
+    href="{{ pagination.href.previous }}"
     class="icon-btn size-14 bg-surfaceContainer state-onSurfaceContainer translucent elevation-1">
     {% alwatrIcon "keyboard_arrow_left" %}
   </a>
-</div>
+  {% endif %}
+</div> #}
