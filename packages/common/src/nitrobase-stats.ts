@@ -3,7 +3,7 @@ import {Region, StoreFileType, type StoreFileStat} from '@alwatr/nitrobase-types
 export const nitrobaseStats = {
   userInfoDocument: {
     name: 'user-info',
-    region: Region.PerOwner,
+    region: Region.PerUser,
     type: StoreFileType.Document,
   } as StoreFileStat,
 
