@@ -29,8 +29,8 @@ RUN apk add --no-cache curl
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --start-interval=1s --retries=3 CMD curl -fso /dev/null http://localhost/health || exit 1
 
 COPY --from=builder /app/packages/api/dist/ .
-RUN set -ex; \
-  corepack enable;
+# RUN set -ex; \
+#   corepack enable;
 # RUN set -eux; ls -RlahF /app;
 
 # ENV NODE_OPTIONS --enable-source-maps
