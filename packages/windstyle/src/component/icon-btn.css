@@ -11,6 +11,8 @@
       state-onSurfaceVariant
       aria-selected:pointer-events-none
       aria-selected:bg-secondaryContainer
-      aria-selected:text-onSecondaryContainer;
+      aria-selected:text-onSecondaryContainer
+      aria-disabled:pointer-events-none
+      aria-disabled:opacity-30;
   }
 }
