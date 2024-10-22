@@ -1,6 +1,6 @@
 module.exports = {
   layout: 'fancy',
-  permalink: '{{ page.filePathStem }}.html',
+  permalink: '{{ page.filePathStem }}/',
   title: 'مدسه ما',
   locale: 'fa-IR',
   dir: 'rtl',
