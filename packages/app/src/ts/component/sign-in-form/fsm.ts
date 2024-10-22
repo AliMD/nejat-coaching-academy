@@ -64,7 +64,7 @@ class SingInFormFiniteStateMachine extends AlwatrFluxStateMachine<SingInFormMach
     const fetchResult = await fetchJson({
       url: config.nitrobase.base + '/' + getStorePath(nitrobaseStats.phoneDocument),
       headers: {
-        Auth: hashString(phoneNumber),
+        authorization: `Alwatr anonymous:${hashString(phoneNumber)}`,
       },
     });
 
@@ -87,7 +87,7 @@ class SingInFormFiniteStateMachine extends AlwatrFluxStateMachine<SingInFormMach
       method: 'GET',
       url: config.nitrobase.base + '/' + getStorePath(nitrobaseStats.authDocument),
       headers: {
-        Auth: hashString(phoneNumber + ':' + password),
+        authorization: `Alwatr anonymous:${hashString(phoneNumber + ':' + password)}`,
       },
     });
 
@@ -111,7 +111,7 @@ class SingInFormFiniteStateMachine extends AlwatrFluxStateMachine<SingInFormMach
       method: 'GET',
       url: config.nitrobase.base + '/' + getStorePath(nitrobaseStats.invitationCodeDocument),
       headers: {
-        Auth: hashString(invitationCode),
+        authorization: `Alwatr anonymous:${hashString(invitationCode)}`,
       },
     });
 
