@@ -19,7 +19,7 @@ banner:
   <div class="flex flex-col gap-4">
     {%- for post in collections.post -%}
       <a
-        href="{{ post.url }}"
+        href="{{ post.filePathStem }}/"
         class="block {{ post.data.banner.aspect }} rounded-2xl elevation-1 bg-no-repeat bg-center bg-cover"
         style="background-image: url('{{ post.data.banner.image }}');"
       ></a>
